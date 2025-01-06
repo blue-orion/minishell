@@ -14,4 +14,10 @@
 
 int	main(void)
 {
+	while (1)
+	{
+		readline("minishell> ");
+		//입력받아서 파싱
+		//파싱한 명령어 배열 실행
+	}
 }

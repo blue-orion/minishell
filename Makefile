@@ -27,7 +27,7 @@ OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAG) -c $^ -I$(INCLUDE) -L$(LIBFT) -lft -o $@
+	$(CC) $(CFLAG) $^ -I$(INCLUDE) -L$(LIBFT) -lreadline -o $@
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
 	$(CC) $(CFLAG) -c $^ -I$(INCLUDE) -o $@
