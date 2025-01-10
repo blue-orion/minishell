@@ -17,6 +17,8 @@ int	main(void)
 	while (1)
 	{
 		readline("minishell> ");
+		if (rl_line_buffer)
+			return (1);
 		//입력받아서 파싱
 		//파싱한 명령어 배열 실행
 	}
