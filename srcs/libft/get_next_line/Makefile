@@ -5,43 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/29 05:29:11 by takwak            #+#    #+#              #
-#    Updated: 2025/01/17 23:15:56 by takwak           ###   ########.fr        #
+#    Created: 2024/10/31 07:27:06 by takwak            #+#    #+#              #
+#    Updated: 2024/10/31 07:27:06 by takwak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-
 CC = cc
-CFLAG = -g
+FLAGS = -Wall -Werror -Wextra
 
-OBJ_DIR = objs/
-SRC_DIR = srcs/
-INCLUDE = includes/
-LIBFT = $(SRC_DIR)libft
+NAME = gnl.a
+SRCS = get_next_line_bonus.c get_next_line_utils_bonus.c
 
-SRCS = minishell.c	\
-	   parsing/parsing.c
-
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(CFLAG) -I$(INCLUDE) $^ -L$(LIBFT) -lft -lreadline -o $@
+	ar rcs $@ $^
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAG) -I$(INCLUDE) -c $^ -o $@
-
-$(OBJ_DIR) :
-	mkdir -p $@
+%.o : %.c
+	$(CC) $(FLAGS) -c $^ -o $@
 
 clean :
-	rm -rf $(OBJ_DIR)
+	rm -rf $(OBJS)
 
 fclean : clean
-	rm -f $(NAME)
+	rm -rf $(NAME)
 
 re : fclean all
-
-.PHONY : all clean fclean re

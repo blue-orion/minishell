@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   make_new_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/17 22:35:02 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/17 23:02:44 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/parsing.h"
+#include <stdlib.h>
+#include <stdio.h>
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+t_node	*make_new_node(int type, char *content)
+{
+	t_node	*new;
 
-#endif
+	new = (t_node *)malloc(sizeof(t_node));
+	if (!new)
+		return (perror("failed make node"), NULL);
+	new->type = type;
+	new->content = content;
+	new->left_child = NULL;
+	new->right_child = NULL;
+	return (new);
+}

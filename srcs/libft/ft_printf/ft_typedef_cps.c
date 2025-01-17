@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_typedef_cps.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2024/10/17 22:41:54 by takwak            #+#    #+#             */
+/*   Updated: 2024/10/18 02:38:32 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+void	ft_type_c(va_list ap, t_printf *info)
+{
+	info->type = 'c';
+	info->c = va_arg(ap, int);
+}
 
-#endif
+void	ft_type_p(va_list ap, t_printf *info)
+{
+	info->type = 'p';
+	info->p = va_arg(ap, size_t);
+}
+
+void	ft_type_s(va_list ap, t_printf *info)
+{
+	info->type = 's';
+	info->s = va_arg(ap, char *);
+}

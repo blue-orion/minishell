@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2024/10/05 16:14:33 by takwak            #+#    #+#             */
+/*   Updated: 2024/10/05 16:54:12 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*joined;
+	size_t	total_len;
 
-#endif
+	total_len = ft_strlen(s1) + ft_strlen(s2);
+	joined = (char *)malloc(sizeof(char) * (total_len + 1));
+	if (joined == NULL)
+		return (NULL);
+	ft_strlcpy(joined, s1, ft_strlen(s1) + 1);
+	ft_strlcat(joined, s2, total_len + 1);
+	return (joined);
+}

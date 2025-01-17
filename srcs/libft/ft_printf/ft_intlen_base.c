@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_intlen_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2024/10/17 23:52:40 by takwak            #+#    #+#             */
+/*   Updated: 2024/10/18 05:27:19 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+size_t	ft_intlen_base(int n, const char *base)
+{
+	int		tmp;
+	size_t	len;
+	size_t	base_len;
 
-#endif
+	tmp = n;
+	if (n == 0)
+		return (1);
+	base_len = ft_strlen(base);
+	len = 0;
+	while (tmp != 0)
+	{
+		tmp /= (int)base_len;
+		len++;
+	}
+	return (len);
+}

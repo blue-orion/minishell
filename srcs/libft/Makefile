@@ -5,43 +5,34 @@
 #                                                     +:+ +:+         +:+      #
 #    By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/29 05:29:11 by takwak            #+#    #+#              #
-#    Updated: 2025/01/17 23:15:56 by takwak           ###   ########.fr        #
+#    Created: 2024/10/04 21:53:58 by takwak            #+#    #+#              #
+#    Updated: 2024/10/31 06:17:06 by takwak           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-
 CC = cc
-CFLAG = -g
+FLAGS = -Wall -Werror -Wextra
 
-OBJ_DIR = objs/
-SRC_DIR = srcs/
-INCLUDE = includes/
-LIBFT = $(SRC_DIR)libft
+NAME = libft.a
 
-SRCS = minishell.c	\
-	   parsing/parsing.c
+all : $(NAME) 
 
-OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
+$(NAME) :
+	make -C ./ft_printf
+	cp -r ./ft_printf/libftprintf.a ./$(NAME)
+	make -C ./get_next_line
+	ar rcs $@ get_next_line/get_next_line_bonus.o get_next_line/get_next_line_utils_bonus.o
 
-all : $(NAME)
-
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAG) -I$(INCLUDE) $^ -L$(LIBFT) -lft -lreadline -o $@
-
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAG) -I$(INCLUDE) -c $^ -o $@
-
-$(OBJ_DIR) :
-	mkdir -p $@
+%.o : %.c
+	$(CC) $(FLAGS) -c $^ -o $@
 
 clean :
-	rm -rf $(OBJ_DIR)
+	make -C ft_printf clean
+	make -C get_next_line clean
 
 fclean : clean
-	rm -f $(NAME)
+	rm -rf $(NAME) get_next_line/gnl.a
+	make -C ft_printf fclean
+	make -C get_next_line fclean
 
 re : fclean all
-
-.PHONY : all clean fclean re

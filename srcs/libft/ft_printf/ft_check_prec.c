@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_check_prec.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2024/10/18 05:29:31 by takwak            #+#    #+#             */
+/*   Updated: 2024/10/19 06:45:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+int	ft_check_prec(const char *s, t_printf *info)
+{
+	int	move;
 
-#endif
+	move = 0;
+	if (*s == '.')
+	{
+		info->prec_flag = 1;
+		move = 1;
+		while (ft_isdigit(*(s + move)))
+		{
+			info->prec = info->prec * 10 + (*(s + move) - '0');
+			move++;
+		}
+		return (move);
+	}
+	else
+		return (0);
+}

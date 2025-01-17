@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_default_print.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/17 23:17:16 by takwak           ###   ########.fr       */
+/*   Created: 2024/10/17 22:19:58 by takwak            #+#    #+#             */
+/*   Updated: 2024/10/19 05:20:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_printf.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+size_t	ft_default_print(t_printf *info)
+{
+	size_t	i;
+	size_t	print_len;
 
-#endif
+	print_len = 0;
+	i = ft_printlen_arg(info);
+	if (info->id < 0)
+		i++;
+	while (i < info->width)
+	{
+		print_len += ft_write(" ", 1);
+		i++;
+	}
+	print_len += ft_print_type(info);
+	return (print_len);
+}
