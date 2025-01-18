@@ -6,33 +6,39 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 00:30:52 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/18 18:29:17 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 #include "../../includes/libft.h"
 
-t_node	**sentense_preprocess(char	*str)
+int	get_split_size(char **splited)
 {
-	t_node	**tokens;
-	char	*piece;
-	int		i;
-	int		move;
+	int	size;
 
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isblank(str[i]))
-			move = 1;
-		if (str[i] == SINGLE_QUOTE)
-			piece = unit_block(&str[i], SINGLE_QUOTE, &move);
-		if (str[i] == DOUBLE_QUOTE)
-			piece = unit_block(&str[i], DOUBLE_QUOTE, &move);
-		if (str[i] == PARENTHESIS)
-			piece = unit_block(&str[i], PARENTHESIS, &move);
-		if (isseparator(str))
-			piece = isseparator(str);
+	size = 0;
+	while (splited[size])
+		size++;
+	return (size);
+}
 
-	}
+t_list	**sentense_preprocess(char	*str)
+{
+	t_list	**head;
+	t_data	*data;
+	char	*past;
+
+	subsitute_tab(str); //탭 공백으로 치환
+	past = str;
+	str = ft_strtrim(past, " ");
+	free(past);
+	if (find_quote())
+		data = quoted_data();
+	if (find_parenthesis())
+		data = parenthesis_data();
+	preprocess_quote(str);//따옴표가 있으면 따옴표 처리
+	preprocess_parenthesis(str);//괄호가 있으면 괄호 처리
+	//SEPARATOR를 기준으로 CMD 구분
+	//이후 SEPARAOTR 처리
 }

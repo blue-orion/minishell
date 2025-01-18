@@ -6,12 +6,14 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 00:31:56 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/18 17:41:24 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
+
+# include "tree.h"
 
 enum e_unit
 {
@@ -19,23 +21,39 @@ enum e_unit
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	PARENTHESIS = '(',
-	SEPARATOR,
-	REDIRECTS,
-	CMD,
-	SIMPLE_CMD,
+	SEPARATOR = 2,
+	CMD = 3,
+	REDIRECTS = 4,
+	SIMPLE_CMD = 5,
 	FILE_NAME
 };
 
-typedef struct s_node
+enum e_separator
 {
-	int				type;
-	char			*content;
-	struct s_node	*left_child;
-	struct s_node	*right_child;
-}	t_node;
+	PIPE = 1,
+	AND,
+	OR,
+	AMPER,
+	SEMI
+};
 
-int		add_node_left(t_node *parent, t_node *child);
-int		add_node_right(t_node *parent, t_node *child);
-t_node	*make_new_node(int type, char *content);
-char	*unit_block(char *str, char quote, int *move);
+enum e_redirect
+{
+	IN = 1,
+	OUT,
+	HERE_DOC,
+	APPEND
+};
+
+typedef struct s_data
+{
+	int		type;
+	char	*text;
+}	t_data;
+
+void	subsitute_tab(char *str);
+char	*unit_block(char *str, char unit);
+int		is_redirection(char *str);
+int		is_separator(char *str);
+void	*free_pptr(void **pptr);
 #endif

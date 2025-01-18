@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   isseparator.c                                      :+:      :+:    :+:   */
+/*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 00:31:00 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 00:34:25 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/18 16:13:54 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/18 16:14:24 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-#include "../../includes/libft.h"
+#ifndef TREE_H
+# define TREE_H
 
-int	isseparator(char *str)
+typedef struct s_node
 {
-	if (ft_strncmp(str, "&&", 3))
+	int				type;
+	char			*content;
+	struct s_node	*left_child;
+	struct s_node	*right_child;
+}	t_node;
 
-}
+int		add_node_left(t_node *parent, t_node *child);
+int		add_node_right(t_node *parent, t_node *child);
+t_node	*make_new_node(int type, char *content);
+
+#endif
