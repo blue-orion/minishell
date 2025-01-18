@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_new_node.c                                    :+:      :+:    :+:   */
+/*   is_seperate.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:35:02 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 16:22:28 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/18 00:31:00 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/18 16:32:17 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-#include <stdlib.h>
-#include <stdio.h>
+#include "../../includes/libft.h"
 
-t_node	*make_new_node(int type, char *content)
+int	is_separator(char *str)
 {
-	t_node	*new;
-
-	if (!content)
-		return (NULL);
-	new = (t_node *)malloc(sizeof(t_node));
-	if (!new)
-		return (perror("failed make node"), NULL);
-	new->type = type;
-	new->content = content;
-	new->left_child = NULL;
-	new->right_child = NULL;
-	return (new);
+	if (ft_strncmp(str, "|", 2))
+		return (PIPE);
+	if (ft_strncmp(str, "&&", 3))
+		return (AND);
+	if (ft_strncmp(str, "||", 3))
+		return (OR);
+	if (ft_strncmp(str, "&", 2))
+		return (AMPER);
+	if (ft_strncmp(str, ";", 2))
+		return (APPEND);
+	return (0);
 }
