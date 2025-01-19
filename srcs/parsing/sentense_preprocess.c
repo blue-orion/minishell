@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 18:29:17 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/19 20:37:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ t_list	**sentense_preprocess(char	*str)
 	t_list	**head;
 	t_data	*data;
 	char	*past;
+	int		split_point;
 
-	subsitute_tab(str); //탭 공백으로 치환
+	subsitute_tab(str); //탭 공백으로 치환 따옴표 유효한지 체크
 	past = str;
 	str = ft_strtrim(past, " ");
 	free(past);
+	split_point = find_metachar(str);
+	data = split_piece(str, split_point);
 	if (find_quote())
 		data = quoted_data();
 	if (find_parenthesis())
