@@ -51,9 +51,12 @@ typedef struct s_data
 	char	*text;
 }	t_data;
 
-void	subsitute_tab(char *str);
+void	subsitute_tab_to_space(char *str);
 char	*unit_block(char *str, char unit);
 int		is_redirection(char *str);
 int		is_separator(char *str);
+char	*sentense_preprocess(char *str);
+
+
 void	*free_pptr(void **pptr);
 #endif

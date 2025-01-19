@@ -23,12 +23,13 @@ int	get_split_size(char **splited)
 	return (size);
 }
 
-t_list	**sentense_preprocess(char	*str)
+char	*sentense_preprocess(char *str)
 {
 	t_list	**head;
 	t_data	*data;
 	char	*past;
 	int		split_point;
+	char	*res;
 
 	subsitute_tab(str); //탭 공백으로 치환 따옴표 유효한지 체크
 	past = str;
