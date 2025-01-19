@@ -21,30 +21,27 @@ int	find_min(char *meta[4])
 
 	min = LONG_MAX;
 	i = 0;
-	while (i < 4)
+	while (i < 3)
 	{
-		if ((long)meta[i] < min)
+		if ((long)meta[i] != 0 && (long)meta[i] < min)
 			min = (long)meta[i];
 		i++;
 	}
-	if (i == 0)
+	if (min == (long)meta[0])
 		return (SINGLE_QUOTE);
-	if (i == 1)
+	if (min == (long)meta[1])
 		return (DOUBLE_QUOTE);
-	if (i == 2)
+	if (min == (long)meta[2])
 		return (PARENTHESIS);
-	if (i == 3)
-		return (' ');
 	return (0);
 }
 
-char	find_metachar(char *str)
+char	find_metachar(char *str, int start)
 {
 	char	*meta[4];
 
-	meta[0] = ft_strchr(str, '\'');
-	meta[1] = ft_strchr(str, '\"');
-	meta[2] = ft_strchr(str, '(');
-	meta[3] = ft_strchr(str, ' ');
+	meta[0] = ft_strchr(&str[start], '\'');
+	meta[1] = ft_strchr(&str[start], '\"');
+	meta[2] = ft_strchr(&str[start], '(');
 	return (find_min(meta));
 }

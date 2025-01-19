@@ -49,6 +49,8 @@ typedef struct s_data
 {
 	int		type;
 	char	*text;
+	int		start;
+	int		end;
 }	t_data;
 
 void	subsitute_tab_to_space(char *str);
@@ -57,6 +59,11 @@ int		is_redirection(char *str);
 int		is_separator(char *str);
 char	*sentense_preprocess(char *str);
 
+char	find_metachar(char *str, int start);
+t_data	*split_piece(char *str, int start, int split_point);
 
 void	*free_pptr(void **pptr);
+void	subsitute_tab(char *str);
+char	*remove_invalid_quote(char *src);
+int		parse_sentense(char	*str);
 #endif

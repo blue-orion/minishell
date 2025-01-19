@@ -18,8 +18,8 @@ t_node	*parsing(char *str)
 	t_node	*root;
 	t_list	**head;
 
-	head = parse_sentense(str);
-	root = make_new_node(SENTENSE, str);
-	if (!root)
-		return (NULL);
+	parse_sentense(str);
+	// root = make_new_node(SENTENSE, str);
+	// if (!root)
+	// 	return (NULL);
 }

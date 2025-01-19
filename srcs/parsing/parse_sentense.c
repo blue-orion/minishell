@@ -21,13 +21,13 @@ int	parse_sentense(char	*str)
 	str = sentense_preprocess(str);
 	if (!str)
 		return (-1);
-	t_data = (t_data *)malloc(sizeof(t_data));
-	if (find_quote())
-		data = quoted_data();
-	if (find_parenthesis())
-		data = parenthesis_data();
-	preprocess_quote(str);//따옴표가 있으면 따옴표 처리
-	preprocess_parenthesis(str);//괄호가 있으면 괄호 처리
+	// t_data = (t_data *)malloc(sizeof(t_data));
+	// if (find_quote())
+	// 	data = quoted_data();
+	// if (find_parenthesis())
+	// 	data = parenthesis_data();
+	// preprocess_quote(str);//따옴표가 있으면 따옴표 처리
+	// preprocess_parenthesis(str);//괄호가 있으면 괄호 처리
 	//SEPARATOR를 기준으로 CMD 구분
 	//이후 SEPARAOTR 처리
 }

@@ -20,4 +20,5 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+t_node	*parsing(char *str);
 #endif
