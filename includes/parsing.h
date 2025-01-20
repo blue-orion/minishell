@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/20 18:31:09 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/21 02:38:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,6 @@ enum e_redirect
 	APPEND
 };
 
-typedef struct s_data
-{
-	int		type;
-	char	*text;
-	int		start;
-	int		end;
-}	t_data;
-
 void	subsitute_tab_to_space(char *str);
 char	*unit_block(char *str, char unit);
 int		is_redirection(char *str);
@@ -67,8 +59,9 @@ t_data	*make_data(char *str, int type, int start, int end);
 void	*free_pptr(void **pptr);
 void	subsitute_tab(char *str);
 char	*remove_invalid_quote(char *src);
-int		parse_sentense(t_list *head);
+t_node	*parse_sentense(t_node **root);
 void	print_list(t_list *head);
 int		find_separator(char	*text);
 int	which_separator(char *str, int separator);
+t_node	*make_tree_node(t_list **head, t_list *past, t_list *cur, int separator);
 #endif

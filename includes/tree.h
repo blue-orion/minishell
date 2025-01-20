@@ -6,23 +6,33 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:13:54 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 16:14:24 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/21 02:37:57 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_H
 # define TREE_H
 
+#include "libft.h"
+
+typedef struct s_data
+{
+	int		type;
+	char	*text;
+	int		start;
+	int		end;
+}	t_data;
+
 typedef struct s_node
 {
-	int				type;
-	void			*content;
+	t_data			*data;
+	t_list			*next;
 	struct s_node	*left_child;
 	struct s_node	*right_child;
 }	t_node;
 
 int		add_node_left(t_node *parent, t_node *child);
 int		add_node_right(t_node *parent, t_node *child);
-t_node	*make_new_node(int type, void *content);
+t_node	*make_new_node(t_data *content, t_list *next);
 
 #endif
