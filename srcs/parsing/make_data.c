@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   make_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:32:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 14:53:29 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/20 18:30:48 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	parsing(char *str)
+t_data	*make_data(char *str, int type, int start, int end)
 {
-	t_node	*root;
-	t_list	*head;
+	t_data	*new;
 
-	head = sentense_preprocess(str);
-	if (!head)
-		return (-1);
-	print_list(head);
-	root = parse_sentense(&root, head);
-	// if (!root)
-	// 	return (NULL);
+	new = (t_data *)malloc(sizeof(t_data));
+	if (!new)
+		return (NULL);
+	new->type = type;
+	new->text = ft_substr(str, start, end - start);
+	new->start = start;
+	new->end = end;
+	return (new);
 }

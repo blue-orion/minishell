@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/tree.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-t_node	*make_new_node(int type, char *content)
+t_node	*make_new_node(int type, void *content)
 {
 	t_node	*new;
 

@@ -18,6 +18,7 @@ char	*remove_invalid_quote(char *src)
 	int		src_len;
 	int		dst_idx;
 	int		src_idx;
+	int		flag;
 
 	src_len = ft_strlen(src);
 	dst = (char *)malloc(sizeof(char) * src_len + 1);
@@ -25,18 +26,23 @@ char	*remove_invalid_quote(char *src)
 		return (NULL);
 	dst_idx = 0;
 	src_idx = 0;
+	flag = 0;
 	dst[dst_idx++] = src[src_idx++];
 	while (src[src_idx])
 	{
-		if (src[src_idx] != '\'' || src[src_idx] != '\"')
+		if (src[src_idx] != '\'' && src[src_idx] != '\"')
 			dst[dst_idx++] = src[src_idx++];
 		else
 		{
-			if (src[src_idx - 1] != ' ' && src[src_idx + 1] != ' ')
+			flag = !flag;
+			if (flag && src[src_idx - 1] != ' ')
+				src_idx++;
+			else if (!flag && (src[src_idx + 1] != ' ' && src[src_idx + 1] != '\0'))
 				src_idx++;
 			else
 				dst[dst_idx++] = src[src_idx++];
 		}
 	}
+	dst[dst_idx] = '\0';
 	return (dst);
 }

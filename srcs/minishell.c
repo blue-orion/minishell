@@ -20,7 +20,7 @@ int main(void)
 		if (!rl_line_buffer)
 			return (1);
 		parsing(rl_line_buffer);
-		printf("%s\n", rl_line_buffer);
+		// printf("%s\n", rl_line_buffer);
 		// 입력받아서 파싱
 		// 파싱한 명령어 배열 실행
 	}
