@@ -10,18 +10,25 @@ LIBFT = $(SRC_DIR)libft
 
 SRCS = minishell.c	\
 	   parsing/find_metachar.c	\
+	   parsing/find_separator.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
 	   parsing/make_data.c		\
+	   parsing/parse_node.c		\
 	   parsing/parse_sentense.c	\
-	   parsing/parsing.c	\
+	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/sentense_preprocess.c	\
 	   parsing/split_piece.c		\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\
-	   parsing/util_parsing.c
+	   parsing/util_parsing.c		\
+	   parsing/which_separator.c		\
+	   tree/add_node.c				\
+	   tree/make_new_node.c			\
+	   tree/print_tree.c			\
+	   utils/util_print_list.c
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))

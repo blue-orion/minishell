@@ -1,40 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_separator.c                                   :+:      :+:    :+:   */
+/*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 20:48:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 20:28:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/21 17:52:14 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/21 23:23:43 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-#include "limits.h"
+#include "../../includes/tree.h"
+#include "../../includes/utils.h"
 
-int	find_separator(char	*text)
+void	print_tree(t_node *root)
 {
-	int		i;
+	t_node *cur_node;
 
-	i = 0;
-	while (text[i])
-	{
-		if (text[i] == '|')
-		{
-			if (text[i + 1] == '|')
-				return (OR);
-			return (PIPE);
-		}
-		if (text[i] == '&')
-		{
-			if (text[i + 1] == '&')
-				return (AND);
-			return (AMPER);
-		}
-		if (text[i] == ';')
-			return (SEMI);
-		i++;
-	}
-	return (0);
+	cur_node = root;
+	if (!root)
+		return ;
+	print_tree(root->left_child);
+	print_list(cur_node->head);
+	print_tree(root->right_child);
 }

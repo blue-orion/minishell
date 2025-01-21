@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_separator.c                                   :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 20:48:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 20:28:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/21 17:55:18 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
-#include "limits.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	find_separator(char	*text)
-{
-	int		i;
+#include "minishell.h"
 
-	i = 0;
-	while (text[i])
-	{
-		if (text[i] == '|')
-		{
-			if (text[i + 1] == '|')
-				return (OR);
-			return (PIPE);
-		}
-		if (text[i] == '&')
-		{
-			if (text[i + 1] == '&')
-				return (AND);
-			return (AMPER);
-		}
-		if (text[i] == ';')
-			return (SEMI);
-		i++;
-	}
-	return (0);
-}
+void	print_list(t_list *head);
+#endif

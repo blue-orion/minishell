@@ -6,34 +6,67 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 02:40:09 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/22 02:38:21 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-t_node	*parse_sentense(t_node **root)
+int	dont_have_sentense(t_list *lst)
 {
-	t_node	*cur;
-	t_node	*past;
-	int		separator;
+	t_data	*data;
+	t_list	*cur;
 
-	cur = *root;
+	cur = lst;
 	while (cur)
 	{
-		if (cur->data->type != SENTENSE)
-		{
-			past = cur;
-			cur = cur->next;
-			continue ;
-		}
-		separator = find_separator(data->text);
-		if (separator)
-		{
-			make_tree_node(head, past, cur, separator);
-		}
-
+		data = (t_data *)cur->content;
+		if (data->type == SENTENSE)
+			return (0);
+		cur = cur->next;
 	}
-	//SEPARATOR를 기준으로 CMD 구분
-	//이후 SEPARAOTR 처리
+	return (1);
+}
+
+t_node	*parse_sentense(t_node *cur_node)
+{
+	t_list	*cur_lst;
+	t_list	*past_lst;
+	t_data	*data;
+	int		separator;
+
+	if (!cur_node)
+		return (NULL);
+	past_lst = NULL;
+	cur_lst = cur_node->head;
+	data = (t_data *)cur_lst->content;
+	if (dont_have_sentense(cur_lst))
+	{
+		if (data->type == PARENTHESIS)
+		{
+			cur_node = sentense_preprocess(cur_node, data->text);
+			cur_node->head = cur_node->head->next;
+			//have to free past list
+			parse_sentense(cur_node);
+			return (NULL);
+		}
+		return (NULL);
+	}
+	while (data->type != SENTENSE)
+	{
+		past_lst = cur_lst;
+		cur_lst = cur_lst->next;
+		data = (t_data *)cur_lst->content;
+	}
+	separator = find_separator(data->text);
+	if (separator)
+		parse_node(cur_node, cur_node->head, cur_lst, separator);
+	else
+	{
+		data->type = CMD;
+		if (!dont_have_sentense(cur_lst))
+			parse_sentense(cur_node);
+	}
+	parse_sentense(cur_node->left_child);
+	parse_sentense(cur_node->right_child);
 }

@@ -6,15 +6,15 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/20 18:38:51 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/21 22:21:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-t_list	*sentense_preprocess(char *str)
+t_node	*sentense_preprocess(t_node *root, char *str)
 {
-	t_list	*head;
+	t_list	*list;
 	t_data	*data;
 	char	*past;
 	int		split_point;
@@ -36,24 +36,25 @@ t_list	*sentense_preprocess(char *str)
 	
 	int i;
 	i = 0;
-	head = NULL;
 	while (str[i])
 	{
 		split_point = find_metachar(str, i);
 		if (split_point)
 		{
 			data = make_data(str, SENTENSE, i, ft_strchr(&str[i], split_point) - str);
-			ft_lstadd_back(&head, ft_lstnew((void *)data));
+			if (data->type != EMPTY)
+				ft_lstadd_back(&root->head, ft_lstnew((void *)data));
 			data = split_piece(str, i, split_point);
-			ft_lstadd_back(&head, ft_lstnew((void *)data));
+			if (data->type != EMPTY)
+				ft_lstadd_back(&root->head, ft_lstnew((void *)data));
 			i = data->end + 1;
 		}
 		else
 		{
 			data = make_data(str, SENTENSE, i, ft_strchr(&str[i], '\0') - str);
-			ft_lstadd_back(&head, ft_lstnew((void *)data));
+			ft_lstadd_back(&root->head, ft_lstnew((void *)data));
 			break ;
 		}
 	}
-	return (head);
+	return (root);
 }

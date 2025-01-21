@@ -6,11 +6,11 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/20 01:29:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/21 23:38:30 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/parsing.h"
 
 char	*remove_invalid_quote(char *src)
 {
@@ -35,9 +35,9 @@ char	*remove_invalid_quote(char *src)
 		else
 		{
 			flag = !flag;
-			if (flag && src[src_idx - 1] != ' ')
+			if (flag && !is_metachar(src[src_idx - 1]))
 				src_idx++;
-			else if (!flag && (src[src_idx + 1] != ' ' && src[src_idx + 1] != '\0'))
+			else if (!flag && !is_metachar(src[src_idx + 1]))
 				src_idx++;
 			else
 				dst[dst_idx++] = src[src_idx++];

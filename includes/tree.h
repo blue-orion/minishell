@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:13:54 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 02:37:57 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/21 17:56:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_data
 
 typedef struct s_node
 {
-	t_data			*data;
-	t_list			*next;
+	t_list			*head;
 	struct s_node	*left_child;
 	struct s_node	*right_child;
 }	t_node;
 
 int		add_node_left(t_node *parent, t_node *child);
 int		add_node_right(t_node *parent, t_node *child);
-t_node	*make_new_node(t_data *content, t_list *next);
+t_node	*make_new_node(t_list *list);
+void	print_tree(t_node *root);
 
 #endif
