@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-t_node	*make_new_node(t_list *list)
+t_node	*new_node(t_list *list)
 {
 	t_node	*new;
 

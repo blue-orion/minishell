@@ -17,7 +17,7 @@ int	parsing(char *str)
 	t_node	*root;
 	t_list	*head;
 
-	root = make_new_node(NULL);
+	root = new_node(NULL);
 	if (!root)
 		return (-1);
 	root = split_sentense_to_list(root, str);

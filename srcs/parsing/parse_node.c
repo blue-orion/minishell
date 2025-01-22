@@ -41,7 +41,7 @@ int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 				free(new_data);
 				return (-1);
 			}
-			cur_node->left_child = make_new_node(new_lst);
+			cur_node->left_child = new_node(new_lst);
 			if (!cur_node->left_child)
 			{
 				ft_lstclear(&new_lst, free);
@@ -55,12 +55,12 @@ int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 		{
 			new_lst = ft_lstnew((void *)new_data);
 			new_lst->next = cur->next;
-			cur_node->right_child = make_new_node(new_lst);
+			cur_node->right_child = new_node(new_lst);
 		}
 		else
 		{
 			free(new_data);
-			cur_node->right_child = make_new_node(cur->next);
+			cur_node->right_child = new_node(cur->next);
 		}
 	}
 	else
@@ -76,18 +76,18 @@ int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 		else
 			;
 			//have to free new_data, new_lst
-		cur_node->left_child = make_new_node(past);
+		cur_node->left_child = new_node(past);
 		new_data = make_data(data->text, SENTENSE, right, data->end);
 		if (new_data->type == EMPTY)
 		{
 			free(new_data);
-			cur_node->right_child = make_new_node(cur->next);
+			cur_node->right_child = new_node(cur->next);
 		}
 		else
 		{
 			new_lst = ft_lstnew((void *)new_data);
 			new_lst->next = cur->next;
-			cur_node->right_child = make_new_node(new_lst);
+			cur_node->right_child = new_node(new_lst);
 		}
 	}
 	past_lst = cur;

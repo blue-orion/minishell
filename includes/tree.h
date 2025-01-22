@@ -32,7 +32,7 @@ typedef struct s_node
 
 int		add_node_left(t_node *parent, t_node *child);
 int		add_node_right(t_node *parent, t_node *child);
-t_node	*make_new_node(t_list *list);
+t_node	*new_node(t_list *list);
 void	print_tree(t_node *root);
 
 #endif

@@ -15,8 +15,8 @@ SRCS = minishell.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
 	   parsing/make_data.c		\
+	   parsing/make_parsing_tree.c	\
 	   parsing/parse_node.c		\
-	   parsing/parse_sentense.c	\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/sentense_preprocess.c	\
@@ -25,7 +25,7 @@ SRCS = minishell.c	\
 	   parsing/unit_block.c			\
 	   parsing/which_separator.c		\
 	   tree/add_node.c				\
-	   tree/make_new_node.c			\
+	   tree/new_node.c			\
 	   tree/print_tree.c			\
 	   utils/print_list.c		\
 	   utils/free_pptr.c		\
