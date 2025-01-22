@@ -12,32 +12,35 @@
 
 #include "../../includes/parsing.h"
 
-char	*remove_invalid_quote(char *src)
+int	is_invalid_quote(char *s, int flag)
 {
-	char	*dst;
-	int		src_len;
+	if (flag && !is_metachar(*(s - 1)))
+		return (1);
+	if (!flag && !is_metachar(*(s + 1)))
+		return (1);
+	return (0);
+}
+
+char	*remove_invalid_quote(char *dst, char *src)
+{
 	int		dst_idx;
 	int		src_idx;
 	int		flag;
 
-	src_len = ft_strlen(src);
-	dst = (char *)malloc(sizeof(char) * src_len + 1);
-	if (!dst)
-		return (NULL);
 	dst_idx = 0;
 	src_idx = 0;
 	flag = 0;
-	dst[dst_idx++] = src[src_idx++];
+	dst = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dst)
+		return (NULL);
 	while (src[src_idx])
 	{
-		if (src[src_idx] != '\'' && src[src_idx] != '\"')
+		if (src_idx == 0 || src[src_idx] != '\'' && src[src_idx] != '\"')
 			dst[dst_idx++] = src[src_idx++];
 		else
 		{
 			flag = !flag;
-			if (flag && !is_metachar(src[src_idx - 1]))
-				src_idx++;
-			else if (!flag && !is_metachar(src[src_idx + 1]))
+			if (is_invalid_quote(&src[src_idx], flag))
 				src_idx++;
 			else
 				dst[dst_idx++] = src[src_idx++];

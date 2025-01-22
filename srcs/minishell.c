@@ -14,12 +14,14 @@
 
 int main(void)
 {
+	char	*cmd;
+
 	while (1)
 	{
-		readline("minishell> ");
-		if (!rl_line_buffer)
+		cmd = readline("minishell> ");
+		if (!cmd)
 			return (1);
-		parsing(rl_line_buffer);
+		parsing(cmd);
 		// printf("%s\n", rl_line_buffer);
 		// 입력받아서 파싱
 		// 파싱한 명령어 배열 실행

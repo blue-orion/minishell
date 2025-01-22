@@ -35,6 +35,11 @@ t_data	*make_data(char *str, int type, int start, int end)
 		return (NULL);
 	new->type = type;
 	new->text = ft_substr(str, start, end - start);
+	if (!new->text)
+	{
+		free(new);
+		return (NULL);
+	}
 	if (is_empty_str(new->text))
 		new->type = EMPTY;
 	new->start = start;

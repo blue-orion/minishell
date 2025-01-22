@@ -23,12 +23,12 @@ SRCS = minishell.c	\
 	   parsing/split_piece.c		\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\
-	   parsing/util_parsing.c		\
 	   parsing/which_separator.c		\
 	   tree/add_node.c				\
 	   tree/make_new_node.c			\
 	   tree/print_tree.c			\
-	   utils/util_print_list.c
+	   utils/print_list.c		\
+	   utils/free_pptr.c		\
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))

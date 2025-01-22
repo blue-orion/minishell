@@ -18,13 +18,15 @@ int	parsing(char *str)
 	t_list	*head;
 
 	root = make_new_node(NULL);
-	print_list(root->head);
-	printf("\n\n\n");
-	root = sentense_preprocess(root, str);
+	if (!root)
+		return (-1);
+	root = split_sentense_to_list(root, str);
 	if (!root)
 		return (-1);
 	print_list(root->head);
-	parse_sentense(root);
+	printf("\n\n");
+	if (make_parsing_tree(root))
+		return (-1);
 	print_tree(root);
 	return (0);
 }

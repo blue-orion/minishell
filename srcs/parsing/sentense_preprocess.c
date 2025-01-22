@@ -12,49 +12,129 @@
 
 #include "../../includes/parsing.h"
 
-t_node	*sentense_preprocess(t_node *root, char *str)
+char	*preprocess_string(char *src)
 {
-	t_list	*list;
-	t_data	*data;
-	char	*past;
-	int		split_point;
+	char	*res;
 
-	//탭은 공백으로 치환
-	subsitute_tab(str);
-	//유효하지 않은 따옴표 제거
-	past = str;
-	str = remove_invalid_quote(str);
-	if (!str)
+	subsitute_tab(src);
+	res = remove_invalid_quote(res, src);
+	free(src);
+	if (!res)
 		return (NULL);
-	free(past);
-	//앞 뒤 공백 제거
-	past = str;
-	str = ft_strtrim(past, " ");
-	if (!str)
+	src = res;
+	res = ft_strtrim(src, " ");
+	free(src);
+	if (!res)
 		return (NULL);
-	free(past);
-	
-	int i;
-	i = 0;
-	while (str[i])
+	return (res);
+}
+
+int	add_sentense(t_node *root, char *s, int start, int split_point)
+{
+	t_data	*new_data;
+	t_list	*new_lst;
+
+	new_data = make_data(s, SENTENSE,
+			start, ft_strchr(&s[start], split_point) - s);
+	if (!new_data)
 	{
-		split_point = find_metachar(str, i);
-		if (split_point)
-		{
-			data = make_data(str, SENTENSE, i, ft_strchr(&str[i], split_point) - str);
-			if (data->type != EMPTY)
-				ft_lstadd_back(&root->head, ft_lstnew((void *)data));
-			data = split_piece(str, i, split_point);
-			if (data->type != EMPTY)
-				ft_lstadd_back(&root->head, ft_lstnew((void *)data));
-			i = data->end + 1;
-		}
-		else
-		{
-			data = make_data(str, SENTENSE, i, ft_strchr(&str[i], '\0') - str);
-			ft_lstadd_back(&root->head, ft_lstnew((void *)data));
-			break ;
-		}
+		free(s);
+		return (-1);
 	}
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+		{
+			free(s);
+			free(new_data);
+			return (-1);
+		}
+		ft_lstadd_back(&root->head, new_lst);
+	}
+	else
+		free(new_data);
+	return (0);
+}
+
+int	add_splited(t_node *root, char *s, int start, int split_point)
+{
+	t_data	*new_data;
+	t_list	*new_lst;
+
+	new_data = split_piece(s, start, split_point);
+	if (!new_data)
+	{
+		free(s);
+		return (-1);
+	}
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+		{
+			free(s);
+			free(new_data);
+			return (-1);
+		}
+		ft_lstadd_back(&root->head, new_lst);
+	}
+	else
+		free(new_data);
+	return (new_data->end);
+}
+
+int	add_rest(t_node *root, char *s, int start)
+{
+	t_data	*new_data;
+	t_list	*new_lst;
+
+	new_data = make_data(s, SENTENSE,
+			start, ft_strchr(&s[start], '\0') - s);
+	if (!new_data)
+	{
+		free(s);
+		return (-1);
+	}
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+		{
+			free(s);
+			free(new_data);
+			return (-1);
+		}
+		ft_lstadd_back(&root->head, new_lst);
+	}
+	else
+		free(new_data);
+	return (0);
+}
+
+t_node	*split_sentense_to_list(t_node *root, char *str)
+{
+	int		start_idx;
+	int		split_point;
+	int		move;
+
+	str = preprocess_string(str);
+	if (!str)
+		return (perror("failed malloc"), NULL);
+	start_idx = 0;
+	split_point = find_metachar(str, start_idx);
+	while (split_point)
+	{
+		move = add_sentense(root, str, start_idx, split_point);
+		if (move)
+			return (NULL);
+		move = add_splited(root, str, start_idx, split_point);
+		if (!move)
+			return (NULL);
+		start_idx = move + 1;
+		split_point = find_metachar(str, start_idx);
+	}
+	if (add_rest(root, str, start_idx))
+		return (NULL);
 	return (root);
 }

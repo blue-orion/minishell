@@ -12,7 +12,7 @@
 
 #include "../../includes/parsing.h"
 
-void	make_parenthesis_data(char *str, int start, int *start_idx, int *end_idx)
+void	make_parenthesis(char *str, int start, int *start_idx, int *end_idx)
 {
 	int	i;
 	int	parenthesis_cnt;
@@ -62,7 +62,7 @@ t_data	*split_piece(char *str, int start, int split_point)
 	if (split_point == PARENTHESIS)
 	{
 		type = PARENTHESIS;
-		make_parenthesis_data(str, start, &start_idx, &end_idx);
+		make_parenthesis(str, start, &start_idx, &end_idx);
 	}
 	return (make_data(str, type, start_idx, end_idx));
 }

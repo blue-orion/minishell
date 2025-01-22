@@ -12,7 +12,7 @@
 
 #include "../../includes/parsing.h"
 
-t_node	*parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
+int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 {
 	t_data	*data;
 	t_data	*new_data;
@@ -31,23 +31,36 @@ t_node	*parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 	if (past == cur)
 	{
 		new_data = make_data(data->text, CMD, 0, left);
-		new_lst = ft_lstnew((void *)new_data);
+		if (!new_data)
+			return (-1);
 		if (new_data->type != EMPTY)
-			cur_node->left_child = make_new_node(new_lst);
-		else
-			;
-			//have to free new_data, new_lst
-		new_data = make_data(data->text, SENTENSE, right, data->end);
-		if (new_data->type == EMPTY)
 		{
-			free(new_data);
-			cur_node->right_child = make_new_node(cur->next);
+			new_lst = ft_lstnew((void *)new_data);
+			if (!new_lst)
+			{
+				free(new_data);
+				return (-1);
+			}
+			cur_node->left_child = make_new_node(new_lst);
+			if (!cur_node->left_child)
+			{
+				ft_lstclear(&new_lst, free);
+				return (-1);
+			}
 		}
 		else
+			free(new_data);
+		new_data = make_data(data->text, SENTENSE, right, data->end);
+		if (new_data->type != EMPTY)
 		{
 			new_lst = ft_lstnew((void *)new_data);
 			new_lst->next = cur->next;
 			cur_node->right_child = make_new_node(new_lst);
+		}
+		else
+		{
+			free(new_data);
+			cur_node->right_child = make_new_node(cur->next);
 		}
 	}
 	else
@@ -83,6 +96,5 @@ t_node	*parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 	free(data->text);
 	free(data);
 	free(cur);
-	cur = NULL;
-	return (cur_node);
+	return (0);
 }
