@@ -11,6 +11,7 @@ LIBFT = $(SRC_DIR)libft
 SRCS = minishell.c	\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
+	   parsing/find_redirection.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
@@ -20,6 +21,7 @@ SRCS = minishell.c	\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/sentense_preprocess.c	\
+	   parsing/split_cmd_node.c		\
 	   parsing/split_piece.c		\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\

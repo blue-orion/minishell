@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 23:36:56 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:18:22 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ int		is_metachar(char c);
 
 void	subsitute_tab_to_space(char *str);
 char	*unit_block(char *str, char unit);
-int		is_redirection(char *str);
-int		is_separator(char *str);
 t_node	*split_sentense_to_list(t_node *root, char *str);
 
+int		is_redirection(char *str);
+int		is_separator(char *str);
 char	find_metachar(char *str, int start);
+int		find_separator(char	*text);
+t_list	*find_redirection(t_list *head);
+int		find_token(t_list *lst, int to_find);
+
+t_list	*move_to_token(t_list *cur, int to_move);
+
 t_data	*split_piece(char *str, int start, int split_point);
 t_data	*make_data(char *str, int type, int start, int end);
 
@@ -63,7 +69,7 @@ void	*free_pptr(void **pptr);
 void	subsitute_tab(char *str);
 char	*remove_invalid_quote(char *dst, char *src);
 void	print_list(t_list *head);
-int		find_separator(char	*text);
 int		which_separator(char *str, int separator);
 int		parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator);
+int		split_cmd_node(t_node *cmd_node);
 #endif

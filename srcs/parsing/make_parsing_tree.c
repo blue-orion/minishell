@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_sentense.c                                   :+:      :+:    :+:   */
+/*   make_parsing_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/22 02:38:21 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/23 15:06:44 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-
-int	have_sentense(t_list *lst)
-{
-	t_data	*data;
-	t_list	*cur;
-
-	cur = lst;
-	while (cur)
-	{
-		data = (t_data *)cur->content;
-		if (data->type == SENTENSE)
-			return (1);
-		cur = cur->next;
-	}
-	return (0);
-}
-
-t_list	*move_sentense_lst(t_list *cur)
-{
-	t_data	*data;
-
-	data = (t_data *)cur->content;
-	while (data->type != SENTENSE)
-	{
-		cur = cur->next;
-		data = (t_data *)cur->content;
-	}
-	return (cur);
-}
 
 int	make_parsing_tree(t_node *cur_node)
 {
@@ -52,9 +23,9 @@ int	make_parsing_tree(t_node *cur_node)
 		return (0);
 	cur_lst = cur_node->head;
 	data = (t_data *)cur_lst->content;
-	while (have_sentense(cur_node->head))
+	while (find_token(cur_node->head, SENTENSE))
 	{
-		cur_lst = move_sentense_lst(cur_lst);
+		cur_lst = move_to_token(cur_lst, SENTENSE);
 		data = (t_data *)cur_lst->content;
 		separator = find_separator(data->text);
 		if (separator)

@@ -27,6 +27,7 @@ int	parsing(char *str)
 	printf("\n\n");
 	if (make_parsing_tree(root))
 		return (-1);
-	print_tree(root);
+	split_cmd_node(root);
+	// print_tree(root);
 	return (0);
 }
