@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:32:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 23:03:15 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/23 22:37:45 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/24 01:19:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	parsing(char *str)
 	printf("\n\n");
 	if (make_parsing_tree(root))
 		return (-1);
-	split_cmd_node(root);
-	// print_tree(root);
+	// if (split_cmd_node(root))
+	// 	return (-1);
+	// if (split_redirects_node(root))
+	// 	return (-1);
+	print_tree(root);
 	return (0);
 }

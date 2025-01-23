@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_data_type.c                                    :+:      :+:    :+:   */
+/*   split_redirects_node.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 14:33:00 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/23 15:03:40 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/23 23:55:52 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	set_data_type(char *data)
+int	split_redirects_node(t_node *parent)
 {
-	if (find_redirection(data))
-		return (REDIRECTS);
-	return (CMD);
+	return (0);
 }

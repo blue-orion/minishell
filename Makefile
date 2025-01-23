@@ -12,17 +12,22 @@ SRCS = minishell.c	\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\
+	   parsing/find_token.c		\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
+	   parsing/make_cmd_data.c		\
 	   parsing/make_data.c		\
 	   parsing/make_parsing_tree.c	\
+	   parsing/make_redirects_data.c	\
+	   parsing/move_to_token.c	\
 	   parsing/parse_node.c		\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/sentense_preprocess.c	\
 	   parsing/split_cmd_node.c		\
 	   parsing/split_piece.c		\
+	   parsing/split_redirects_node.c	\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\
 	   parsing/which_separator.c		\
