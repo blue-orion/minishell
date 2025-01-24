@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/23 23:56:03 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/24 20:04:07 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PARSING_H
 
 # include "tree.h"
-# include "libft.h"
+# include "utils.h"
 
 enum e_unit
 {
@@ -73,6 +73,7 @@ void	print_list(t_list *head);
 int		which_separator(char *str, int separator);
 int		parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator);
 int		split_cmd_node(t_node *cmd_node);
-t_list	*make_simple_cmd_list(t_node *parent);
-t_list	*make_redirects_list(t_node *parent);
+t_list	*make_redirects_list(t_list *head);
+t_list	*make_simple_cmd_list(t_list *head);
+int		make_list_and_addback(t_list **head, t_data *new_data);
 #endif

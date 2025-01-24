@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   skip_space.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/24 18:02:00 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/24 17:58:05 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/24 17:59:29 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-
-#include "libft.h"
-
-void	print_list(t_list *head);
-int		skip_space(char *s);
-void	*free_pptr(void **pptr);
-#endif
+int	skip_space(char *s)
+{
+	int	i;
+	
+	i = 0;
+	if (s[i] && s[i] == ' ')
+		i++;
+	return (i);
+}

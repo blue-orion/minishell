@@ -15,13 +15,13 @@
 
 int	is_redirection(char *str)
 {
-	if (ft_strncmp(str, "<", 2))
-		return (IN);
-	if (ft_strncmp(str, ">", 2))
-		return (OUT);
-	if (ft_strncmp(str, "<<", 3))
+	if (!ft_strncmp(str, "<<", 2))
 		return (HERE_DOC);
-	if (ft_strncmp(str, ">>", 3))
+	if (!ft_strncmp(str, ">>", 2))
 		return (APPEND);
+	if (!ft_strncmp(str, "<", 1))
+		return (IN);
+	if (!ft_strncmp(str, ">", 1))
+		return (OUT);
 	return (0);
 }

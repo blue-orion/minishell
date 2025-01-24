@@ -16,10 +16,11 @@ SRCS = minishell.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
-	   parsing/make_cmd_data.c		\
+	   parsing/make_simple_cmd_data.c		\
 	   parsing/make_data.c		\
 	   parsing/make_parsing_tree.c	\
 	   parsing/make_redirects_data.c	\
+	   parsing/make_list_and_addback.c	\
 	   parsing/move_to_token.c	\
 	   parsing/parse_node.c		\
 	   parsing/parsing.c		\
@@ -34,8 +35,9 @@ SRCS = minishell.c	\
 	   tree/add_node.c				\
 	   tree/new_node.c			\
 	   tree/print_tree.c			\
-	   utils/print_list.c		\
 	   utils/free_pptr.c		\
+	   utils/print_list.c		\
+	   utils/skip_space.c
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))
