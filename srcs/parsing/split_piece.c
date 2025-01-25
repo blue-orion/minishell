@@ -57,7 +57,7 @@ t_data	*split_piece(char *str, int start, int split_point)
 	{
 		type = DOUBLE_QUOTE;
 		start_idx = ft_strchr(&str[start], '\"') + 1 - str;
-		end_idx = ft_strchr(str + start_idx + 1, '\"') - str;
+		end_idx = ft_strchr(str + start_idx, '\"') - str;
 	}
 	if (split_point == PARENTHESIS)
 	{

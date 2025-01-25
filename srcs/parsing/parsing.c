@@ -23,6 +23,8 @@ int	parsing(char *str)
 	root = split_sentense_to_list(root, str);
 	if (!root)
 		return (-1);
+	if (!root->head)
+		return (1);
 	print_list(root->head);
 	printf("\n\n");
 	if (make_parsing_tree(root))

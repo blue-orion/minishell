@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/24 20:38:11 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/25 19:50:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int	extract_simple_cmd(t_list **dst_head, t_list *cmd_lst, t_list *src_head)
 	t_data	*new_data;
 	t_list	*past_lst;
 	t_data	*data;
+	int	flag;
 
 	i = 0;
 	start = 0;
+	flag = 0;
 	data = (t_data *)cmd_lst->content;
 	while (data->text[i])
 	{
@@ -54,10 +56,13 @@ int	extract_simple_cmd(t_list **dst_head, t_list *cmd_lst, t_list *src_head)
 			while (data->text[i] && data->text[i] != ' ' && !is_redirection(data->text + i))
 				i++;
 			start = i;
+			flag = 1;
 		}
 		else
 			i++;
 	}
+	if (!flag)
+		data->type = SIMPLE_CMD;
 	return (0);
 }
 
@@ -66,6 +71,7 @@ t_list	*make_simple_cmd_list(t_list *head)
 	t_list	*cur_lst;
 	t_list	*res_lst;
 	t_data	*data;
+	int		flag;
 
 	res_lst = NULL;
 	cur_lst = head;

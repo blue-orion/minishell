@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sentense_preprocess.c                              :+:      :+:    :+:   */
+/*   split_sentense_to_list.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -80,7 +80,10 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 		ft_lstadd_back(&root->head, new_lst);
 	}
 	else
+	{
 		free(new_data);
+		return (0);
+	}
 	return (new_data->end);
 }
 
@@ -122,6 +125,7 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 	if (!str)
 		return (perror("failed malloc"), NULL);
 	start_idx = 0;
+	move = 0;
 	split_point = find_metachar(str, start_idx);
 	while (split_point)
 	{

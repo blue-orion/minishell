@@ -25,7 +25,7 @@ SRCS = minishell.c	\
 	   parsing/parse_node.c		\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
-	   parsing/sentense_preprocess.c	\
+	   parsing/split_sentense_to_list.c	\
 	   parsing/split_cmd_node.c		\
 	   parsing/split_piece.c		\
 	   parsing/split_redirects_node.c	\
