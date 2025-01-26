@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 22:21:10 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 02:33:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 		if (move)
 			return (NULL);
 		move = add_splited(root, str, start_idx, split_point);
-		if (!move)
+		if (move < 0)
 			return (NULL);
 		start_idx = move + 1;
 		split_point = find_metachar(str, start_idx);

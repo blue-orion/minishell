@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:24:16 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 22:16:38 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 03:04:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	make_parenthesis(char *str, int start, int *start_idx, int *end_idx)
 		}
 		i++;
 	}
+	if (parenthesis_cnt != 0)
+		*end_idx = -1;
 }
 
 t_data	*split_piece(char *str, int start, int split_point)
@@ -64,5 +66,7 @@ t_data	*split_piece(char *str, int start, int split_point)
 		type = PARENTHESIS;
 		make_parenthesis(str, start, &start_idx, &end_idx);
 	}
+	if (start_idx < 0 || end_idx < 0)
+		return (NULL);
 	return (make_data(str, type, start_idx, end_idx));
 }

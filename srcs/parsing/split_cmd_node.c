@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:39:38 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/25 20:03:26 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 03:30:07 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	split_cmd_node(t_node *parent)
 	redirects_list = make_redirects_list(parent->head);
 	if (!redirects_list)
 	{
+		if (find_redirection(parent->head))
+			return (-1);
 		((t_data *)parent->head->content)->type = SIMPLE_CMD;
 		return (0);
 	}
-	if (!redirects_list)
-		return (-1);
 	simple_cmd_list = make_simple_cmd_list(parent->head);
 	if (!simple_cmd_list)
 		return (-1);

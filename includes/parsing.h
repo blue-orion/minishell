@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/24 20:04:07 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 02:20:22 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ enum e_redirect
 	HERE_DOC,
 	APPEND
 };
+
 int		is_metachar(char c);
 
 void	subsitute_tab_to_space(char *str);

@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:32:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/24 19:56:26 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 03:41:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 			return (-1);
 	if (make_list_and_addback(head, new_data))
 		return (-1);
-	if (!data[*i])
+	if (start != end && !data[*i])
 		return (1);
 	return (0);
 }
@@ -77,7 +77,10 @@ t_list	*make_redirects_list(t_list *head)
 		cur_lst = move_to_token(cur_lst, CMD);
 		data = (t_data *)cur_lst->content;
 		if (extract_redirection(&res_lst, cur_lst))
+		{
+			ft_lstclear(&res_lst, free_data);
 			return (NULL);
+		}
 		cur_lst = cur_lst->next;
 	}
 	return (res_lst);

@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/27 04:18:48 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/27 04:18:48 by takwak           ###   ########.fr       */
+/*   Created: 2025/01/27 03:31:20 by takwak            #+#    #+#             */
+/*   Updated: 2025/01/27 03:33:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	parsing(char *str)
+void	free_data(void *content)
 {
-	t_node	*root;
-	t_list	*head;
+	t_data	*data;
 
-	root = new_node(NULL);
-	if (!root)
-		return (-1);
-	root = split_sentense_to_list(root, str);
-	if (!root)
-		return (-1);
-	if (!root->head)
-		return (1);
-	print_list(root->head);
-	printf("\n\n");
-	if (make_parsing_tree(root))
-		return (-1);
-	if (split_cmd_node(root))
-		return (-1);
-	// if (split_redirects_node(root))
-	// 	return (-1);
-	print_tree(root);
-	return (0);
+	data = (t_data *)content;
+	if (data->text)
+		free(data->text);
+	free(data);
 }

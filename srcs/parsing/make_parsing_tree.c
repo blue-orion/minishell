@@ -19,7 +19,7 @@ int	make_parsing_tree(t_node *cur_node)
 	t_data	*data;
 	int		separator;
 
-	if (!cur_node)
+	if (!cur_node || !cur_node->head)
 		return (0);
 	cur_lst = cur_node->head;
 	data = (t_data *)cur_lst->content;

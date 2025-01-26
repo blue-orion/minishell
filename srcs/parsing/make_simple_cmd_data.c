@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/25 19:50:02 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 03:23:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,13 @@ int	extract_simple_cmd(t_list **dst_head, t_list *cmd_lst, t_list *src_head)
 			if (new_data->type == EMPTY)
 			{
 				past_lst = src_head;
-				while (past_lst->next != cmd_lst)
+				while (past_lst->next && past_lst->next != cmd_lst)
 					past_lst = past_lst->next;
-				past_lst->next = NULL;
-				*dst_head = src_head;
+				if (past_lst->next == cmd_lst)
+				{
+					*dst_head = src_head;
+					past_lst->next = NULL;
+				}
 			}
 			else
 				if (make_list_and_addback(dst_head, new_data))

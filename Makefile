@@ -37,7 +37,8 @@ SRCS = minishell.c	\
 	   tree/print_tree.c			\
 	   utils/free_pptr.c		\
 	   utils/print_list.c		\
-	   utils/skip_space.c
+	   utils/skip_space.c		\
+	   utils/free_data.c		
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))

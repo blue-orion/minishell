@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:05:58 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/19 20:22:58 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 02:24:15 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	find_min(char *meta[4])
 	i = 0;
 	while (i < 3)
 	{
-		if ((long)meta[i] != 0 && (long)meta[i] < min)
+		if ((long)meta[i] && (long)meta[i] < min)
 			min = (long)meta[i];
 		i++;
 	}

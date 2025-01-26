@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 16:13:54 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 17:56:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/01/27 02:21:18 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 typedef struct s_node
 {
 	t_list			*head;
+	t_data			*head_data;
 	struct s_node	*left_child;
 	struct s_node	*right_child;
 }	t_node;
