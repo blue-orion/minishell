@@ -1,31 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_redirects_node.c                             :+:      :+:    :+:   */
+/*   make_redirection_data.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 22:17:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/01 19:48:08 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/01 19:48:40 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#inlcude "../../includes/parsing.h"
 
-int	split_redirects_node(t_node *parent)
-{
-	t_node	*cur_lst;
-	t_data	*cur_data;
-
-	if (!parent)
-		return (0);
-	if (!find_token(parent->head, REDIRECTS))
-	{
-		split_redirects_node(parent->left_child);
-		split_redirects_node(parent->right_child);
-	}
-	cur_lst = parent;
-	cur_data = (t_data *)cur_lst->head->content;
-	
-	return (0);
-}
+int	make_redirection_data(t_node *)

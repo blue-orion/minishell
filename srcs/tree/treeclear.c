@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_redirects_node.c                             :+:      :+:    :+:   */
+/*   treeclear.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 22:17:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/01 19:36:21 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/01 19:38:49 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/tree.h"
 
-int	split_redirects_node(t_node *parent)
+void	*treeclear(t_node *root)
 {
-	t_node	*cur_lst;
-	t_data	*cur_data;
+	t_node	*cur;
 
-	if (!parent)
-		return (0);
-	if (!find_token(parent->head, REDIRECTS))
-	{
-		split_redirects_node(parent->left_child);
-		split_redirects_node(parent->right_child);
-	}
-	cur_lst = parent;
-	cur_data = (t_data *)cur_lst->head->content;
-	
-	return (0);
+	if (!root)
+		return (NULL);
+	treeclear(root->left_child);
+	treeclear(root->right_child);
+	cur = root;
+	ft_lstclear(&cur->head, free);
+	free(cur->head_data);
+	return (NULL);
 }

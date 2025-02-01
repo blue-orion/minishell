@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_redirects_node.c                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 22:17:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/01 19:15:35 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/01 19:17:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/minishell.h"
 
-int	split_redirects_node(t_node *parent)
+int	echo()
 {
-	t_node	*cur_lst;
-	t_data	*cur_data;
 
-	if (!parent)
-		return (0);
-	if (!find_token(parent->head, REDIRECTS))
-	{
-		split_redirects_node(parent->left_child);
-		split_redirects_node(parent->right_child);
-	}
-	cur_lst = parent;
-	cur_data = (t_data *)cur_lst->head->content;
-	
-	return (0);
 }

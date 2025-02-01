@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/20 01:29:04 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/01 22:17:12 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 int main(void)
 {
-	char	*cmd;
+	t_cmd	cmd;
+	char	*input;
 
 	while (1)
 	{
-		cmd = readline("minishell> ");
-		if (!cmd)
+		input = readline("minishell> ");
+		if (!input)
 			return (1);
-		parsing(cmd);
-		// printf("%s\n", rl_line_buffer);
+		cmd.root = parsing(input);
 		// 입력받아서 파싱
-		// 파싱한 명령어 배열 실행
+		print_tree(cmd.root);
+		printf("\n\n");
+		// parsing tree 기반으로 실행
 	}
 }
