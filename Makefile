@@ -23,6 +23,7 @@ SRCS = minishell.c	\
 	   parsing/make_redirects_data.c	\
 	   parsing/make_simple_cmd_data.c		\
 	   parsing/move_to_token.c	\
+	   parsing/is_type.c		\
 	   parsing/parse_node.c		\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
@@ -40,6 +41,7 @@ SRCS = minishell.c	\
 	   utils/free_pptr.c		\
 	   utils/print_list.c		\
 	   utils/skip_space.c		\
+	   utils/error_exit.c		\
 	   utils/free_data.c		
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))

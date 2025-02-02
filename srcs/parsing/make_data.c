@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 21:48:34 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/02 20:29:07 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ t_data	*make_data(char *str, int type, int start, int end)
 			return (free(past), free(new), NULL);
 		free(past);
 	}
-	if (!new->text)
-		return (free(new), NULL);
 	if (is_empty_str(new->text))
 		new->type = EMPTY;
 	new->start = start;

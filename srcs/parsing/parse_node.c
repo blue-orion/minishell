@@ -3,98 +3,144 @@
 /*                                                        :::      ::::::::   */
 /*   parse_node.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 21:09:12 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/22 02:32:59 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/02 20:55:08 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/02 21:17:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
+void	head_list_left_node(t_node *cur_node, t_list *cur_lst, int left)
+{
+	t_data	*cur_data;
+	t_data	*new_data;
+	t_list	*new_lst;
+	
+	cur_data = (t_data *)cur_lst->content;
+	new_data = make_data(cur_data->text, CMD, 0, left);
+	if (!new_data)
+		error_exit("parse node failed");
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+			error_exit("parse node failed");
+		cur_node->left_child = new_node(new_lst);
+		if (!cur_node->left_child)
+			error_exit("parse node failed");
+	}
+	else
+		free(new_data);
+}
+
+void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right)
+{
+	t_data	*cur_data;
+	t_data	*new_data;
+	t_list	*new_lst;
+	
+	cur_data = (t_data *)cur_lst->content;
+	new_data = make_data(cur_data->text, SENTENSE, right, cur_data->end);
+	if (!new_data)
+		error_exit("parse node failed");
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+			error_exit("parse node failed");
+		new_lst->next = cur_lst->next;
+		cur_node->right_child = new_node(new_lst);
+		if (!cur_node->right_child)
+			error_exit("parse node failed");
+	}
+	else
+	{
+		free(new_data);
+		cur_node->right_child = new_node(cur_lst->next);
+	}
+}
+
+void	no_head_list_left_node(t_node *parent, t_list *head, t_list *cur, int left)
+{
+	t_list	*past_lst;
+	t_data	*cur_data;
+	t_data	*new_data;
+	t_list	*new_lst;
+
+	cur_data = (t_data *)cur->content;
+	past_lst = head;
+	while (past_lst->next != cur)
+		past_lst = past_lst->next;
+	past_lst->next = NULL;
+	new_data = make_data(cur_data->text, CMD, 0, left);
+	if (!new_data)
+		error_exit("parse node failed");
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+			error_exit("parse node failed");
+		past_lst->next = new_lst;
+	}
+	else
+		free(new_data);
+	parent->left_child = new_node(head);
+	if (!parent->left_child)
+		error_exit("parse node failed");
+}
+
+void	no_head_list_right_node(t_node *parent, t_list *cur, int right)
+{
+	t_data	*cur_data;
+	t_data	*new_data;
+	t_list	*new_lst;
+
+	cur_data = (t_data *)cur->content;
+	new_data = make_data(cur_data->text, SENTENSE, right, cur_data->end);
+	if (!new_data)
+		error_exit("parse node failed");
+	if (new_data->type != EMPTY)
+	{
+		new_lst = ft_lstnew((void *)new_data);
+		if (!new_lst)
+			error_exit("parse node failed");
+		new_lst->next = cur->next;
+		parent->right_child = new_node(new_lst);
+	}
+	else
+	{
+		free(new_data);
+		parent->right_child = new_node(cur->next);
+	}
+}
+
+void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator)
 {
 	t_data	*data;
 	t_data	*new_data;
 	int		left;
 	int		right;
-	char	*past_str;
-	t_list	*past_lst;
-	t_list	*new_lst;
 
 	data = (t_data *)cur->content;
 	left = which_separator(data->text, separator);
+	right = left + 1;
 	if (separator == AND || separator == OR)
-		right = left + 2;
-	else
-		right = left + 1;
-	if (past == cur)
+		right++;
+	if (head == cur)
 	{
-		new_data = make_data(data->text, CMD, 0, left);
-		if (!new_data)
-			return (-1);
-		if (new_data->type != EMPTY)
-		{
-			new_lst = ft_lstnew((void *)new_data);
-			if (!new_lst)
-			{
-				free(new_data);
-				return (-1);
-			}
-			cur_node->left_child = new_node(new_lst);
-			if (!cur_node->left_child)
-			{
-				ft_lstclear(&new_lst, free);
-				return (-1);
-			}
-		}
-		else
-			free(new_data);
-		new_data = make_data(data->text, SENTENSE, right, data->end);
-		if (new_data->type != EMPTY)
-		{
-			new_lst = ft_lstnew((void *)new_data);
-			new_lst->next = cur->next;
-			cur_node->right_child = new_node(new_lst);
-		}
-		else
-		{
-			free(new_data);
-			cur_node->right_child = new_node(cur->next);
-		}
+		head_list_left_node(parent, cur, left);
+		head_list_right_node(parent, cur, right);
 	}
 	else
 	{
-		past_lst = past;
-		while (past_lst->next != cur)
-			past_lst = past_lst->next;
-		past_lst->next = NULL;
-		new_data = make_data(data->text, CMD, 0, left);
-		new_lst = ft_lstnew((void *)new_data);
-		if (new_data->type != EMPTY)
-			past_lst->next = new_lst;
-		else
-			;
-			//have to free new_data, new_lst
-		cur_node->left_child = new_node(past);
-		new_data = make_data(data->text, SENTENSE, right, data->end);
-		if (new_data->type == EMPTY)
-		{
-			free(new_data);
-			cur_node->right_child = new_node(cur->next);
-		}
-		else
-		{
-			new_lst = ft_lstnew((void *)new_data);
-			new_lst->next = cur->next;
-			cur_node->right_child = new_node(new_lst);
-		}
+		no_head_list_left_node(parent, head, cur, left);
+		no_head_list_right_node(parent, cur, right);
 	}
-	past_lst = cur;
 	new_data = make_data(data->text, separator, left, right);
-	cur_node->head = ft_lstnew((void *)new_data);
-	free(data->text);
-	free(data);
-	free(cur);
-	return (0);
+	if (!new_data)
+		error_exit("parse node failed");
+	make_list_and_addback(&parent->head, new_data);
+	ft_lstdelone(cur, free_data);
 }

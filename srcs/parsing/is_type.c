@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   type_is.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 20:12:26 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/02 21:24:22 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/02 21:25:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "../../includes/tree.h"
 
-#include "libft.h"
+int	is_type(int dst_type, t_list *src)
+{
+	t_data	*data;
 
-void	print_list(t_list *head);
-int		skip_space(char *s);
-void	*free_pptr(void **pptr);
-void	free_data(void *content);
-void	error_exit(char *msg);
-#endif
+	data = (t_data *)src->content;
+	if (data->type == dst_type)
+		return (1);
+	return (0);
+}

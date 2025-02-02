@@ -6,13 +6,11 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:35:02 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/27 02:28:20 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/02 20:30:09 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/tree.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_node	*new_node(t_list *list)
 {
@@ -20,7 +18,7 @@ t_node	*new_node(t_list *list)
 
 	new = (t_node *)malloc(sizeof(t_node));
 	if (!new)
-		return (perror("failed make node"), NULL);
+		return (NULL);
 	new->head = list;
 	if (!list)
 		new->head_data = NULL;
