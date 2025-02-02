@@ -12,6 +12,21 @@
 
 #include "../../includes/parsing.h"
 
+int	which_redirection(char *str, int *redirection)
+{
+	int	idx;
+
+	idx = 0;
+	while (str[idx])
+	{
+		*redirection = is_redirection(str + idx);
+		if (*redirection)
+			break ;
+		idx++;
+	}
+	return (idx);
+}
+
 int	which_separator(char *str, int separator)
 {
 	int	idx;

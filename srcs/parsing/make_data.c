@@ -29,6 +29,7 @@ int	is_empty_str(char *str)
 t_data	*make_data(char *str, int type, int start, int end)
 {
 	t_data	*new;
+	char	*past;
 
 	new = (t_data *)malloc(sizeof(t_data));
 	if (!new)
@@ -36,10 +37,17 @@ t_data	*make_data(char *str, int type, int start, int end)
 	new->type = type;
 	new->text = ft_substr(str, start, end - start);
 	if (!new->text)
+		return (free(new), NULL);
+	if (type != SINGLE_QUOTE && type != DOUBLE_QUOTE)
 	{
-		free(new);
-		return (NULL);
+		past = new->text;
+		new->text = ft_strtrim(past, " ");
+		if (!new->text)
+			return (free(past), free(new), NULL);
+		free(past);
 	}
+	if (!new->text)
+		return (free(new), NULL);
 	if (is_empty_str(new->text))
 		new->type = EMPTY;
 	new->start = start;

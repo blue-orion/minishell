@@ -91,7 +91,7 @@ int	parse_node(t_node *cur_node, t_list *past, t_list *cur, int separator)
 		}
 	}
 	past_lst = cur;
-	new_data = make_data(data->text, SEPARATOR, left, right);
+	new_data = make_data(data->text, separator, left, right);
 	cur_node->head = ft_lstnew((void *)new_data);
 	free(data->text);
 	free(data);

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 22:17:59 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/02 16:19:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	split_redirects_node(t_node *parent)
 {
-	t_node	*cur_lst;
-	t_data	*cur_data;
+	t_list	*new_lst;
+	t_node	*left_node;
+	t_node	*right_node;
 
 	if (!parent)
 		return (0);
@@ -23,9 +24,22 @@ int	split_redirects_node(t_node *parent)
 	{
 		split_redirects_node(parent->left_child);
 		split_redirects_node(parent->right_child);
+		return (0);
 	}
-	cur_lst = parent;
-	cur_data = (t_data *)cur_lst->head->content;
-	
+	new_lst = make_redirection_list(parent->head);
+	if (!new_lst)
+		return (perror("make redirection list failed"), -1);
+	left_node = new_node(new_lst);
+	if (!left_node)
+		return (perror("make new_node failed"), -1);
+	parent->left_child = left_node;
+	right_node = new_node(parent->head->next);
+	if (!right_node)
+		return (perror("make new_node failed"), -1);
+	parent->right_child = right_node;
+	parent->head->next = NULL;
+	split_redirects_node(parent->left_child);
+	split_redirects_node(parent->right_child);
+	parent->head = NULL;
 	return (0);
 }

@@ -34,10 +34,28 @@ void	print_list(t_list *head)
 			printf("type : PARENTHESIS\n");
 		if (data->type == SEPARATOR)
 			printf("type : SEPARATOR\n");
+		if (data->type == PIPE)
+			printf("type : PIPE\n");
+		if (data->type == AND)
+			printf("type : AND\n");
+		if (data->type == OR)
+			printf("type : OR\n");
+		if (data->type == AMPER)
+			printf("type : AMPER\n");
+		if (data->type == SEMI)
+			printf("type : SEMI\n");
 		if (data->type == CMD)
 			printf("type : CMD\n");
 		if (data->type == REDIRECTS)
 			printf("type : REDIRECTS\n");
+		if (data->type == IN)
+			printf("type : IN\n");
+		if (data->type == OUT)
+			printf("type : OUT\n");
+		if (data->type == HERE_DOC)
+			printf("type : HERE_DOC\n");
+		if (data->type == APPEND)
+			printf("type : APPEND\n");
 		if (data->type == SIMPLE_CMD)
 			printf("type : SIMPLE_CMD\n");
 		if (data->type == FILE_NAME)

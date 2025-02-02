@@ -16,11 +16,12 @@ SRCS = minishell.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
-	   parsing/make_simple_cmd_data.c		\
 	   parsing/make_data.c		\
-	   parsing/make_parsing_tree.c	\
-	   parsing/make_redirects_data.c	\
 	   parsing/make_list_and_addback.c	\
+	   parsing/make_parsing_tree.c	\
+	   parsing/make_redirection_data.c	\
+	   parsing/make_redirects_data.c	\
+	   parsing/make_simple_cmd_data.c		\
 	   parsing/move_to_token.c	\
 	   parsing/parse_node.c		\
 	   parsing/parsing.c		\
@@ -35,6 +36,7 @@ SRCS = minishell.c	\
 	   tree/add_node.c				\
 	   tree/new_node.c			\
 	   tree/print_tree.c			\
+	   tree/treeclear.c		\
 	   utils/free_pptr.c		\
 	   utils/print_list.c		\
 	   utils/skip_space.c		\
