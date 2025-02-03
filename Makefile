@@ -19,7 +19,7 @@ SRCS = minishell.c	\
 	   parsing/make_data.c		\
 	   parsing/make_list_and_addback.c	\
 	   parsing/make_parsing_tree.c	\
-	   parsing/make_redirection_data.c	\
+	   parsing/make_redirection_list.c	\
 	   parsing/make_redirects_data.c	\
 	   parsing/make_simple_cmd_data.c		\
 	   parsing/move_to_token.c	\

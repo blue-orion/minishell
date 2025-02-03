@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 21:26:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 17:33:41 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int		find_token(t_list *lst, int to_find);
 
 t_list	*move_to_token(t_list *cur, int to_move);
 
-t_data	*split_piece(char *str, int start, int split_point);
-int		split_redirects_node(t_node *parent);
+t_data	*split_piece(char *str, int start, int split_point, int *flag);
+void	split_redirects_node(t_node *parent);
 t_data	*make_data(char *str, int type, int start, int end);
 
 int		make_parsing_tree(t_node *cur_node);
@@ -74,9 +74,9 @@ void	print_list(t_list *head);
 int		which_separator(char *str, int separator);
 int		which_redirection(char *str, int *redirection);
 void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator);
-int		split_cmd_node(t_node *cmd_node);
+void	split_cmd_node(t_node *parent);
 t_list	*make_redirects_list(t_list *head);
-t_list	*make_redirection_list(t_list *head);
+t_list	*make_redirection_list(t_list **head);
 t_list	*make_simple_cmd_list(t_list *head);
 int		make_list_and_addback(t_list **head, t_data *new_data);
 int		make_list_and_addleft(t_node *parent, t_data *new_data);

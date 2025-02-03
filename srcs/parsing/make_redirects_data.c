@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:32:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/27 03:41:16 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 17:04:33 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 {
-	int	start;
-	int	end;
+	int		start;
+	int		end;
 	t_data	*new_data;
 	t_list	*new_lst;
 
@@ -30,9 +30,9 @@ int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 	end = *i;
 	new_data = make_data(data, REDIRECTS, start, end);
 	if (!new_data)
-			return (-1);
+		error_exit("failed malloc in split_cmd_node");
 	if (make_list_and_addback(head, new_data))
-		return (-1);
+		error_exit("failed malloc in split_cmd_node");
 	if (start != end && !data[*i])
 		return (1);
 	return (0);
@@ -55,8 +55,6 @@ int	extract_redirection(t_list **head, t_list *cmd_lst)
 			status = add_redirect_list(head, data->text, &i, redirect);
 			if (status > 0)
 				ft_lstadd_back(head, cmd_lst->next);
-			if (status < 0)
-				return (-1);
 		}
 		else
 			i++;
@@ -76,11 +74,7 @@ t_list	*make_redirects_list(t_list *head)
 	{
 		cur_lst = move_to_token(cur_lst, CMD);
 		data = (t_data *)cur_lst->content;
-		if (extract_redirection(&res_lst, cur_lst))
-		{
-			ft_lstclear(&res_lst, free_data);
-			return (NULL);
-		}
+		extract_redirection(&res_lst, cur_lst);
 		cur_lst = cur_lst->next;
 	}
 	return (res_lst);

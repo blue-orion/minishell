@@ -6,68 +6,17 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/27 03:23:05 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 17:17:29 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
+#define START 0
+#define END 1
 
-int	extract_simple_cmd(t_list **dst_head, t_list *cmd_lst, t_list *src_head)
-{
-	int	i;
-	int	redirect;
-	int	status;
-	int	start;
-	int	end;
-	t_data	*new_data;
-	t_list	*past_lst;
-	t_data	*data;
-	int	flag;
-
-	i = 0;
-	start = 0;
-	flag = 0;
-	data = (t_data *)cmd_lst->content;
-	while (data->text[i])
-	{
-		redirect = is_redirection(data->text + i);
-		if (redirect)
-		{
-			end = i;
-			new_data = make_data(data->text, SIMPLE_CMD, start, end);
-			if (!new_data)
-				return (-1);
-			if (new_data->type == EMPTY)
-			{
-				past_lst = src_head;
-				while (past_lst->next && past_lst->next != cmd_lst)
-					past_lst = past_lst->next;
-				if (past_lst->next == cmd_lst)
-				{
-					*dst_head = src_head;
-					past_lst->next = NULL;
-				}
-			}
-			else
-				if (make_list_and_addback(dst_head, new_data))
-					return (-1);
-			if (redirect == IN || redirect == OUT)
-				i += 1;
-			if (redirect == HERE_DOC || redirect == APPEND)
-				i += 2;
-			i += skip_space(data->text + i);
-			while (data->text[i] && data->text[i] != ' ' && !is_redirection(data->text + i))
-				i++;
-			start = i;
-			flag = 1;
-		}
-		else
-			i++;
-	}
-	if (!flag)
-		data->type = SIMPLE_CMD;
-	return (0);
-}
+void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src);
+void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2]);
+int		next_redirection(char *str);
 
 t_list	*make_simple_cmd_list(t_list *head)
 {
@@ -81,9 +30,71 @@ t_list	*make_simple_cmd_list(t_list *head)
 	while (find_redirection(cur_lst))
 	{
 		cur_lst = move_to_token(cur_lst, CMD);
-		if (extract_simple_cmd(&res_lst, cur_lst, head))
-			return (NULL);
+		extract_simple_cmd(&res_lst, cur_lst, head);
 		cur_lst = cur_lst->next;
 	}
 	return (res_lst);
+}
+
+void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2])
+{
+	t_data	*data;
+	t_data	*new_data;
+	t_list	*past_lst;
+
+	data = (t_data *)cmd->content;
+	new_data = make_data(data->text, SIMPLE_CMD, index[START], index[END]);
+	if (!new_data)
+		error_exit("failed malloc in making simple_cmd_node");
+	if (new_data->type == EMPTY)
+	{
+		past_lst = src;
+		while (past_lst->next && past_lst->next != cmd)
+			past_lst = past_lst->next;
+		if (past_lst->next == cmd)
+		{
+			*dst = src;
+			past_lst->next = NULL;
+		}
+	}
+	else
+		if (make_list_and_addback(dst, new_data))
+			error_exit("failed malloc in making simple_cmd_node");
+}
+
+void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src)
+{
+	int		i;
+	int		redirect;
+	int		index[2];
+	t_data	*data;
+
+	i = 0;
+	index[START] = 0;
+	data = (t_data *)cmd->content;
+	while (data->text[i])
+	{
+		redirect = is_redirection(data->text + i);
+		if (redirect)
+		{
+			index[END] = i++;
+			simple_cmd_node(dst, src, cmd, index);
+			if (redirect == HERE_DOC || redirect == APPEND)
+				i++;
+			i += next_redirection(data->text + i);
+			index[START] = i;
+		}
+		else
+			i++;
+	}
+}
+
+int	next_redirection(char *str)
+{
+	int	i;
+
+	i = skip_space(str);
+	while (str[i] && str[i] != ' ' && !is_redirection(str + i))
+		i++;
+	return (i);
 }

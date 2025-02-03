@@ -16,7 +16,7 @@ t_node	*make_new_node_from(t_data *new_data)
 {
 	t_list	*new_lst;
 	t_node	*new;
-	
+
 	new_lst = ft_lstnew((void *)new_data);
 	if (!new_lst)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:55:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 21:17:34 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 15:37:46 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	head_list_left_node(t_node *cur_node, t_list *cur_lst, int left)
 	t_data	*cur_data;
 	t_data	*new_data;
 	t_list	*new_lst;
-	
+
 	cur_data = (t_data *)cur_lst->content;
 	new_data = make_data(cur_data->text, CMD, 0, left);
 	if (!new_data)
@@ -40,7 +40,7 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right)
 	t_data	*cur_data;
 	t_data	*new_data;
 	t_list	*new_lst;
-	
+
 	cur_data = (t_data *)cur_lst->content;
 	new_data = make_data(cur_data->text, SENTENSE, right, cur_data->end);
 	if (!new_data)
@@ -59,10 +59,11 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right)
 	{
 		free(new_data);
 		cur_node->right_child = new_node(cur_lst->next);
+		cur_lst->next = NULL;
 	}
 }
 
-void	no_head_list_left_node(t_node *parent, t_list *head, t_list *cur, int left)
+void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left)
 {
 	t_list	*past_lst;
 	t_data	*cur_data;
@@ -91,7 +92,7 @@ void	no_head_list_left_node(t_node *parent, t_list *head, t_list *cur, int left)
 		error_exit("parse node failed");
 }
 
-void	no_head_list_right_node(t_node *parent, t_list *cur, int right)
+void	no_head_right_node(t_node *parent, t_list *cur, int right)
 {
 	t_data	*cur_data;
 	t_data	*new_data;
@@ -135,12 +136,12 @@ void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator)
 	}
 	else
 	{
-		no_head_list_left_node(parent, head, cur, left);
-		no_head_list_right_node(parent, cur, right);
+		no_head_left_node(parent, head, cur, left);
+		no_head_right_node(parent, cur, right);
 	}
 	new_data = make_data(data->text, separator, left, right);
 	if (!new_data)
 		error_exit("parse node failed");
+	parent->head = NULL;
 	make_list_and_addback(&parent->head, new_data);
-	ft_lstdelone(cur, free_data);
 }

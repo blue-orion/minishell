@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 04:18:48 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 20:30:32 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 17:19:33 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,20 @@ t_node	*parsing(char *str)
 
 	root = new_node(NULL);
 	if (!root)
-		perror("parsing failed");
+		error_exit("failed malloc in parsing");
 	root = split_sentense_to_list(root, str);
+	if (!root || !root->head)
+		return (treeclear(root), NULL);
 	print_tree(root);
 	printf("\n\n");
-	if (!root->head)
-		return (treeclear(root), NULL);
-	if (make_parsing_tree(root))
-		return (treeclear(root), NULL);
-	if (split_cmd_node(root))
-		return (treeclear(root), NULL);
-	if (split_redirects_node(root))
-		return (treeclear(root), NULL);
+	make_parsing_tree(root);
+	print_tree(root);
+	printf("\n\n");
+	split_cmd_node(root);
+	print_tree(root);
+	printf("\n\n");
+	split_redirects_node(root);
+	print_tree(root);
+	printf("\n\n");
 	return (root);
 }

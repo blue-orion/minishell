@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 14:37:51 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/23 14:59:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 15:38:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*find_redirection(t_list *head)
 {
 	t_list	*cur;
 	t_data	*data;
-	int	i;
+	int		i;
 
 	cur = head;
 	while (cur)

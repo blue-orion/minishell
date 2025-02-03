@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 20:23:06 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 16:25:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ int	add_sentense(t_node *root, char *s, int start, int split_point)
 {
 	t_data	*new_data;
 	t_list	*new_lst;
+	int		end;
 
-	new_data = make_data(s, SENTENSE,
-			start, ft_strchr(&s[start], split_point) - s);
+	end = ft_strchr(&s[start], split_point) - s;
+	new_data = make_data(s, SENTENSE, start, end);
 	if (!new_data)
 		error_exit("malloc failed in split sentense");
 	if (new_data->type != EMPTY)
@@ -54,8 +55,13 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 {
 	t_data	*new_data;
 	t_list	*new_lst;
+	int		flag;
+	int		move;
 
-	new_data = split_piece(s, start, split_point);
+	flag = 0;
+	new_data = split_piece(s, start, split_point, &flag);
+	if (flag)
+		return (-1);
 	if (!new_data)
 		error_exit("malloc failed in split sentense");
 	if (new_data->type != EMPTY)
@@ -67,21 +73,21 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 	}
 	else
 	{
+		move = new_data->end;
 		free(new_data);
-		return (0);
+		return (move);
 	}
 	return (new_data->end);
 }
 
-int	add_rest(t_node *root, char *s, int start)
+int	add_rest(t_node *root, char *s, int start, int end)
 {
 	t_data	*new_data;
 	t_list	*new_lst;
 
-	new_data = make_data(s, SENTENSE,
-			start, ft_strchr(&s[start], '\0') - s);
+	new_data = make_data(s, SENTENSE, start, end);
 	if (!new_data)
-			error_exit("malloc failed in split sentense");
+		error_exit("malloc failed in split sentense");
 	if (new_data->type != EMPTY)
 	{
 		new_lst = ft_lstnew((void *)new_data);
@@ -96,21 +102,25 @@ int	add_rest(t_node *root, char *s, int start)
 
 t_node	*split_sentense_to_list(t_node *root, char *str)
 {
+	int		move;
 	int		start_idx;
 	int		split_point;
-	int		move;
 
-	str = preprocess_string(str);
-	start_idx = 0;
 	move = 0;
+	start_idx = 0;
+	str = preprocess_string(str);
 	split_point = find_metachar(str, start_idx);
 	while (split_point)
 	{
 		add_sentense(root, str, start_idx, split_point);
-		move = add_splited(root, str, start_idx, split_point);
-		start_idx = move + 1;
+		start_idx = add_splited(root, str, start_idx, split_point) + 1;
 		split_point = find_metachar(str, start_idx);
+		if (!start_idx)
+		{
+			write(2, "Invalid Input\n", 14);
+			return (NULL);
+		}
 	}
-	add_rest(root, str, start_idx);
+	add_rest(root, str, start_idx, ft_strchr(&str[start_idx], '\0') - str);
 	return (root);
 }
