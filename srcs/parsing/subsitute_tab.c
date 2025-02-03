@@ -6,12 +6,9 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:29:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/18 15:39:52 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:34:08 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../includes/parsing.h"
-#include "../../includes/libft.h"
 
 void	subsitute_tab(char *str)
 {

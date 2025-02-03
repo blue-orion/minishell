@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 21:29:05 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 22:04:46 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parenthesis_list(t_node *parent, t_list *head)
 	past_lst = parent->head;
 	parent = split_sentense_to_list(parent, data->text);
 	parent->head = parent->head->next;
-	ft_lstdelone(past_lst, free_data);
+	ft_lstdelone(past_lst, free);
 	make_parsing_tree(parent);
 }
 

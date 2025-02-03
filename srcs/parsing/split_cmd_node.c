@@ -6,13 +6,13 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:39:38 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 17:18:10 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 22:06:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-void	child_nodes(t_node *parent);
+void	create_child_nodes(t_node *parent);
 
 void	split_cmd_node(t_node *parent)
 {
@@ -26,10 +26,10 @@ void	split_cmd_node(t_node *parent)
 		split_cmd_node(parent->right_child);
 		return ;
 	}
-	child_nodes(parent);
+	create_child_nodes(parent);
 }
 
-void	child_nodes(t_node *parent)
+void	create_child_nodes(t_node *parent)
 {
 	t_list	*redirects_list;
 	t_list	*simple_cmd_list;

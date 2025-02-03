@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 17:33:41 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:35:19 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_data	*make_data(char *str, int type, int start, int end);
 int		make_parsing_tree(t_node *cur_node);
 void	*free_pptr(void **pptr);
 void	subsitute_tab(char *str);
-char	*remove_invalid_quote(char *dst, char *src);
+char	*remove_invalid_quote(char *src);
 void	print_list(t_list *head);
 int		which_separator(char *str, int separator);
 int		which_redirection(char *str, int *redirection);

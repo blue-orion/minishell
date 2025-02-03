@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 22:17:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 20:42:29 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int main(void)
 		print_tree(cmd.root);
 		printf("\n\n");
 		// parsing tree 기반으로 실행
+		treeclear(cmd.root);
 	}
 }

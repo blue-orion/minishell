@@ -6,18 +6,48 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 16:25:06 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/03 21:58:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
+char	*preprocess_string(char *src);
+int		add_sentense(t_node *root, char *s, int start, int split_point);
+int		add_splited(t_node *root, char *s, int start, int split_point);
+int		add_rest(t_node *root, char *s, int start, int end);
+
+t_node	*split_sentense_to_list(t_node *root, char *str)
+{
+	int		move;
+	int		start_idx;
+	int		split_point;
+
+	move = 0;
+	start_idx = 0;
+	str = preprocess_string(str);
+	split_point = find_metachar(str, start_idx);
+	while (split_point)
+	{
+		add_sentense(root, str, start_idx, split_point);
+		start_idx = add_splited(root, str, start_idx, split_point) + 1;
+		split_point = find_metachar(str, start_idx);
+		if (!start_idx)
+		{
+			write(2, "Invalid Input\n", 14);
+			return (NULL);
+		}
+	}
+	add_rest(root, str, start_idx, ft_strchr(&str[start_idx], '\0') - str);
+	free(str);
+	return (root);
+}
 char	*preprocess_string(char *src)
 {
 	char	*res;
 
 	subsitute_tab(src);
-	res = remove_invalid_quote(res, src);
+	res = remove_invalid_quote(src);
 	free(src);
 	if (!res)
 		error_exit("command preprocess failed");
@@ -47,7 +77,7 @@ int	add_sentense(t_node *root, char *s, int start, int split_point)
 		ft_lstadd_back(&root->head, new_lst);
 	}
 	else
-		free(new_data);
+		free_data(new_data);
 	return (0);
 }
 
@@ -74,7 +104,7 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 	else
 	{
 		move = new_data->end;
-		free(new_data);
+		free_data(new_data);
 		return (move);
 	}
 	return (new_data->end);
@@ -96,31 +126,7 @@ int	add_rest(t_node *root, char *s, int start, int end)
 		ft_lstadd_back(&root->head, new_lst);
 	}
 	else
-		free(new_data);
+		free_data(new_data);
 	return (0);
 }
 
-t_node	*split_sentense_to_list(t_node *root, char *str)
-{
-	int		move;
-	int		start_idx;
-	int		split_point;
-
-	move = 0;
-	start_idx = 0;
-	str = preprocess_string(str);
-	split_point = find_metachar(str, start_idx);
-	while (split_point)
-	{
-		add_sentense(root, str, start_idx, split_point);
-		start_idx = add_splited(root, str, start_idx, split_point) + 1;
-		split_point = find_metachar(str, start_idx);
-		if (!start_idx)
-		{
-			write(2, "Invalid Input\n", 14);
-			return (NULL);
-		}
-	}
-	add_rest(root, str, start_idx, ft_strchr(&str[start_idx], '\0') - str);
-	return (root);
-}

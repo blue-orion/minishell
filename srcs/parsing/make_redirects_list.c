@@ -12,6 +12,27 @@
 
 #include "../../includes/parsing.h"
 
+int	add_redirect_list(t_list **head, char *data, int *i, int redirect);
+int	extract_redirection(t_list **head, t_list *cmd_lst);
+
+t_list	*make_redirects_list(t_list *head)
+{
+	t_list	*cur_lst;
+	t_list	*res_lst;
+	t_data	*data;
+
+	res_lst = NULL;
+	cur_lst = head;
+	while (find_redirection(cur_lst))
+	{
+		cur_lst = move_to_token(cur_lst, CMD);
+		data = (t_data *)cur_lst->content;
+		extract_redirection(&res_lst, cur_lst);
+		cur_lst = cur_lst->next;
+	}
+	return (res_lst);
+}
+
 int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 {
 	int		start;
@@ -60,22 +81,4 @@ int	extract_redirection(t_list **head, t_list *cmd_lst)
 			i++;
 	}
 	return (0);
-}
-
-t_list	*make_redirects_list(t_list *head)
-{
-	t_list	*cur_lst;
-	t_list	*res_lst;
-	t_data	*data;
-
-	res_lst = NULL;
-	cur_lst = head;
-	while (find_redirection(cur_lst))
-	{
-		cur_lst = move_to_token(cur_lst, CMD);
-		data = (t_data *)cur_lst->content;
-		extract_redirection(&res_lst, cur_lst);
-		cur_lst = cur_lst->next;
-	}
-	return (res_lst);
 }
