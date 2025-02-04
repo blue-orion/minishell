@@ -6,21 +6,21 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 22:04:46 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 00:26:38 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-void	parenthesis_list(t_node *parent, t_list *head)
+void	parenthesis_list(t_node *parent)
 {
 	t_list	*past_lst;
 	t_data	*data;
 
-	data = (t_data *)head->content;
+	data = (t_data *)parent->head->content;
 	past_lst = parent->head;
-	parent = split_sentense_to_list(parent, data->text);
 	parent->head = parent->head->next;
+	parent = split_sentense_to_list(parent, data->text);
 	ft_lstdelone(past_lst, free);
 	make_parsing_tree(parent);
 }
@@ -46,6 +46,6 @@ int	make_parsing_tree(t_node *cur_node)
 		make_parsing_tree(cur_node->right_child);
 	}
 	if (is_type(PARENTHESIS, cur_node->head))
-		parenthesis_list(cur_node, cur_node->head);
+		parenthesis_list(cur_node);
 	return (0);
 }

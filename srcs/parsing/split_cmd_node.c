@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:39:38 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 22:06:10 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 00:39:07 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	create_child_nodes(t_node *parent)
 		parent->right_child = new_node(simple_cmd_list);
 		if (!parent->right_child)
 			error_exit("failed malloc in split_cmd_node");
+		if (simple_cmd_list != parent->head)
+			ft_lstclear(&parent->head, free_data);
 		parent->head = NULL;
 	}
 }

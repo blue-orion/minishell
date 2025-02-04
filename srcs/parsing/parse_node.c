@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:55:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 21:05:23 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 00:11:45 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator)
 	new_data = make_data(data->text, separator, left, right);
 	if (!new_data)
 		error_exit("parse node failed");
-	parent->head = NULL;
 	ft_lstdelone(cur, free_data);
+	parent->head = NULL;
 	make_list_and_addback(&parent->head, new_data);
 }
 
@@ -109,6 +109,7 @@ void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left)
 	past_lst = head;
 	while (past_lst->next != cur)
 		past_lst = past_lst->next;
+	past_lst->next = NULL;
 	new_data = make_data(cur_data->text, CMD, 0, left);
 	if (!new_data)
 		error_exit("parse node failed");

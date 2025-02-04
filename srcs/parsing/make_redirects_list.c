@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_redirects_data.c                              :+:      :+:    :+:   */
+/*   make_redirects_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:32:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 17:04:33 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 00:32:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ t_list	*make_redirects_list(t_list *head)
 {
 	t_list	*cur_lst;
 	t_list	*res_lst;
-	t_data	*data;
 
 	res_lst = NULL;
 	cur_lst = head;
 	while (find_redirection(cur_lst))
 	{
 		cur_lst = move_to_token(cur_lst, CMD);
-		data = (t_data *)cur_lst->content;
 		extract_redirection(&res_lst, cur_lst);
 		cur_lst = cur_lst->next;
 	}
