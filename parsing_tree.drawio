@@ -696,11 +696,20 @@
         <mxCell id="h38OdxboY5HK346vxkc9-115" value="return (root);" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
           <mxGeometry x="1740" y="585" width="120" height="20" as="geometry" />
         </mxCell>
+        <mxCell id="h38OdxboY5HK346vxkc9-130" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="h38OdxboY5HK346vxkc9-125" target="h38OdxboY5HK346vxkc9-129">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="h38OdxboY5HK346vxkc9-125" value="arg&lt;div&gt;t_node *cur_node;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
           <mxGeometry x="1130" y="439.99999999999994" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="h38OdxboY5HK346vxkc9-126" value="return (str);" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;" vertex="1" parent="1">
-          <mxGeometry x="1948" y="880" width="120" height="40" as="geometry" />
+          <mxGeometry x="1130" y="840" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="h38OdxboY5HK346vxkc9-128" value="no" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1682" y="345.99999999999994" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="h38OdxboY5HK346vxkc9-129" value="while (sentense token)" style="rhombus;whiteSpace=wrap;html=1;rounded=1;arcSize=0;" vertex="1" parent="1">
+          <mxGeometry x="1110" y="510" width="160" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
