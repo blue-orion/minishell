@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:37:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 14:30:37 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 16:45:41 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	print_list(t_list *head)
 	cur = head;
 	while (cur)
 	{
-		printf("list adr = %p\n", cur);
 		data = (t_data *)cur->content;
 		printf("----- list = %d -----\n", i);
 		if (data->type == SENTENSE)
@@ -62,7 +61,7 @@ void	print_list(t_list *head)
 		if (data->type == FILE_NAME)
 			printf("type : FILE_NAME\n");
 		printf("text : %s\n", data->text);
-		printf("index : [%d:%d]\n", data->start, data->end);
+		// printf("index : [%d:%d]\n", data->start, data->end);
 		cur = cur->next;
 		i++;
 	}

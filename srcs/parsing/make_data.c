@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 15:51:18 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 18:05:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ int	is_empty_str(char *str)
 	return (1);
 }
 
+char	*make_text(t_data *new, char *str)
+{
+	char	*past;
+
+	new->text = ft_substr(str, new->start, new->end - new->start);
+	if (!new->text)
+		return (NULL);
+	if (new->type != SINGLE_QUOTE && new->type != DOUBLE_QUOTE)
+	{
+		if (is_empty_str(new->text))
+			new->type = EMPTY;
+		else
+		{
+			past = new->text;
+			new->text = ft_strtrim(past, " ");
+			free(past);
+			if (!new->text)
+				return (NULL);
+		}
+	}
+	return (new->text);
+}
+
 t_data	*make_data(char *str, int type, int start, int end)
 {
 	t_data	*new;
@@ -35,20 +58,10 @@ t_data	*make_data(char *str, int type, int start, int end)
 	if (!new)
 		return (NULL);
 	new->type = type;
-	new->text = ft_substr(str, start, end - start);
 	new->start = start;
 	new->end = end;
+	new->text = make_text(new, str);
 	if (!new->text)
 		return (free(new), NULL);
-	if (type != SINGLE_QUOTE && type != DOUBLE_QUOTE)
-	{
-		if (is_empty_str(new->text))
-			new->type = EMPTY;
-		past = new->text;
-		new->text = ft_strtrim(past, " ");
-		free(past);
-		if (!new->text)
-			return (free(new), NULL);
-	}
 	return (new);
 }
