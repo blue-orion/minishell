@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:52:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/21 23:23:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 16:41:58 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 
 void	print_tree(t_node *root)
 {
-	t_node *cur_node;
+	t_node	*cur_node;
 
 	cur_node = root;
 	if (!root)
 		return ;
 	print_tree(root->left_child);
+	printf("\n==============node adr : %p==================\n", root);
+	printf("left child : %p     , ", root->left_child);
+	printf("right child : %p\n", root->right_child);
+	printf("====================================================\n");
 	print_list(cur_node->head);
 	print_tree(root->right_child);
 }

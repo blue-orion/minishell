@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 21:58:34 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:49:44 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*preprocess_string(char *src);
 int		add_sentense(t_node *root, char *s, int start, int split_point);
 int		add_splited(t_node *root, char *s, int start, int split_point);
-int		add_rest(t_node *root, char *s, int start, int end);
+int		add_rest(t_node *root, char *s, int start);
 
 t_node	*split_sentense_to_list(t_node *root, char *str)
 {
@@ -38,10 +38,11 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 			return (NULL);
 		}
 	}
-	add_rest(root, str, start_idx, ft_strchr(&str[start_idx], '\0') - str);
+	add_rest(root, str, start_idx);
 	free(str);
 	return (root);
 }
+
 char	*preprocess_string(char *src)
 {
 	char	*res;
@@ -110,12 +111,12 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 	return (new_data->end);
 }
 
-int	add_rest(t_node *root, char *s, int start, int end)
+int	add_rest(t_node *root, char *s, int start)
 {
 	t_data	*new_data;
 	t_list	*new_lst;
 
-	new_data = make_data(s, SENTENSE, start, end);
+	new_data = make_data(s + start, SENTENSE, 0, ft_strlen(s + start));
 	if (!new_data)
 		error_exit("malloc failed in split sentense");
 	if (new_data->type != EMPTY)
@@ -129,4 +130,3 @@ int	add_rest(t_node *root, char *s, int start, int end)
 		free_data(new_data);
 	return (0);
 }
-

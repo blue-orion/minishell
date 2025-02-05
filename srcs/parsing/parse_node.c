@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:55:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 00:11:45 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 16:18:58 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,11 @@ void	no_head_right_node(t_node *parent, t_list *cur, int right);
 
 void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator)
 {
-	t_data	*data;
-	t_data	*new_data;
-	int		left;
-	int		right;
+	const t_data	*data = (t_data *)cur->content;
+	t_data			*new_data;
+	int				left;
+	int				right;
 
-	data = (t_data *)cur->content;
 	left = which_separator(data->text, separator);
 	right = left + 1;
 	if (separator == AND || separator == OR)
@@ -72,12 +71,13 @@ void	head_list_left_node(t_node *cur_node, t_list *cur_lst, int left)
 
 void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right)
 {
-	t_data	*cur_data;
-	t_data	*new_data;
-	t_list	*new_lst;
+	t_data		*cur_data;
+	t_data		*new_data;
+	t_list		*new_lst;
+	const int	end = ft_strlen(cur_data->text + right);
 
+	new_data = make_data(cur_data->text + right, SENTENSE, 0, end);
 	cur_data = (t_data *)cur_lst->content;
-	new_data = make_data(cur_data->text, SENTENSE, right, cur_data->end);
 	if (!new_data)
 		error_exit("parse node failed");
 	if (new_data->type != EMPTY)
@@ -132,9 +132,11 @@ void	no_head_right_node(t_node *parent, t_list *cur, int right)
 	t_data	*cur_data;
 	t_data	*new_data;
 	t_list	*new_lst;
+	int		end;
 
 	cur_data = (t_data *)cur->content;
-	new_data = make_data(cur_data->text, SENTENSE, right, cur_data->end);
+	end = ft_strlen(cur_data->text + right);
+	new_data = make_data(cur_data->text + right, SENTENSE, 0, end);
 	if (!new_data)
 		error_exit("parse node failed");
 	if (new_data->type != EMPTY)

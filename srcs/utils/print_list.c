@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util_print_list.c                                  :+:      :+:    :+:   */
+/*   print_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:37:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/01/22 02:39:31 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 14:30:37 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	print_list(t_list *head)
 	cur = head;
 	while (cur)
 	{
+		printf("list adr = %p\n", cur);
 		data = (t_data *)cur->content;
 		printf("----- list = %d -----\n", i);
 		if (data->type == SENTENSE)

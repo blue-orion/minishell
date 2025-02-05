@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 21:55:45 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:51:18 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,12 @@ t_data	*make_data(char *str, int type, int start, int end)
 	if (type != SINGLE_QUOTE && type != DOUBLE_QUOTE)
 	{
 		if (is_empty_str(new->text))
-		{
 			new->type = EMPTY;
-			return (new);
-		}
 		past = new->text;
 		new->text = ft_strtrim(past, " ");
-		if (!new->text)
-			return (free(past), free(new), NULL);
 		free(past);
+		if (!new->text)
+			return (free(new), NULL);
 	}
 	return (new);
 }

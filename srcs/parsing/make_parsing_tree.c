@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 00:26:38 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 15:42:15 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	make_parsing_tree(t_node *cur_node)
 			parse_node(cur_node, cur_node->head, cur_lst, separator);
 		else
 			data->type = CMD;
-		make_parsing_tree(cur_node->left_child);
-		make_parsing_tree(cur_node->right_child);
 	}
+	make_parsing_tree(cur_node->left_child);
+	make_parsing_tree(cur_node->right_child);
 	if (is_type(PARENTHESIS, cur_node->head))
 		parenthesis_list(cur_node);
 	return (0);
