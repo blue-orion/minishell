@@ -10,9 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/libft.h"
 
-int	echo()
+int	echo(char **cmd)
 {
+	int	i;
+	int	option;
 
+	option = 0;
+	i = 1;
+	if (cmd[1] && !ft_strncmp(cmd[1], "-n", 3))
+	{
+		i++;
+		option = 1;
+	}
+	while (cmd[i])
+	{
+		write(1, cmd[i], ft_strlen(cmd[i]));
+		i++;
+	}
+	if (!option)
+		write(1, "\n", 1);
+	return (0);
 }
