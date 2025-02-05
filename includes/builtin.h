@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/01 19:21:43 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/05 22:20:44 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/05 22:20:44 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-# include "parsing.h"
-# include "libft.h"
-# include "exec.h"
-# include "builtin.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+int	echo(char **cmd);
 
-typedef struct s_cmd
-{
-	t_node	*root;
-	char	**cmd;
-}	t_cmd;
-
-t_node	*parsing(char *str);
-void	exec_parsing_tree(t_cmd *info, t_node *parent);
 #endif
