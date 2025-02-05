@@ -1,0 +1,98 @@
+name: Minishell testing
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  check_42_norm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: install 42 norminette, valgrind
+        run: |
+          sudo apt update
+          sudo apt install python3 -y
+          python3 -m pip install --upgrade pip setuptools
+          python3 -m pip install --upgrade norminette
+          sudo apt install valgrind -y
+          
+      - name: check for parsing code
+        run: norminette srcs/parsing
+        
+      - name: check for builtin code
+        run: norminette srcs/builtin
+      
+      - name: check for signal code
+        run: norminette srcs/signal
+      
+      - name: check for tree code
+        run: norminette srcs/tree
+      
+      - name: check for utils code
+        run: norminette srcs/utils
+      
+      - name: check for main code
+        run: norminette srcs/minishell.c
+
+  check_compile_error:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check for compilation errors
+        run: |
+          sudo apt update
+          sudo apt install build-essential -y
+          echo checking files: $(git ls-files)
+          for f in $(find . -name \\*.c); do gcc -Wall -Wextra -Werror -fsyntax-only $f; done
+ 
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: make
+        run: make
+      - name: testing "(cat A || echo "x" > B) && (grep "y" C | sort > D) || (echo "c" >> E && ls -l)"
+        run: |
+          echo "(cat A || echo "x" > B) && (grep "y" C | sort > D) || (echo "c" >> E && ls -l)" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "(cat A || ls -a -l) && (grep "y" C| sort > D)"
+        run: |
+          echo "(cat A || ls -a -l) && (grep "y" C| sort > D)" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "'ls' >b | 'ls -al' >c <a"
+        run: |
+          echo "'ls' >b | 'ls -al' >c <a" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)"
+        run: |
+          echo "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)"
+        run: |
+          echo "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "echo $HOME"
+        run: |
+          echo "echo $HOME" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "echo "$HOME""
+        run: |
+          echo "echo "$HOME"" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "echo '$HOME'"
+        run: |
+          echo "echo '$HOME'" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "echo $'HOME'"
+        run: |
+          echo "echo $'HOME'" |
+          valgrind --leak-check=full ./minishell
+      - name: testing "echo $"HOME""
+        run: |
+          echo "echo $"HOME"" |
+          valgrind --leak-check=full ./minishell
+
+
