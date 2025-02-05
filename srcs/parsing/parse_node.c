@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:55:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 18:20:58 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/05 18:23:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right)
 	t_data		*cur_data;
 	t_data		*new_data;
 	t_list		*new_lst;
-	const int	end = ft_strlen(cur_data->text + right);
+	const int	end = ft_strlen(((t_data *)cur_lst->content)->text + right);
 
 	cur_data = (t_data *)cur_lst->content;
 	new_data = make_data(cur_data->text + right, SENTENSE, 0, end);
