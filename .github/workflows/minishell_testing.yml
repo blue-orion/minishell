@@ -57,14 +57,14 @@ jobs:
           sudo apt-get install -y libreadline-dev
           make
           
-      - name: testing "(cat A || echo "x" > B) && (grep "y" C | sort > D) || (echo "c" >> E && ls -l)"
+      - name: testing "(cat A || echo 'x' > B) && (grep 'y' C | sort > D) || (echo 'c' >> E && ls -l)"
         run: |
-          echo "(cat A || echo "x" > B) && (grep "y" C | sort > D) || (echo "c" >> E && ls -l)" |
+          echo "(cat A || echo 'x' > B) && (grep 'y' C | sort > D) || (echo 'c' >> E && ls -l)" |
           valgrind --leak-check=full ./minishell
           
       - name: testing "(cat A || ls -a -l) && (grep "y" C| sort > D)"
         run: |
-          echo "(cat A || ls -a -l) && (grep "y" C| sort > D)" |
+          echo "(cat A || ls -a -l) && (grep 'y' C| sort > D)" |
           valgrind --leak-check=full ./minishell
           
       - name: testing "'ls' >b | 'ls -al' >c <a"
@@ -74,12 +74,12 @@ jobs:
           
       - name: testing "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)"
         run: |
-          echo "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)" |
+          echo "ls && (\'(ls -al && \"ls 3_Circle\")\' || ls 1_Circle)" |
           valgrind --leak-check=full ./minishell
           
       - name: testing "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)"
         run: |
-          echo "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)" |
+          echo "ls && ((ls -al && \"ls 3_Circle\") || ls 1_Circle)" |
           valgrind --leak-check=full ./minishell
           
       - name: testing "echo $HOME"
@@ -89,22 +89,22 @@ jobs:
       
       - name: testing "echo "$HOME""
         run: |
-          echo "echo "$HOME"" |
+          echo "echo \"$HOME\"" |
           valgrind --leak-check=full ./minishell
       
       - name: testing "echo '$HOME'"
         run: |
-          echo "echo '$HOME'" |
+          echo "echo \'$HOME\'" |
           valgrind --leak-check=full ./minishell
       
       - name: testing "echo $'HOME'"
         run: |
-          echo "echo $'HOME'" |
+          echo "echo $\'HOME\'" |
           valgrind --leak-check=full ./minishell
       
       - name: testing "echo $"HOME""
         run: |
-          echo "echo $"HOME"" |
+          echo "echo $\"HOME\"" |
           valgrind --leak-check=full ./minishell
 
 
