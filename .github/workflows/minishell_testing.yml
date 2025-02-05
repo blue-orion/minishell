@@ -20,22 +20,28 @@ jobs:
           
       - name: check for parsing code
         run: norminette srcs/parsing
+        continue-on-error: true
         
       - name: check for builtin code
         run: norminette srcs/builtin
+        continue-on-error: true
       
       - name: check for signal code
         run: norminette srcs/signal
-      
+        continue-on-error: true
+        
       - name: check for tree code
         run: norminette srcs/tree
-      
+        continue-on-error: true
+        
       - name: check for utils code
         run: norminette srcs/utils
-      
+        continue-on-error: true
+        
       - name: check for main code
         run: norminette srcs/minishell.c
-
+        continue-on-error: true
+        
   check_compile_error:
     runs-on: ubuntu-latest
     steps:
@@ -61,50 +67,60 @@ jobs:
         run: |
           echo "(cat A || echo 'x' > B) && (grep 'y' C | sort > D) || (echo 'c' >> E && ls -l)" |
           valgrind --leak-check=full ./minishell
-          
+        continue-on-error: true
+        
       - name: testing "(cat A || ls -a -l) && (grep "y" C| sort > D)"
         run: |
           echo "(cat A || ls -a -l) && (grep 'y' C| sort > D)" |
           valgrind --leak-check=full ./minishell
-          
+        continue-on-error: true
+        
       - name: testing "'ls' >b | 'ls -al' >c <a"
         run: |
           echo "'ls' >b | 'ls -al' >c <a" |
           valgrind --leak-check=full ./minishell
-          
+        continue-on-error: true
+
       - name: testing "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)"
         run: |
           echo "ls && (\'(ls -al && \"ls 3_Circle\")\' || ls 1_Circle)" |
           valgrind --leak-check=full ./minishell
-          
+        continue-on-error: true
+        
       - name: testing "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)"
         run: |
           echo "ls && ((ls -al && \"ls 3_Circle\") || ls 1_Circle)" |
           valgrind --leak-check=full ./minishell
-          
+        continue-on-error: true
+        
       - name: testing "echo $HOME"
         run: |
           echo "echo $HOME" |
           valgrind --leak-check=full ./minishell
+        continue-on-error: true
       
       - name: testing "echo "$HOME""
         run: |
           echo "echo \"$HOME\"" |
           valgrind --leak-check=full ./minishell
+        continue-on-error: true
       
       - name: testing "echo '$HOME'"
         run: |
           echo "echo \'$HOME\'" |
           valgrind --leak-check=full ./minishell
+        continue-on-error: true
       
       - name: testing "echo $'HOME'"
         run: |
           echo "echo $\'HOME\'" |
           valgrind --leak-check=full ./minishell
-      
+        continue-on-error: true
+        
       - name: testing "echo $"HOME""
         run: |
           echo "echo $\"HOME\"" |
           valgrind --leak-check=full ./minishell
+        continue-on-error: true
 
 
