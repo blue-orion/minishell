@@ -19,27 +19,27 @@ jobs:
           python3 -m pip install --upgrade norminette
           
       - name: check for parsing code
-        run: norminette srcs/parsing
+        run: norminette srcs/parsing || echo "failed" >> ~/.errors
         continue-on-error: true
                 
       - name: check for builtin code
-        run: norminette srcs/builtin
+        run: norminette srcs/builtin || echo "failed" >> ~/.errors
         continue-on-error: true
               
       - name: check for signal code
-        run: norminette srcs/signal
+        run: norminette srcs/signal || echo "failed" >> ~/.errors
         continue-on-error: true
                 
       - name: check for tree code
-        run: norminette srcs/tree
+        run: norminette srcs/tree || echo "failed" >> ~/.errors
         continue-on-error: true
                 
       - name: check for utils code
-        run: norminette srcs/utils
+        run: norminette srcs/utils || echo "failed" >> ~/.errors
         continue-on-error: true
                 
       - name: check for main code
-        run: norminette srcs/minishell.c
+        run: norminette srcs/minishell.c || echo "failed" >> ~/.errors
         continue-on-error: true
                 
       - name: Fail job if any step failed
@@ -74,31 +74,31 @@ jobs:
       - name: testing "(cat A || echo 'x' > B) && (grep 'y' C | sort > D) || (echo 'c' >> E && ls -l)"
         run: |
           echo "(cat A || echo \'x\' > B) && (grep \'y\' C | sort > D) || (echo \'c\' >> E && ls -l)" |
-          valgrind --leak-check=full  ./minishell 
+          valgrind --leak-check=full  ./minishell  || echo "failed" >> ~/.errors
         continue-on-error: true               
 
       - name: testing "(cat A || ls -a -l) && (grep "y" C| sort > D)"
         run: |
           echo "(cat A || ls -a -l) && (grep \'y\' C| sort > D)" |
-          valgrind --leak-check=full  ./minishell 
+          valgrind --leak-check=full  ./minishell  || echo "failed" >> ~/.errors
         continue-on-error: true               
                 
       - name: testing "'ls' >b | 'ls -al' >c <a"
         run: |
           echo "'ls' >b | 'ls -al' >c <a" |
-          valgrind --leak-check=full  ./minishell 
+          valgrind --leak-check=full  ./minishell  || echo "failed" >> ~/.errors
         continue-on-error: true               
         
       - name: testing "ls && ('(ls -al && "ls 3_Circle")' || ls 1_Circle)"
         run: |
           echo "ls && (\'(ls -al && \"ls 3_Circle\")\' || ls 1_Circle)" |
-          valgrind --leak-check=full  ./minishell 
+          valgrind --leak-check=full  ./minishell  || echo "failed" >> ~/.errors
         continue-on-error: true               
                 
       - name: testing "ls && ((ls -al && "ls 3_Circle") || ls 1_Circle)"
         run: |
           echo "ls && ((ls -al && \"ls 3_Circle\") || ls 1_Circle)" |
-          valgrind --leak-check=full  ./minishell 
+          valgrind --leak-check=full  ./minishell  || echo "failed" >> ~/.errors
         continue-on-error: true               
 
       - name: Fail job if any step failed
