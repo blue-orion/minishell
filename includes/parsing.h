@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 21:35:19 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/06 00:33:23 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ enum e_unit
 	DOUBLE_QUOTE = '\"',
 	PARENTHESIS = '(',
 	SEPARATOR = 2,
-	CMD = 3,
-	REDIRECTS = 4,
-	SIMPLE_CMD = 5,
-	FILE_NAME = 6,
-	EMPTY
+	CMD,
+	REDIRECTS,
+	FILE_NAME,
+	EMPTY,
+	SIMPLE_CMD = 8,
 };
 
 enum e_separator
 {
-	PIPE = 8,
+	PIPE = 16,
 	AND,
 	OR,
 	AMPER,
@@ -41,7 +41,7 @@ enum e_separator
 
 enum e_redirect
 {
-	IN = 13,
+	IN = 32,
 	OUT,
 	HERE_DOC,
 	APPEND
