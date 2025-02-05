@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_node.c                                         :+:      :+:    :+:   */
+/*   list_to_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:35:02 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/02 20:30:09 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/05 21:06:56 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/tree.h"
 
-t_node	*new_node(t_list *list)
+char	**list_to_str(t_list *head)
 {
-	t_node	*new;
+	t_list	*cur;
+	int		cnt;
+	char	**res;
+	int		i;
+	t_data	*cur_data;
 
-	new = (t_node *)malloc(sizeof(t_node));
-	if (!new)
-		return (NULL);
-	new->head = list;
-	new->left_child = NULL;
-	new->right_child = NULL;
-	return (new);
+	cur = head;
+	cur_data = (t_data *)head->content;
+	cnt = ft_lstsize(head);
+	// res = (char **)malloc(sizeof(char *) * (cnt + 1));
+	i = 0;
+	while (cur)
+	{
+		// res[i] = ((t_data *)cur->content)->text;
+		i++;
+		cur = cur->next;
+	}
+	res = ft_split(cur_data->text, ' ');
+	// res[3] = NULL;
+	return (res);
 }

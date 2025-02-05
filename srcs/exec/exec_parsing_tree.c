@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exec_parsing_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 20:42:58 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/05 21:14:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(void)
+void	exec_parsing_tree(t_cmd *info, t_node *parent)
 {
-	t_cmd	info;
-	char	*input;
+	t_data	*cur_data;
 
-	while (1)
+	cur_data = (t_data *)parent->head->content;
+	if (cur_data->type == SIMPLE_CMD)
 	{
-		input = readline("minishell> ");
-		if (!input)
-    	return (1);
-		info.root = parsing(input);
-		// 입력받아서 파싱
-		print_tree(info.root);
-		printf("\n\n");
-		// parsing tree 기반으로 실행
-		exec_parsing_tree(&info, info.root);
-		treeclear(info.root);
-		rl_clear_history();
+		info->cmd = list_to_str(parent->head);
+		printf("%s\n", *info->cmd);
+		echo(info->cmd);
 	}
 }

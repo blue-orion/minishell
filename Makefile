@@ -9,6 +9,15 @@ INCLUDE = includes/
 LIBFT = $(SRC_DIR)libft
 
 SRCS = minishell.c	\
+	   builtin/cd.c	\
+	   builtin/echo.c	\
+	   builtin/env.c	\
+	   builtin/exit.c	\
+	   builtin/export.c	\
+	   builtin/pwd.c		\
+	   builtin/unset.c		\
+	   exec/exec_parsing_tree.c	\
+	   exec/list_to_str.c		\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\
