@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   signal_setup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 15:21:30 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/06 15:12:46 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/06 15:21:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/signal.h"
 
 void	signal_setup(void)
 {
@@ -19,24 +19,3 @@ void	signal_setup(void)
 	sigemptyset(&sig.set);
 }
 
-int	main(void)
-{
-	t_cmd	info;
-	char	*input;
-
-	signal_setup();
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-    	return (1);
-		info.root = parsing(input);
-		// 입력받아서 파싱
-		print_tree(info.root);
-		printf("\n\n");
-		// parsing tree 기반으로 실행
-		exec_parsing_tree(&info, info.root);
-		treeclear(info.root);
-		rl_clear_history();
-	}
-}
