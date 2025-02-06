@@ -12,13 +12,6 @@
 
 #include "../includes/minishell.h"
 
-void	signal_setup(void)
-{
-	t_sig	sig;
-
-	sigemptyset(&sig.set);
-}
-
 int	main(void)
 {
 	t_cmd	info;
@@ -29,14 +22,15 @@ int	main(void)
 	{
 		input = readline("minishell> ");
 		if (!input)
-    	return (1);
+			return (1);
+		else
+			add_history(input);
 		info.root = parsing(input);
-		// 입력받아서 파싱
 		print_tree(info.root);
 		printf("\n\n");
-		// parsing tree 기반으로 실행
 		exec_parsing_tree(&info, info.root);
 		treeclear(info.root);
-		rl_clear_history();
+		rl_on_new_line();
 	}
+	sleep(3);
 }

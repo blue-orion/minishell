@@ -43,6 +43,8 @@ SRCS = minishell.c	\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\
 	   parsing/which_separator.c		\
+	   signal/handler_sigint.c			\
+	   signal/signal_setup.c		\
 	   tree/add_node.c				\
 	   tree/new_node.c			\
 	   tree/print_tree.c			\

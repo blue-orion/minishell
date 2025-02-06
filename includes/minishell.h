@@ -17,7 +17,7 @@
 # include "libft.h"
 # include "exec.h"
 # include "builtin.h"
-# include "signal.h"
+# include "mini_signal.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -29,6 +29,7 @@ typedef struct s_cmd
 	char		**cmd;
 	pid_t		pid[2];
 	int			pipe_fd[2];
+	sigset_t	set;
 }	t_cmd;
 
 t_node	*parsing(char *str);
