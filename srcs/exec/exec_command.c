@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_parsing_tree.c                                :+:      :+:    :+:   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 21:52:35 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/06 21:52:44 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/06 21:53:03 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
-void	exec_parsing_tree(t_cmd *info, t_node *cur_node)
+void	exec_command(t_cmd *info)
 {
-	t_data	*data;
 
-	data = (t_data *)cur_node->head->content;
-	if (data->type >> SEPARATOR)
-		make_child_process(info);
-	else
-	{
-		exec_command(info);
-	}
 }

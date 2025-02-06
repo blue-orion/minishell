@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 00:33:23 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/06 21:27:52 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ enum e_unit
 	SINGLE_QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	PARENTHESIS = '(',
-	SEPARATOR = 2,
-	CMD,
-	REDIRECTS,
-	FILE_NAME,
-	EMPTY,
+	CMD = 2,
+	FILE_NAME = 3,
+	SEPARATOR = 4,
+	REDIRECTS = 5,
+	EMPTY = 6,
 	SIMPLE_CMD = 8,
 };
 
