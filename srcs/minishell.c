@@ -18,6 +18,7 @@ int	main(void)
 	char	*input;
 
 	signal_setup();
+	init_info(&info);
 	while (1)
 	{
 		input = readline("minishell> ");
@@ -28,7 +29,7 @@ int	main(void)
 		info.root = parsing(input);
 		print_tree(info.root);
 		printf("\n\n");
-		// exec_parsing_tree(&info, info.root);
+		exec_input(&info, info.root);
 		treeclear(info.root);
 		rl_on_new_line();
 	}

@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec_parsing_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 21:06:58 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/06 21:52:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../../includes/exec.h"
 
-# include "parsing.h"
-# include "libft.h"
-# include "exec.h"
-# include "builtin.h"
-# include "mini_signal.h"
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
+void	exec_tree_node(t_cmd *info, t_node *cur_node)
+{
+	int	left_status;
+	int	right_status;
 
-t_node	*parsing(char *str);
-void	exec_input(t_cmd *info, t_node *cur_node);
-#endif
+	if (info->pipe_flag)
+		redirect_pipe(info, cur_node);
+	if (cur_node->type == PARENTHESIS)
+	{
+		parenthesis_process(info, cur_node);
+	}
+	if (cur_node->type == SEPARATOR)
+	{
+		separator_process(info, cur_node);
+	}
+	else
+	{
+
+	}
+}

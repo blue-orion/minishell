@@ -20,7 +20,7 @@ void	parenthesis_list(t_node *parent)
 
 	data = (t_data *)parent->head->content;
 	text = (char *)malloc(sizeof(char) * (ft_strlen(data->text) + 1));
-	ft_strlcpy(text, data->text, ft_strlen(data->text));
+	ft_strlcpy(text, data->text, ft_strlen(data->text) + 1);
 	left = new_node(NULL);
 	if (!left)
 		error_exit("failed making parsing tree");

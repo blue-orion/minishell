@@ -20,11 +20,12 @@ void	print_tree(t_node *root)
 	cur_node = root;
 	if (!root)
 		return ;
-	print_tree(root->left_child);
 	printf("\n==============node adr : %p==================\n", root);
+	print_type(root->type);
 	printf("left child : %p     , ", root->left_child);
 	printf("right child : %p\n", root->right_child);
 	printf("====================================================\n");
 	print_list(cur_node->head);
+	print_tree(root->left_child);
 	print_tree(root->right_child);
 }

@@ -55,12 +55,11 @@ int	file_name_list(t_list **dst, t_list *src)
 	int		end;
 
 	cur_data = (t_data *)src->content;
-	start = which_redirection(cur_data->text, &redirection);
-	end = start + 1;
+	start = which_redirection(cur_data->text, &redirection) + 1;
 	if (redirection == HERE_DOC || redirection == APPEND)
-		end++;
-	new_data = make_data(cur_data->text, FILE_NAME,
-			end, ft_strlen(cur_data->text));
+		start++;
+	end = ft_strlen(cur_data->text);
+	new_data = make_data(cur_data->text, FILE_NAME, start, end);
 	if (!new_data)
 		error_exit("failed malloc in make redirection list");
 	if (new_data->type == EMPTY)

@@ -17,19 +17,23 @@
 # include <unistd.h>
 # include <sys/wait.h>
 
-# define LEFT 0
-# define RIGHT 1
-
 typedef struct s_cmd
 {
 	t_node		*root;
 	char		**cmd;
 	pid_t		pid[2];
 	int			pipe_fd[2];
+	int			pipe_flag;
+	t_node		*parent;
 	sigset_t	set;
+	int			exit_status;
 }	t_cmd;
 
-void	exec_parsing_tree(t_cmd *info, t_node *parent);
+void	init_info(t_cmd *info);
+void	exec_tree_node(t_cmd *info, t_node *parent);
 int	make_child_process(t_cmd *info);
 char	**list_to_str(t_list *head);
+void	redirect_pipe(t_cmd *info, t_node *cur_node);
+int	parenthesis_process(t_cmd *info, t_node *cur_node);
+void	pipe_separator_process(t_cmd *info, t_node *cur_node);
 #endif

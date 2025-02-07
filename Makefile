@@ -34,6 +34,7 @@ SRCS = minishell.c	\
 	   parsing/move_to_token.c	\
 	   parsing/is_type.c		\
 	   parsing/parse_node.c		\
+	   parsing/parse_node_utils.c	\
 	   parsing/parsing.c		\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/split_sentense_to_list.c	\

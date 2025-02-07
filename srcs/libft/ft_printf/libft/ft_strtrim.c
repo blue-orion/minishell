@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 16:57:15 by takwak            #+#    #+#             */
-/*   Updated: 2024/10/05 19:04:09 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/07 14:27:26 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (ft_isset(s1[start], set) && s1[start])
 		start++;
 	last = ft_strlen(s1) - 1;
-	while (ft_isset(s1[last], set) && last >= start)
+	while (last >= start && ft_isset(s1[last], set))
 		last--;
 	if (last < start)
 		trimmed = (char *)malloc(sizeof(char));

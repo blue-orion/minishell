@@ -34,6 +34,8 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 		split_point = find_metachar(str, start_idx);
 		if (!start_idx)
 		{
+			treeclear(root);
+			free(str);
 			write(2, "Invalid Input\n", 14);
 			return (NULL);
 		}
@@ -52,6 +54,8 @@ char	*preprocess_string(char *src)
 	free(src);
 	if (!res)
 		error_exit("command preprocess failed");
+	if (!*res)
+		return (res);
 	src = res;
 	res = ft_strtrim(src, " ");
 	free(src);

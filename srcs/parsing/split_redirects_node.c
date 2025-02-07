@@ -28,9 +28,12 @@ void	split_redirects_node(t_node *parent)
 	parent->left_child = new_node(new_lst);
 	if (!parent->left_child)
 		error_exit("failed malloc in split_redirects_node");
-	parent->right_child = new_node(parent->head->next);
-	if (!parent->right_child)
-		error_exit("failed malloc in split_redirects_node");
+	if (parent->head->next)
+	{
+		parent->right_child = new_node(parent->head->next);
+		if (!parent->right_child)
+			error_exit("failed malloc in split_redirects_node");
+	}
 	parent->head->next = NULL;
 	split_redirects_node(parent->left_child);
 	split_redirects_node(parent->right_child);

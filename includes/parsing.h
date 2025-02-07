@@ -15,6 +15,8 @@
 
 # include "tree.h"
 # include "utils.h"
+# define LEFT 0
+# define RIGHT 1
 
 enum e_unit
 {
@@ -81,4 +83,9 @@ t_list	*make_simple_cmd_list(t_list *head);
 int		make_list_and_addback(t_list **head, t_data *new_data);
 int		make_list_and_addleft(t_node *parent, t_data *new_data);
 int		is_type(int dst_type, t_list *src);
+void	head_list_left_node(t_node *cur_node, t_list *cur_lst, int left);
+void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right);
+void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left);
+void	no_head_right_node(t_node *parent, t_list *cur, int right);
+void	separator_node(t_node *parent, t_list *cur, int separator, int idx[2]);
 #endif

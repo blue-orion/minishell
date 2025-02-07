@@ -20,6 +20,9 @@ t_node	*new_node(t_list *list)
 	if (!new)
 		return (NULL);
 	new->head = list;
+	new->type = 0;
+	if (list)
+		new->type = ((t_data *)list->content)->type;
 	new->left_child = NULL;
 	new->right_child = NULL;
 	return (new);

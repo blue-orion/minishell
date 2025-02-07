@@ -26,6 +26,7 @@ typedef struct s_data
 typedef struct s_node
 {
 	t_list			*head;
+	int				type;
 	struct s_node	*left_child;
 	struct s_node	*right_child;
 }	t_node;
