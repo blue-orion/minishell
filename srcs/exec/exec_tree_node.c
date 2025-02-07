@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis_process.c                              :+:      :+:    :+:   */
+/*   exec_parsing_tree.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 17:24:57 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 17:24:57 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/06 21:52:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	parenthesis_process(t_cmd *info, t_node *cur_node)
+void	exec_tree_node(t_cmd *info, t_node *cur_node)
 {
-	int	status;
+	int	left_status;
+	int	right_status;
 
-	info->pid[LEFT] = fork();
-	info->parent = cur_node;
-	if (info->pid[LEFT] < 0)
-		return (-1);
-	if (info->pid[LEFT] == 0)
-		exec_tree_node(info, cur_node->left_child);
-	if (info->pid[LEFT] > 0)
+	if (info->pipe_flag)
+		redirect_pipe(info, cur_node);
+	if (cur_node->type == PARENTHESIS)
 	{
-		waitpid(info->pid[LEFT], &status, 0);
-		info->exit_status = status;
+		parenthesis_process(info, cur_node);
 	}
-	return (0);
+	if (cur_node->type == SEPARATOR)
+	{
+		separator_process(info, cur_node);
+	}
+	if (cur_node->type == CMD)
+	{
+		command_exec_process(info, cur_node);
+	}
+	// else
+	// {
+	//
+	// }
 }

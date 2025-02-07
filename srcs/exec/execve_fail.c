@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   execve_fail.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 21:01:39 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/07 22:08:15 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/07 22:08:15 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/libft.h"
 
-int	main(void)
+void	exec_fail(char *error_msg, int status)
 {
-	t_cmd	info;
-	char	*input;
-
-	signal_setup();
-	init_info(&info);
-	while (1)
-	{
-		input = readline("minishell> ");
-		if (!input)
-			return (1);
-		else
-			add_history(input);
-		info.root = parsing(input);
-		print_tree(info.root);
-		printf("\n\n");
-		// exec_tree_node(&info, info.root);
-		treeclear(info.root);
-		rl_on_new_line();
-	}
-	sleep(3);
+	ft_putendl_fd(error_msg, 2);
+	exit(status);
 }

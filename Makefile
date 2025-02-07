@@ -8,8 +8,6 @@ SRC_DIR = srcs/
 INCLUDE = includes/
 LIBFT = $(SRC_DIR)libft
 
-# exec/exec_parsing_tree.c	
-# exec/list_to_str.c		
 SRCS = minishell.c	\
 	   builtin/cd.c	\
 	   builtin/echo.c	\
@@ -18,6 +16,7 @@ SRCS = minishell.c	\
 	   builtin/export.c	\
 	   builtin/pwd.c		\
 	   builtin/unset.c		\
+	   exec/init_info.c			\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\

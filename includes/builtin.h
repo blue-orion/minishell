@@ -13,6 +13,12 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-int	echo(char **cmd);
+int	ft_cd(char **cmd);
+int	ft_echo(char **cmd);
+int	ft_env(char **cmd);
+int	ft_exit(char **cmd);
+int	ft_export(char **cmd);
+int	ft_pwd(char **cmd);
+int	ft_unset(char **cmd);
 
 #endif

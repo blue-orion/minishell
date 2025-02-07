@@ -12,3 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+int	ft_cd(char **cmd)
+{
+	return (0);
+}

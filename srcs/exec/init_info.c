@@ -14,12 +14,20 @@
 
 void	init_info(t_cmd *info)
 {
+	char	*path_env;
+
+	path_env = getenv("PATH");
 	info->root = NULL;
 	info->cmd = NULL;
 	info->pid[0] = 0;
 	info->pid[1] = 0;
-	info->pipe_fd[0] = 0;
-	info->pipe_fd[1] = 0;
+	info->pipe_fd[INPUT] = 0;
+	info->pipe_fd[OUTPUT] = 0;
+	info->stdfd[INPUT] = dup(0);
+	info->stdfd[OUTPUT] = dup(1);
+	info->parent = NULL;
+	info->path = ft_split(path_env, ':');
+	free(path_env);
 	sigemptyset(&info->set);
 	info->exit_status = 0;
 }

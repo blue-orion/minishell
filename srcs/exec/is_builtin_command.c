@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis_process.c                              :+:      :+:    :+:   */
+/*   is_builtin_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 17:24:57 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 17:24:57 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/07 21:52:41 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/07 21:52:41 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../../includes/libft.h"
 
-int	parenthesis_process(t_cmd *info, t_node *cur_node)
+int	is_builtin_command(char *cmd)
 {
-	int	status;
-
-	info->pid[LEFT] = fork();
-	info->parent = cur_node;
-	if (info->pid[LEFT] < 0)
-		return (-1);
-	if (info->pid[LEFT] == 0)
-		exec_tree_node(info, cur_node->left_child);
-	if (info->pid[LEFT] > 0)
-	{
-		waitpid(info->pid[LEFT], &status, 0);
-		info->exit_status = status;
-	}
+	if (!ft_strncmp(cmd, "echo", 5))
+		return (1);
+	if (!ft_strncmp(cmd, "cd", 3))
+		return (1);
+	if (!ft_strncmp(cmd, "env", 4))
+		return (1);
+	if (!ft_strncmp(cmd, "exit", 5))
+		return (1);
+	if (!ft_strncmp(cmd, "export", 7))
+		return (1);
+	if (!ft_strncmp(cmd, "pwd", 4))
+		return (1);
+	if (!ft_strncmp(cmd, "unset", 6))
+		return (1);
 	return (0);
 }
+

@@ -14,15 +14,24 @@
 # define EXEC_H
 
 # include "parsing.h"
+# include "builtin.h"
 # include <unistd.h>
 # include <sys/wait.h>
+
+# define CMD_NOT_FOUNT "command not found"
+# define PERMISSION_DENIED "Permission denied"
+# define NO_FILE_OR_DIR "No such file or directory"
+# define INPUT 1
+# define OUTPUT 0
 
 typedef struct s_cmd
 {
 	t_node		*root;
 	char		**cmd;
+	char		**path;
 	pid_t		pid[2];
 	int			pipe_fd[2];
+	int			stdfd[2];
 	int			pipe_flag;
 	t_node		*parent;
 	sigset_t	set;
@@ -35,5 +44,14 @@ int	make_child_process(t_cmd *info);
 char	**list_to_str(t_list *head);
 void	redirect_pipe(t_cmd *info, t_node *cur_node);
 int	parenthesis_process(t_cmd *info, t_node *cur_node);
+int	is_builtin_node(t_node *root);
+int	is_builtin_command(char *cmd);
+int	exec_command(t_cmd *info, t_node *cur_node);
 void	pipe_separator_process(t_cmd *info, t_node *cur_node);
+void	logical_separator_process(t_cmd *info, t_node *cur_node);
+void	simple_separator_process(t_cmd *info, t_node *cur_node);
+int	separator_process(t_cmd *info, t_node *cur_node);
+int	call_builtin_ft(char **cmd);
+void	execve_fail(char *error_msg, int status);
+int	call_execve(char **cmd, char **path);
 #endif

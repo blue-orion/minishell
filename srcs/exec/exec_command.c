@@ -12,7 +12,25 @@
 
 #include "../../includes/exec.h"
 
-void	exec_command(t_cmd *info)
+int	exec_command(t_cmd *info, t_node *cur_node)
 {
-
+	info->cmd = list_to_str(cur_node->head);
+	if (is_builtin_command(info->cmd[0]))
+		info->exit_status = call_builtin_ft(info->cmd);
+	else
+	{
+		if (!info->parent)
+		{
+			info->pid[0] = fork();
+			if (info->pid[0] < 0)
+				error_exit("fork error");
+			if (info->pid[0] == 0)
+				call_execve(info->cmd, info->path);
+			if (info->pid[0] > 0)
+				waitpid(info->pid[0], &info->exit_status, 0);
+		}
+		else
+			call_execve(info->cmd, info->path);
+	}
+	return (info->exit_status);
 }

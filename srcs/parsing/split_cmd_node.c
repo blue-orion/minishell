@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:39:38 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 00:39:07 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/07 21:01:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	create_child_nodes(t_node *parent)
 	t_list	*redirects_list;
 	t_list	*simple_cmd_list;
 
+	parent->type = CMD;
 	if (!find_redirection(parent->head))
 		((t_data *)parent->head->content)->type = SIMPLE_CMD;
 	else
