@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 15:42:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/07 14:12:12 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	parenthesis_list(t_node *parent)
 {
-	t_list	*past_lst;
+	t_node	*left;
 	t_data	*data;
+	char	*text;
 
 	data = (t_data *)parent->head->content;
-	past_lst = parent->head;
-	parent->head = parent->head->next;
-	parent = split_sentense_to_list(parent, data->text);
-	ft_lstdelone(past_lst, free);
-	make_parsing_tree(parent);
+	text = (char *)malloc(sizeof(char) * (ft_strlen(data->text) + 1));
+	ft_strlcpy(text, data->text, ft_strlen(data->text));
+	left = new_node(NULL);
+	if (!left)
+		error_exit("failed making parsing tree");
+	parent->left_child = split_sentense_to_list(left, text);
+	make_parsing_tree(parent->left_child);
 }
 
 int	make_parsing_tree(t_node *cur_node)

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 15:21:30 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/07 14:12:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(void)
 		info.root = parsing(input);
 		print_tree(info.root);
 		printf("\n\n");
-		exec_parsing_tree(&info, info.root);
+		// exec_parsing_tree(&info, info.root);
 		treeclear(info.root);
 		rl_on_new_line();
 	}
