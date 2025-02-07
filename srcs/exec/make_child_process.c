@@ -25,8 +25,8 @@ int	make_child_process(t_cmd *info)
 	if (info->pid[LEFT] == -1 || info->pid[RIGHT] == -1)
 		return (-1);
 	if (info->pid[LEFT] == 0)
-		exec_parsing_tree(info, info->root->left_child);
+		exec_tree_node(info, info->root->left_child);
 	if (info->pid[RIGHT] == 0)
-		exec_parsing_tree(info, info->root->right_child);
+		exec_tree_node(info, info->root->right_child);
 	return (0);
 }

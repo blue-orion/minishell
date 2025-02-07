@@ -9,14 +9,32 @@ INCLUDE = includes/
 LIBFT = $(SRC_DIR)libft
 
 SRCS = minishell.c	\
-	   builtin/cd.c	\
-	   builtin/echo.c	\
-	   builtin/env.c	\
-	   builtin/exit.c	\
-	   builtin/export.c	\
-	   builtin/pwd.c		\
-	   builtin/unset.c		\
+	   builtin/ft_cd.c	\
+	   builtin/ft_echo.c	\
+	   builtin/ft_env.c	\
+	   builtin/ft_exit.c	\
+	   builtin/ft_export.c	\
+	   builtin/ft_pwd.c		\
+	   builtin/ft_unset.c		\
 	   exec/init_info.c			\
+	   exec/call_builtin_ft.c	\
+	   exec/call_execve.c		\
+	   exec/command_execve_process.c	\
+	   exec/exec_command.c		\
+	   exec/exec_tree_node.c	\
+	   exec/execve_fail.c		\
+	   exec/fork_childs.c		\
+	   exec/is_builtin_command.c	\
+	   exec/is_builtin_node.c	\
+	   exec/list_to_str.c		\
+	   exec/logical_separator_process.c	\
+	   exec/make_child_process.c	\
+	   exec/parenthesis_process.c	\
+	   exec/pipe_separator_process.c	\
+	   exec/redirect_pipe.c	\
+	   exec/redirection_process.c	\
+	   exec/separator_process.c	\
+	   exec/simple_separator_process.c	\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\

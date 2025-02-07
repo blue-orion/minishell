@@ -18,7 +18,7 @@ void	simple_separator_process(t_cmd *info, t_node *cur_node)
 
 	data = cur_node->head->content;
 	if (is_builtin_node(cur_node->left_child))
-		info->exit_status = command_exec_process(info, cur_node->left_child);
+		info->exit_status = command_execve_process(info, cur_node->left_child);
 	else
 	{
 		info->pid[LEFT] = fork();

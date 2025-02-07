@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_parsing_tree.c                                :+:      :+:    :+:   */
+/*   exec_tree_node.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 21:52:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/08 01:04:49 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_tree_node(t_cmd *info, t_node *cur_node)
 	}
 	if (cur_node->type == CMD)
 	{
-		command_exec_process(info, cur_node);
+		command_execve_process(info, cur_node);
 	}
 	// else
 	// {

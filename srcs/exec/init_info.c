@@ -27,7 +27,6 @@ void	init_info(t_cmd *info)
 	info->stdfd[OUTPUT] = dup(1);
 	info->parent = NULL;
 	info->path = ft_split(path_env, ':');
-	free(path_env);
 	sigemptyset(&info->set);
 	info->exit_status = 0;
 }

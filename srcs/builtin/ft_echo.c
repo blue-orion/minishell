@@ -12,7 +12,7 @@
 
 #include "../../includes/libft.h"
 
-int	echo(char **cmd)
+int	ft_echo(char **cmd)
 {
 	int	i;
 	int	option;

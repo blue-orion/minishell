@@ -12,7 +12,7 @@
 
 #include "../../includes/libft.h"
 
-void	exec_fail(char *error_msg, int status)
+void	execve_fail(char *error_msg, int status)
 {
 	ft_putendl_fd(error_msg, 2);
 	exit(status);

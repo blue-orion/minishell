@@ -29,7 +29,7 @@ int	main(void)
 		info.root = parsing(input);
 		print_tree(info.root);
 		printf("\n\n");
-		// exec_tree_node(&info, info.root);
+		exec_tree_node(&info, info.root);
 		treeclear(info.root);
 		rl_on_new_line();
 	}

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 21:22:52 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/08 01:04:31 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "builtin.h"
 # include <unistd.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 # define CMD_NOT_FOUNT "command not found"
 # define PERMISSION_DENIED "Permission denied"
@@ -54,4 +55,6 @@ int	separator_process(t_cmd *info, t_node *cur_node);
 int	call_builtin_ft(char **cmd);
 void	execve_fail(char *error_msg, int status);
 int	call_execve(char **cmd, char **path);
+void	redirection_process(t_cmd *info, t_node *cur_node);
+int	command_execve_process(t_cmd *info, t_node *cur_node);
 #endif
