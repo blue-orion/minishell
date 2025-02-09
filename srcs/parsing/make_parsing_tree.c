@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:55:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 14:12:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/09 22:34:51 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	parenthesis_list(t_node *parent)
 	char	*text;
 
 	data = (t_data *)parent->head->content;
+	parent->type = PARENTHESIS;
 	text = (char *)malloc(sizeof(char) * (ft_strlen(data->text) + 1));
 	ft_strlcpy(text, data->text, ft_strlen(data->text) + 1);
 	left = new_node(NULL);

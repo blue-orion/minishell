@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:05:16 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 21:05:16 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/09 22:58:53 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_node	*find_simple_cmd(t_node *root)
 	t_data	*data;
 
 	cur_node = root;
+	if (!cur_node->head)
+		cur_node = cur_node->right_child;
 	data = (t_data *)cur_node->head->content;
 	while (data->type != SIMPLE_CMD)
 	{

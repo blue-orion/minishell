@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/08 01:04:31 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/09 21:37:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 void	init_info(t_cmd *info);
-void	exec_tree_node(t_cmd *info, t_node *parent);
+int	exec_tree_node(t_cmd *info, t_node *cur_node);
 int	make_child_process(t_cmd *info);
 char	**list_to_str(t_list *head);
 void	redirect_pipe(t_cmd *info, t_node *cur_node);

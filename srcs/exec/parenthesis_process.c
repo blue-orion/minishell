@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:24:57 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 17:24:57 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/09 22:37:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	parenthesis_process(t_cmd *info, t_node *cur_node)
 {
-	int	status;
-
 	info->pid[LEFT] = fork();
 	info->parent = cur_node;
 	if (info->pid[LEFT] < 0)
@@ -24,8 +22,8 @@ int	parenthesis_process(t_cmd *info, t_node *cur_node)
 		exec_tree_node(info, cur_node->left_child);
 	if (info->pid[LEFT] > 0)
 	{
-		waitpid(info->pid[LEFT], &status, 0);
-		info->exit_status = status;
+		waitpid(info->pid[LEFT], &info->exit_status, 0);
+		printf("parenthesis pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
 	}
 	return (0);
 }
