@@ -10,7 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_env(char **cmd)
+#include "../../includes/utils.h"
+
+int	ft_env(char **cmd, char **envp)
 {
-	return (1);
+	int	i;
+
+	if (cmd[1])
+	{
+		put_error_msg("env", NULL, "too many arguments");
+		return (1);
+	}
+	else
+	{
+		i = 0;
+		while (envp[i])
+		{
+			ft_putendl_fd(envp[i], 1);
+			i++;
+		}
+	}
+	return (0);
 }

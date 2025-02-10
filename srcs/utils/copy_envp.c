@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   copy_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 22:20:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 22:20:44 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/10 17:05:06 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/10 17:05:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../includes/libft.h"
 
-int	ft_cd(char **cmd);
-int	ft_echo(char **cmd);
-int	ft_env(char **cmd, char **envp);
-int	ft_exit(char **cmd);
-int	ft_export(char **cmd, char **envp);
-int	ft_pwd(char **cmd);
-int	ft_unset(char **cmd);
-int	getsize(char **cmd);
+char	**copy_envp(char **envp)
+{
+	int		size;
+	char	**dst;
+	int		i;
 
-#endif
+	size = 0;
+	while (envp[size])
+		size++;
+	dst = (char **)malloc(sizeof(char *) * size + 1);
+	i = 0;
+	while (envp[i])
+	{
+		dst[i] = ft_strdup(envp[i]);
+		i++;
+	}
+	dst[i] = NULL;
+	return (dst);
+}
+

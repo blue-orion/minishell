@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/09 21:37:42 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/10 15:29:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-# define CMD_NOT_FOUNT "command not found"
+# define CMD_NOT_FOUND "command not found"
 # define PERMISSION_DENIED "Permission denied"
 # define NO_FILE_OR_DIR "No such file or directory"
 # define INPUT 1
@@ -30,6 +30,7 @@ typedef struct s_cmd
 	t_node		*root;
 	char		**cmd;
 	char		**path;
+	char		**envp;
 	pid_t		pid[2];
 	int			pipe_fd[2];
 	int			stdfd[2];
@@ -39,7 +40,7 @@ typedef struct s_cmd
 	int			exit_status;
 }	t_cmd;
 
-void	init_info(t_cmd *info);
+void	init_info(t_cmd *info, char **envp);
 int	exec_tree_node(t_cmd *info, t_node *cur_node);
 int	make_child_process(t_cmd *info);
 char	**list_to_str(t_list *head);
@@ -52,9 +53,9 @@ void	pipe_separator_process(t_cmd *info, t_node *cur_node);
 void	logical_separator_process(t_cmd *info, t_node *cur_node);
 void	simple_separator_process(t_cmd *info, t_node *cur_node);
 int	separator_process(t_cmd *info, t_node *cur_node);
-int	call_builtin_ft(char **cmd);
 void	execve_fail(char *error_msg, int status);
-int	call_execve(char **cmd, char **path);
+int	call_builtin_ft(char **cmd, t_cmd *info);
+int	call_execve(char **cmd, t_cmd *info);
 void	redirection_process(t_cmd *info, t_node *cur_node);
 int	command_execve_process(t_cmd *info, t_node *cur_node);
 #endif

@@ -61,16 +61,16 @@ int	is_invalid_quote(char *s, int *flag)
 {
 	if (*s == '\'')
 	{
-		if (flag[0] && !is_metachar(*(s - 1)))
+		if (flag[0] && ft_isalnum(*(s - 1)))
 			return (1);
-		if (!flag[0] && !is_metachar(*(s + 1)))
+		if (!flag[0] && ft_isalnum(*(s + 1)))
 			return (1);
 	}
 	if (*s == '\"')
 	{
-		if (flag[1] && !is_metachar(*(s - 1)))
+		if (flag[1] && ft_isalnum(*(s - 1)))
 			return (1);
-		if (!flag[1] && !is_metachar(*(s + 1)))
+		if (!flag[1] && ft_isalnum(*(s + 1)))
 			return (1);
 	}
 	return (0);

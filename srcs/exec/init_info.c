@@ -12,7 +12,7 @@
 
 #include "../../includes/exec.h"
 
-void	init_info(t_cmd *info)
+void	init_info(t_cmd *info, char **envp)
 {
 	char	*path_env;
 
@@ -21,6 +21,7 @@ void	init_info(t_cmd *info)
 	info->cmd = NULL;
 	info->pid[0] = 0;
 	info->pid[1] = 0;
+	info->envp = copy_envp(envp);
 	info->pipe_fd[INPUT] = 0;
 	info->pipe_fd[OUTPUT] = 0;
 	info->stdfd[INPUT] = dup(0);

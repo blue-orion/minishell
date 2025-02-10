@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/builtin.h"
-#include "../../includes/libft.h"
+#include "../../includes/exec.h"
 
-int	call_builtin_ft(char **cmd)
+int	call_builtin_ft(char **cmd, t_cmd *info)
 {
 	int	status;
 
@@ -22,11 +21,11 @@ int	call_builtin_ft(char **cmd)
 	if (!ft_strncmp(cmd[0], "echo", 5))
 		status = ft_echo(cmd);
 	if (!ft_strncmp(cmd[0], "env", 4))
-		status = ft_env(cmd);
+		status = ft_env(cmd, info->envp);
 	if (!ft_strncmp(cmd[0], "exit", 5))
 		status = ft_exit(cmd);
 	if (!ft_strncmp(cmd[0], "export", 7))
-		status = ft_export(cmd);
+		status = ft_export(cmd, info->envp);
 	if (!ft_strncmp(cmd[0], "pwd", 4))
 		status = ft_pwd(cmd);
 	if (!ft_strncmp(cmd[0], "unset", 6))

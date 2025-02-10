@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   getsize.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 22:20:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 22:20:44 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/10 16:12:49 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/10 16:12:49 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+int	getsize(char **cmd)
+{
+	int	cnt;
 
-int	ft_cd(char **cmd);
-int	ft_echo(char **cmd);
-int	ft_env(char **cmd, char **envp);
-int	ft_exit(char **cmd);
-int	ft_export(char **cmd, char **envp);
-int	ft_pwd(char **cmd);
-int	ft_unset(char **cmd);
-int	getsize(char **cmd);
+	cnt = 0;
+	while (cmd[cnt])
+		cnt++;
+	return (cnt);
+}
 
-#endif

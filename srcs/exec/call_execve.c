@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:05:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 22:05:40 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/10 15:29:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*make_path_cmd(char *path, char *cmd)
 	return (new);
 }
 
-int	call_execve(char **cmd, char **path)
+int	call_execve(char **cmd, t_cmd *info)
 {
 	int	i;
 	char	*path_cmd;
@@ -31,30 +31,30 @@ int	call_execve(char **cmd, char **path)
 	if (!access(cmd[0], F_OK))
 	{
 		if (access(cmd[0], X_OK))
-			execve_fail("Permission denied", 126);
+			execve_fail(PERMISSION_DENIED, 126);
 		else
 		{
-			if (execve(path_cmd, cmd, NULL))
+			if (execve(path_cmd, cmd, info->envp))
 				error_exit("execve fail");
 		}
 	}
 	i = 0;
-	while (path[i])
+	while (info->path[i])
 	{
-		path_cmd = make_path_cmd(path[i], cmd[0]);
+		path_cmd = make_path_cmd(info->path[i], cmd[0]);
 		if (access(path_cmd, F_OK))
 		{
 			i++;
 			continue ;
 		}
 		if (access(path_cmd, X_OK))
-			execve_fail("Permission denied", 126);
+			execve_fail(PERMISSION_DENIED, 126);
 		break ;
 	}
-	if (!path[i])
-		execve_fail("command not found", 127);
+	if (!info->path[i])
+		execve_fail(CMD_NOT_FOUND, 127);
 	free(cmd[0]);
 	cmd[0] = path_cmd;
-	if (execve(path_cmd, cmd, NULL))
+	if (execve(path_cmd, cmd, info->envp))
 		error_exit("execve fail");
 }

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   put_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/05 22:20:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 22:20:44 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/10 15:34:22 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/10 15:36:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../includes/libft.h"
 
-int	ft_cd(char **cmd);
-int	ft_echo(char **cmd);
-int	ft_env(char **cmd, char **envp);
-int	ft_exit(char **cmd);
-int	ft_export(char **cmd, char **envp);
-int	ft_pwd(char **cmd);
-int	ft_unset(char **cmd);
-int	getsize(char **cmd);
-
-#endif
+void	put_error_msg(char *cmd, char *arg, char *error_msg)
+{
+	ft_putstr_fd("minishell", 2);
+	write(2, ": ", 2);
+	ft_putstr_fd(cmd, 2);
+	write(2, ": ", 2);
+	if (arg)
+	{
+		ft_putstr_fd(arg, 2);
+		write(2, ": ", 2);
+	}
+	ft_putendl_fd(error_msg, 2);
+}

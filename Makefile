@@ -16,6 +16,7 @@ SRCS = minishell.c	\
 	   builtin/ft_export.c	\
 	   builtin/ft_pwd.c		\
 	   builtin/ft_unset.c		\
+	   builtin/getsize.c		\
 	   exec/init_info.c			\
 	   exec/call_builtin_ft.c	\
 	   exec/call_execve.c		\
@@ -67,8 +68,10 @@ SRCS = minishell.c	\
 	   tree/new_node.c			\
 	   tree/print_tree.c			\
 	   tree/treeclear.c		\
+	   utils/copy_envp.c		\
 	   utils/free_pptr.c		\
 	   utils/print_list.c		\
+	   utils/put_error_msg.c	\
 	   utils/skip_space.c		\
 	   utils/error_exit.c		\
 	   utils/free_data.c		
