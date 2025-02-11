@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
+#define SINGLE 0
+#define DOUBLE 1
 
 char	*init_(char *src, int *n1, int *n2, int arr[2]);
 int		is_invalid_quote(char *s, int *flag);
@@ -28,18 +30,42 @@ char	*remove_invalid_quote(char *src)
 		return (NULL);
 	while (src[src_idx])
 	{
-		if (src_idx == 0 || (src[src_idx] != '\'' && src[src_idx] != '\"'))
-		{
-			onoff_flag(src[src_idx], flag);
+		if (src[src_idx] != '\'' && src[src_idx] != '\"')
 			res[res_idx++] = src[src_idx++];
-		}
 		else
 		{
-			onoff_flag(src[src_idx], flag);
 			if (is_invalid_quote(&src[src_idx], flag))
+			{
+				if (src[src_idx] == '\'')
+				{
+					src_idx++;
+					while (src[src_idx] != '\'')
+						res[res_idx++] = src[src_idx++];
+				}
+				if (src[src_idx] == '\"')
+				{
+					src_idx++;
+					while (src[src_idx] != '\"')
+						res[res_idx++] = src[src_idx++];
+				}
 				src_idx++;
+			}
 			else
+			{
+				if (src[src_idx] == '\'')
+				{
+					res[res_idx++] = src[src_idx++];
+					while (src[src_idx] != '\'')
+						res[res_idx++] = src[src_idx++];
+				}
+				if (src[src_idx] == '\"')
+				{
+					res[res_idx++] = src[src_idx++];
+					while (src[src_idx] != '\"')
+						res[res_idx++] = src[src_idx++];
+				}
 				res[res_idx++] = src[src_idx++];
+			}
 		}
 	}
 	return (res);
@@ -59,19 +85,27 @@ char	*init_(char *src, int *n1, int *n2, int arr[2])
 
 int	is_invalid_quote(char *s, int *flag)
 {
-	if (*s == '\'')
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (flag[0] && ft_isalnum(*(s - 1)))
-			return (1);
-		if (!flag[0] && ft_isalnum(*(s + 1)))
-			return (1);
-	}
-	if (*s == '\"')
-	{
-		if (flag[1] && ft_isalnum(*(s - 1)))
-			return (1);
-		if (!flag[1] && ft_isalnum(*(s + 1)))
-			return (1);
+		onoff_flag(s[i], flag);
+		if (*s == '\'')
+		{
+			if (flag[SINGLE] && i > 0 && ft_isalnum(s[i - 1]))
+				return (1);
+			if (!flag[SINGLE] && s[i + 1] && ft_isalnum(s[i + 1]))
+				return (1);
+		}
+		if (*s == '\"')
+		{
+			if (flag[DOUBLE] && i > 0 && ft_isalnum((s[i - 1])))
+				return (1);
+			if (!flag[DOUBLE] && s[i + 1] && ft_isalnum(s[i + 1]))
+				return (1);
+		}
+		i++;
 	}
 	return (0);
 }
@@ -79,7 +113,7 @@ int	is_invalid_quote(char *s, int *flag)
 void	onoff_flag(char c, int flag[2])
 {
 	if (c == '\'')
-		flag[0] = !flag[0];
+		flag[SINGLE] = !flag[SINGLE];
 	if (c == '\"')
-		flag[1] = !flag[1];
+		flag[DOUBLE] = !flag[DOUBLE];
 }
