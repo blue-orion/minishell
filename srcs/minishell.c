@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 14:42:03 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:38:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av, char **env)
 			return (1);
 		else
 			add_history(input);
+		input = preprocess_string(&info, input);
 		info.root = parsing(input);
 		if (!info.root)
 			continue ;

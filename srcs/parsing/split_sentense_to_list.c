@@ -6,13 +6,12 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 16:40:57 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:39:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-char	*preprocess_string(char *src);
 int		add_sentense(t_node *root, char *s, int start, int split_point);
 int		add_splited(t_node *root, char *s, int start, int split_point);
 int		add_rest(t_node *root, char *s, int start);
@@ -25,7 +24,6 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 
 	move = 0;
 	start_idx = 0;
-	str = preprocess_string(str);
 	split_point = find_metachar(str, start_idx);
 	while (split_point)
 	{
@@ -43,30 +41,6 @@ t_node	*split_sentense_to_list(t_node *root, char *str)
 	add_rest(root, str, start_idx);
 	free(str);
 	return (root);
-}
-
-char	*preprocess_string(char *src)
-{
-	char	*res;
-
-	subsitute_tab(src);
-	res = interpret_env(src);
-	printf("interpret_env = %s\n", res);
-	free(src);
-	src = res;
-	res = remove_invalid_quote(src);
-	printf("remove_invalid_quote = %s\n", res);
-	free(src);
-	if (!res)
-		error_exit("command preprocess failed");
-	if (!*res)
-		return (res);
-	src = res;
-	res = ft_strtrim(src, " ");
-	free(src);
-	if (!res)
-		error_exit("command preprocess failed");
-	return (res);
 }
 
 int	add_sentense(t_node *root, char *s, int start, int split_point)

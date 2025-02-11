@@ -52,38 +52,14 @@ char	**list_to_str(t_list *head)
 	char	**res;
 	char	**tmp;
 	t_data	*data;
-	int		export_flag;
-	char	*past;
 
-	export_flag = 0;
 	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
 	i = 0;
 	while (head)
 	{
 		data = (t_data *)head->content;
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
-		{
-			if (export_flag)
-			{
-				if (data->type == DOUBLE_QUOTE)
-					res[i] = ft_strdup("\"");
-				if (data->type == SINGLE_QUOTE)
-					res[i] = ft_strdup("\'");
-				past = res[i];
-				res[i] = ft_strjoin(res[i], data->text);
-				free(past);
-				past = res[i];
-				if (data->type == DOUBLE_QUOTE)
-					res[i] = ft_strjoin(res[i], "\"");
-				if (data->type == SINGLE_QUOTE)
-					res[i] = ft_strjoin(res[i], "\'");
-				free(past);
-			}
-			else
-				res[i++] = ft_strdup(data->text);
-
-		}
-
+			res[i++] = ft_strdup(data->text);
 		else
 		{
 			tmp = ft_split(data->text, ' ');
@@ -92,8 +68,6 @@ char	**list_to_str(t_list *head)
 				res[i++] = ft_strdup(tmp[j++]);
 			free_pptr((void **)tmp);
 		}
-		if (!ft_strncmp(res[0], "export", 7))
-			export_flag = 1;
 		head = head->next;
 	}
 	res[i] = NULL;

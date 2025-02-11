@@ -40,6 +40,7 @@ SRCS = minishell.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\
 	   parsing/find_token.c		\
+	   parsing/ft_getenv.c	\
 	   parsing/interpret_env.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
@@ -55,6 +56,7 @@ SRCS = minishell.c	\
 	   parsing/parse_node.c		\
 	   parsing/parse_node_utils.c	\
 	   parsing/parsing.c		\
+	   parsing/preprocess_string.c	\
 	   parsing/remove_invalid_quote.c	\
 	   parsing/split_sentense_to_list.c	\
 	   parsing/split_cmd_node.c		\

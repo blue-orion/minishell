@@ -28,8 +28,9 @@ int	ft_export(char **cmd, t_cmd *info)
 	else
 	{
 		new_envp = declare_argv(cmd, info->envp);
+		free_pptr((void **)info->envp);
+		info->envp = new_envp;
 	}
-	info->envp = new_envp;
 	return (0);
 }
 
@@ -51,6 +52,8 @@ int	check_name(char *str)
 	int	i;
 
 	i = 0;
+	if (ft_isdigit(str[i]))
+		return (-1);
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
@@ -86,12 +89,7 @@ char	**declare_argv(char **cmd, char **envp)
 			put_error_msg("export", *cmd, "not a valid identifier");
 		}
 		if (value > 0)
-		{
-			if ((*cmd)[value + 1] == '\0')
-				new_envp[i] = ft_strjoin(*cmd, *(cmd + 1));
-			else
-				new_envp[i] = ft_strdup(*cmd);
-		}
+			new_envp[i] = ft_strdup(*cmd);
 		cmd++;
 	}
 	return (new_envp);

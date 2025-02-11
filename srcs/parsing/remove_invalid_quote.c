@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 22:00:29 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/11 19:32:53 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define DOUBLE 1
 
 char	*init_(char *src, int *n1, int *n2, int arr[2]);
-int		is_invalid_quote(char *s, int *flag);
+int		is_invalid_quote(char *s, int start_idx, int *flag);
 void	onoff_flag(char c, int flag[2]);
 
 char	*remove_invalid_quote(char *src)
@@ -34,7 +34,7 @@ char	*remove_invalid_quote(char *src)
 			res[res_idx++] = src[src_idx++];
 		else
 		{
-			if (is_invalid_quote(&src[src_idx], flag))
+			if (is_invalid_quote(src, src_idx, flag))
 			{
 				if (src[src_idx] == '\'')
 				{
@@ -83,26 +83,26 @@ char	*init_(char *src, int *n1, int *n2, int arr[2])
 	return (res);
 }
 
-int	is_invalid_quote(char *s, int *flag)
+int	is_invalid_quote(char *s, int start_idx, int *flag)
 {
 	int	i;
 
-	i = 0;
+	i = start_idx;
 	while (s[i])
 	{
 		onoff_flag(s[i], flag);
-		if (*s == '\'')
+		if (s[i] == '\'')
 		{
-			if (flag[SINGLE] && i > 0 && ft_isalnum(s[i - 1]))
+			if (flag[SINGLE] && i > 0 && !is_metachar(s[i - 1]))
 				return (1);
-			if (!flag[SINGLE] && s[i + 1] && ft_isalnum(s[i + 1]))
+			if (!flag[SINGLE] && s[i + 1] && !is_metachar(s[i + 1]))
 				return (1);
 		}
-		if (*s == '\"')
+		if (s[i] == '\"')
 		{
-			if (flag[DOUBLE] && i > 0 && ft_isalnum((s[i - 1])))
+			if (flag[DOUBLE] && i > 0 && !is_metachar((s[i - 1])))
 				return (1);
-			if (!flag[DOUBLE] && s[i + 1] && ft_isalnum(s[i + 1]))
+			if (!flag[DOUBLE] && s[i + 1] && !is_metachar(s[i + 1]))
 				return (1);
 		}
 		i++;
