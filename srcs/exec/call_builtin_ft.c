@@ -25,7 +25,7 @@ int	call_builtin_ft(char **cmd, t_cmd *info)
 	if (!ft_strncmp(cmd[0], "exit", 5))
 		status = ft_exit(cmd);
 	if (!ft_strncmp(cmd[0], "export", 7))
-		status = ft_export(cmd, info->envp);
+		status = ft_export(cmd, info);
 	if (!ft_strncmp(cmd[0], "pwd", 4))
 		status = ft_pwd(cmd);
 	if (!ft_strncmp(cmd[0], "unset", 6))

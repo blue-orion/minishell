@@ -15,30 +15,13 @@
 
 # include "parsing.h"
 # include "builtin.h"
-# include <unistd.h>
-# include <sys/wait.h>
-# include <fcntl.h>
+# include "struct.h"
 
 # define CMD_NOT_FOUND "command not found"
 # define PERMISSION_DENIED "Permission denied"
 # define NO_FILE_OR_DIR "No such file or directory"
 # define INPUT 1
 # define OUTPUT 0
-
-typedef struct s_cmd
-{
-	t_node		*root;
-	char		**cmd;
-	char		**path;
-	char		**envp;
-	pid_t		pid[2];
-	int			pipe_fd[2];
-	int			stdfd[2];
-	int			pipe_flag;
-	t_node		*parent;
-	sigset_t	set;
-	int			exit_status;
-}	t_cmd;
 
 void	init_info(t_cmd *info, char **envp);
 int	exec_tree_node(t_cmd *info, t_node *cur_node);

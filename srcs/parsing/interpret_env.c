@@ -55,9 +55,12 @@ char	*interpret_env(char *src)
 				name[j] = '\0';
 				printf("name = %s\n", name);
 				env = getenv(name);
-				j = 0;
-				while (env[j])
-					res[res_idx++] = env[j++];
+				if (env)
+				{
+					j = 0;
+					while (env[j])
+						res[res_idx++] = env[j++];
+				}
 			}
 		}
 		res[res_idx++] = src[i++];

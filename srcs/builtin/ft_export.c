@@ -14,9 +14,9 @@
 #include "../../includes/utils.h"
 
 void	declare_all(char **envp);
-int	declare_argv(char **cmd, char **envp);
+char	**declare_argv(char **cmd, char **envp);
 
-int	ft_export(char **cmd, char **envp)
+int	ft_export(char **cmd, t_cmd *info)
 {
 	int		argc;
 	char	**new_envp;
@@ -24,11 +24,12 @@ int	ft_export(char **cmd, char **envp)
 
 	argc = getsize(cmd);
 	if (argc == 1)
-		declare_all(envp);
+		declare_all(info->envp);
 	else
 	{
-		declare_argv(cmd, envp);
+		new_envp = declare_argv(cmd, info->envp);
 	}
+	info->envp = new_envp;
 	return (0);
 }
 
@@ -61,7 +62,7 @@ int	check_name(char *str)
 	return (0);
 }
 
-int	declare_argv(char **cmd, char **envp)
+char	**declare_argv(char **cmd, char **envp)
 {
 	char	**new_envp;
 	int		envp_size;
@@ -72,8 +73,11 @@ int	declare_argv(char **cmd, char **envp)
 	envp_size = getsize(envp) + getsize(cmd);
 	new_envp = (char **)malloc(sizeof(char *) * envp_size);
 	i = 0;
-	while (new_envp[i])
+	while (envp[i])
+	{
+		new_envp[i] = ft_strdup(envp[i]);
 		i++;
+	}
 	while (*cmd)
 	{
 		value = check_name(*cmd);
@@ -90,4 +94,5 @@ int	declare_argv(char **cmd, char **envp)
 		}
 		cmd++;
 	}
+	return (new_envp);
 }
