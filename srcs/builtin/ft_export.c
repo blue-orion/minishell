@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 23:07:41 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:38:58 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_export(char **cmd, t_cmd *info)
 		declare_all(info->envp);
 	else
 	{
-		new_envp = declare_argv(cmd, info->envp);
+		new_envp = declare_argv(cmd + 1, info->envp);
 		free_pptr((void **)info->envp);
 		info->envp = new_envp;
 	}
@@ -89,7 +89,7 @@ char	**declare_argv(char **cmd, char **envp)
 			put_error_msg("export", *cmd, "not a valid identifier");
 		}
 		if (value > 0)
-			new_envp[i] = ft_strdup(*cmd);
+			new_envp[i++] = ft_strdup(*cmd);
 		cmd++;
 	}
 	return (new_envp);

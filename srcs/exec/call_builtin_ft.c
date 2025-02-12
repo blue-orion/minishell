@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:59:01 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 21:59:01 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:36:39 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	call_builtin_ft(char **cmd, t_cmd *info)
 	if (!ft_strncmp(cmd[0], "pwd", 4))
 		status = ft_pwd(cmd);
 	if (!ft_strncmp(cmd[0], "unset", 6))
-		status = ft_unset(cmd);
+		status = ft_unset(cmd, info);
 	return (status);
 }

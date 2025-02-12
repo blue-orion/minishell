@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:38:18 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 19:39:52 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:57:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ char	*preprocess_string(t_cmd *info, char *src)
 
 	subsitute_tab(src);
 	res = interpret_env(src, info->envp);
-	printf("interpret_env = %s\n", res);
 	free(src);
 	src = res;
 	res = remove_invalid_quote(src);
-	printf("remove_invalid_quote = %s\n", res);
 	free(src);
 	if (!res)
 		error_exit("command preprocess failed");

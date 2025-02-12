@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 15:55:35 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 19:47:50 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/12 18:57:12 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*interpret_env(char *src, char **envp)
 	double_flag = 0;
 	single_flag = 0;
 	res_idx = 0;
-	printf("len = %d\n", count_len(src, envp));
 	res = (char *)malloc(sizeof(char) * (count_len(src, envp) + 1));
 	while (src[i])
 	{
@@ -54,7 +53,6 @@ char	*interpret_env(char *src, char **envp)
 				i += j;
 				if (double_flag && src[i] == '\"')
 					double_flag = !double_flag;
-				printf("name = %s\n", name);
 				value = ft_getenv(name, envp);
 				if (value)
 				{
