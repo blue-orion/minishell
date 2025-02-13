@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 15:29:42 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/13 18:32:08 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 void	init_info(t_cmd *info, char **envp);
 int	exec_tree_node(t_cmd *info, t_node *cur_node);
 int	make_child_process(t_cmd *info);
-char	**list_to_str(t_list *head);
+char	**list_to_str(t_cmd *info, t_list *head);
 void	redirect_pipe(t_cmd *info, t_node *cur_node);
 int	parenthesis_process(t_cmd *info, t_node *cur_node);
-int	is_builtin_node(t_node *root);
+int	is_builtin_node(t_cmd *info, t_node *root);
 int	is_builtin_command(char *cmd);
 int	exec_command(t_cmd *info, t_node *cur_node);
 void	pipe_separator_process(t_cmd *info, t_node *cur_node);

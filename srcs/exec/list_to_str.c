@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 14:36:36 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/13 18:43:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ int	check_size(t_list *head)
 	return (cnt);
 }
 
-char	**list_to_str(t_list *head)
+char	**list_to_str(t_cmd *info, t_list *head)
 {
 	int		i;
 	int		j;
 	char	**res;
 	char	**tmp;
+	char	*past;
 	t_data	*data;
 
 	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
@@ -58,6 +59,12 @@ char	**list_to_str(t_list *head)
 	while (head)
 	{
 		data = (t_data *)head->content;
+		past = data->text;
+		data->text = interpret_env(data->text, data->type, info->envp);
+		free(past);
+		past = data->text;
+		data->text = remove_invalid_quote(data->text);
+		free(past);
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
 			res[i++] = ft_strdup(data->text);
 		else
