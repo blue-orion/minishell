@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 22:43:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:39:38 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,22 @@ int	check_name(char *str)
 	return (0);
 }
 
+int	present_name(char *name, char **envp)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(name);
+	while (envp[i])
+	{
+		if (!ft_strncmp(name, envp[i], len) && envp[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 char	**declare_argv(char **cmd, char **envp)
 {
 	char	**new_envp;
@@ -89,7 +105,15 @@ char	**declare_argv(char **cmd, char **envp)
 			put_error_msg("export", *cmd, "not a valid identifier");
 		}
 		if (value > 0)
+		{
+			if (present_name(ft_substr(*cmd, 0, check_name(*cmd)), new_envp) >= 0)
+			{
+				new_envp[present_name(ft_substr(*cmd, 0, check_name(*cmd)), new_envp)] = ft_strdup(*cmd);
+				cmd++;
+				continue ;
+			}
 			new_envp[i++] = ft_strdup(*cmd);
+		}
 		cmd++;
 	}
 	new_envp[i] = NULL;
