@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 19:38:06 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 21:48:00 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int ac, char **av, char **env)
 		print_tree(info.root);
 		printf("\n\n");
 		exec_tree_node(&info, info.root);
+		print_tree(info.root);
+		printf("\n\n");
 		treeclear(info.root);
 		rl_on_new_line();
 	}

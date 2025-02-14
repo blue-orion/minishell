@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 18:05:11 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 20:14:53 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_data	*make_data(char *str, int type, int start, int end)
 	if (!new)
 		return (NULL);
 	new->type = type;
+	new->invalid[0] = 0;
+	new->invalid[1] = 0;
 	new->start = start;
 	new->end = end;
 	new->text = make_text(new, str);

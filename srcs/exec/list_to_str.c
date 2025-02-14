@@ -6,11 +6,13 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 14:36:36 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 22:14:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
+void	join_pieces(t_list *head);
+void	interpret_env_all(t_list *head, t_cmd *info);
 
 int	split_size(char **splited)
 {
@@ -45,16 +47,19 @@ int	check_size(t_list *head)
 	return (cnt);
 }
 
-char	**list_to_str(t_list *head)
+char	**list_to_str(t_cmd *info, t_list *head)
 {
 	int		i;
 	int		j;
 	char	**res;
 	char	**tmp;
+	char	*past;
 	t_data	*data;
 
-	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
 	i = 0;
+	interpret_env_all(head, info);
+	join_pieces(head);
+	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
 	while (head)
 	{
 		data = (t_data *)head->content;
@@ -72,4 +77,54 @@ char	**list_to_str(t_list *head)
 	}
 	res[i] = NULL;
 	return (res);
+}
+
+void	interpret_env_all(t_list *head, t_cmd *info)
+{
+	t_data	*data;
+	char	*past;
+
+	while (head)
+	{
+		data = (t_data *)head->content;
+		past = data->text;
+		data->text = interpret_env(data->text, data->type, info->envp);
+		free(past);
+		head = head->next;
+	}
+}
+
+void	join_pieces(t_list *head)
+{
+	t_list	*past_lst;
+	t_list	*cur_lst;
+	t_list	*free_lst;
+	t_data	*past_data;
+	t_data	*cur_data;
+	t_data	*next_data;
+
+	cur_lst = head;
+	past_lst = NULL;
+	while (cur_lst)
+	{
+		cur_data = (t_data *)cur_lst->content;
+		if (cur_data->invalid[1])
+		{
+			free_lst = cur_lst->next;
+			next_data = (t_data *)cur_lst->next->content;
+			cur_data->text = ft_strjoin(cur_data->text, next_data->text);
+			cur_lst->next = cur_lst->next->next;
+			ft_lstdelone(free_lst, free_data);
+		}
+		if (cur_data->invalid[0])
+		{
+			past_data->text = ft_strjoin(past_data->text, cur_data->text);
+			past_lst->next = cur_lst->next;
+			ft_lstdelone(cur_lst, free_data);
+			cur_lst = past_lst;
+		}
+		past_lst = cur_lst;
+		past_data = (t_data *)past_lst->content;
+		cur_lst = cur_lst->next;
+	}
 }

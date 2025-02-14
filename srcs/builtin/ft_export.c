@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/12 18:38:58 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 22:43:15 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**declare_argv(char **cmd, char **envp)
 	int		value;
 
 	envp_size = getsize(envp) + getsize(cmd);
-	new_envp = (char **)malloc(sizeof(char *) * envp_size);
+	new_envp = (char **)malloc(sizeof(char *) * (envp_size + 1));
 	i = 0;
 	while (envp[i])
 	{
@@ -92,5 +92,6 @@ char	**declare_argv(char **cmd, char **envp)
 			new_envp[i++] = ft_strdup(*cmd);
 		cmd++;
 	}
+	new_envp[i] = NULL;
 	return (new_envp);
 }

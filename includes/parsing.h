@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 19:47:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/13 18:37:43 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right);
 void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left);
 void	no_head_right_node(t_node *parent, t_list *cur, int right);
 void	separator_node(t_node *parent, t_list *cur, int separator, int idx[2]);
-char	*interpret_env(char *src, char **envp);
+char	*interpret_env(char *src, int type, char **envp);
 #endif
