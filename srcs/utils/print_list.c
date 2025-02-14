@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 20:37:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 17:52:03 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 20:18:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	print_list(t_list *head)
 		data = (t_data *)cur->content;
 		printf("----- list = %d -----\n", i);
 		print_type(data->type);
-		printf("invalid : %d\n", data->invalid);
+		printf("invalid[0] : %d\n", data->invalid[0]);
+		printf("invalid[1] : %d\n", data->invalid[1]);
 		printf("text : %s\n", data->text);
 		// printf("index : [%d:%d]\n", data->start, data->end);
 		cur = cur->next;

@@ -6,12 +6,13 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 18:23:02 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 22:14:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
-char	*join_pieces(t_list *head);
+void	join_pieces(t_list *head);
+void	interpret_env_all(t_list *head, t_cmd *info);
 
 int	split_size(char **splited)
 {
@@ -55,26 +56,17 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	char	*past;
 	t_data	*data;
 
-	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
 	i = 0;
+	interpret_env_all(head, info);
+	join_pieces(head);
+	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
 	while (head)
 	{
 		data = (t_data *)head->content;
-		past = data->text;
-		data->text = interpret_env(data->text, data->type, info->envp);
-		free(past);
-		past = data->text;
-		data->text = remove_invalid_quote(data->text);
-		free(past);
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
 			res[i++] = ft_strdup(data->text);
 		else
 		{
-			if (head->next && ((t_data *)head->next->content)->invalid)
-			{
-				data->text = join_pieces(head);
-				head = head->next->next;
-			}
 			tmp = ft_split(data->text, ' ');
 			j = 0;
 			while (tmp[j])
@@ -87,23 +79,52 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	return (res);
 }
 
-char	*join_pieces(t_list *head)
+void	interpret_env_all(t_list *head, t_cmd *info)
 {
-	t_list	*cur_lst;
+	t_data	*data;
 	char	*past;
-	t_data	*head_data;
+
+	while (head)
+	{
+		data = (t_data *)head->content;
+		past = data->text;
+		data->text = interpret_env(data->text, data->type, info->envp);
+		free(past);
+		head = head->next;
+	}
+}
+
+void	join_pieces(t_list *head)
+{
+	t_list	*past_lst;
+	t_list	*cur_lst;
+	t_list	*free_lst;
+	t_data	*past_data;
+	t_data	*cur_data;
 	t_data	*next_data;
 
 	cur_lst = head;
-	head_data = (t_data *)head->content;
-	next_data = (t_data *)head->next->content;
-	past = head_data->text;
-	head_data->text = ft_strjoin(head_data->text, next_data->text);
-	free(past);
-	cur_lst = head->next;
-	next_data = (t_data *)cur_lst->next->content;
-	past = head_data->text;
-	head_data->text = ft_strjoin(head_data->text, next_data->text);
-	free(past);
-	return (head_data->text);
+	past_lst = NULL;
+	while (cur_lst)
+	{
+		cur_data = (t_data *)cur_lst->content;
+		if (cur_data->invalid[1])
+		{
+			free_lst = cur_lst->next;
+			next_data = (t_data *)cur_lst->next->content;
+			cur_data->text = ft_strjoin(cur_data->text, next_data->text);
+			cur_lst->next = cur_lst->next->next;
+			ft_lstdelone(free_lst, free_data);
+		}
+		if (cur_data->invalid[0])
+		{
+			past_data->text = ft_strjoin(past_data->text, cur_data->text);
+			past_lst->next = cur_lst->next;
+			ft_lstdelone(cur_lst, free_data);
+			cur_lst = past_lst;
+		}
+		past_lst = cur_lst;
+		past_data = (t_data *)past_lst->content;
+		cur_lst = cur_lst->next;
+	}
 }

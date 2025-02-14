@@ -6,11 +6,11 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 19:05:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 15:33:19 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 22:06:48 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/tree.h"
+#include "../../includes/struct.h"
 
 int	make_list_and_addback(t_list **head, t_data *new_data)
 {
