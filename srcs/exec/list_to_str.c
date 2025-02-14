@@ -6,11 +6,12 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/13 18:43:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 18:23:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
+char	*join_pieces(t_list *head);
 
 int	split_size(char **splited)
 {
@@ -69,6 +70,11 @@ char	**list_to_str(t_cmd *info, t_list *head)
 			res[i++] = ft_strdup(data->text);
 		else
 		{
+			if (head->next && ((t_data *)head->next->content)->invalid)
+			{
+				data->text = join_pieces(head);
+				head = head->next->next;
+			}
 			tmp = ft_split(data->text, ' ');
 			j = 0;
 			while (tmp[j])
@@ -79,4 +85,25 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	}
 	res[i] = NULL;
 	return (res);
+}
+
+char	*join_pieces(t_list *head)
+{
+	t_list	*cur_lst;
+	char	*past;
+	t_data	*head_data;
+	t_data	*next_data;
+
+	cur_lst = head;
+	head_data = (t_data *)head->content;
+	next_data = (t_data *)head->next->content;
+	past = head_data->text;
+	head_data->text = ft_strjoin(head_data->text, next_data->text);
+	free(past);
+	cur_lst = head->next;
+	next_data = (t_data *)cur_lst->next->content;
+	past = head_data->text;
+	head_data->text = ft_strjoin(head_data->text, next_data->text);
+	free(past);
+	return (head_data->text);
 }

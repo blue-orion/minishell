@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:36:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/11 17:36:20 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/14 17:51:14 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_data
 {
 	int		type;
 	char	*text;
+	int		invalid;
 	int		start;
 	int		end;
 }	t_data;
