@@ -90,5 +90,5 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right);
 void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left);
 void	no_head_right_node(t_node *parent, t_list *cur, int right);
 void	separator_node(t_node *parent, t_list *cur, int separator, int idx[2]);
-char	*interpret_env(char *src, int type, char **envp);
+char	*interpret_env(char *src, int type, t_cmd *info);
 #endif

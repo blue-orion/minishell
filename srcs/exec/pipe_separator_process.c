@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 17:42:35 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/09 21:38:52 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:57:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	pipe_separator_process(t_cmd *info, t_node *cur_node)
 	}
 	if (pid > 0)
 		info->pid[RIGHT] = pid;
-	printf("left pid : %d\n", info->pid[LEFT]);
-	printf("right pid : %d\n", info->pid[RIGHT]);
+	// printf("left pid : %d\n", info->pid[LEFT]);
+	// printf("right pid : %d\n", info->pid[RIGHT]);
 	close(info->pipe_fd[INPUT]);
 	close(info->pipe_fd[OUTPUT]);
 	waitpid(info->pid[LEFT], &info->exit_status, 0);
-	printf("left pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
+	// printf("left pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
 	waitpid(info->pid[RIGHT], &info->exit_status, 0);
-	printf("right pid : %d, exit_status = %d\n", info->pid[RIGHT], info->exit_status);
+	// printf("right pid : %d, exit_status = %d\n", info->pid[RIGHT], info->exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/09 23:30:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:32:22 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_tree_node(t_cmd *info, t_node *cur_node)
 	{
 		command_execve_process(info, cur_node);
 	}
-	printf("node adr = %p, exit_status: %d\n", cur_node, info->exit_status);
+	// printf("node adr = %p, exit_status: %d\n", cur_node, info->exit_status);
 	if (info->root != cur_node)
 		exit(info->exit_status);
 	return (info->exit_status);

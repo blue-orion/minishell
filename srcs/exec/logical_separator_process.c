@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 18:34:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/13 18:32:54 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:57:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	logical_separator_process(t_cmd *info, t_node *cur_node)
 		if (info->pid[LEFT] > 0)
 			waitpid(info->pid[LEFT], &info->exit_status, 0);
 	}
-	printf("left pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
+	// printf("left pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
 	if ((data->type == AND && info->exit_status != 0)
 		|| (data->type == OR && info->exit_status == 0))
 		return ;
@@ -45,5 +45,5 @@ void	logical_separator_process(t_cmd *info, t_node *cur_node)
 		if (info->pid[RIGHT] > 0)
 			waitpid(info->pid[RIGHT], &info->exit_status, 0);
 	}
-	printf("right pid : %d, exit_status = %d\n", info->pid[RIGHT], info->exit_status);
+	// printf("right pid : %d, exit_status = %d\n", info->pid[RIGHT], info->exit_status);
 }
