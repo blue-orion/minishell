@@ -41,6 +41,8 @@ typedef struct s_cmd
 	char		**cmd;
 	char		**path;
 	char		**envp;
+	char		*input_buf;
+	char		**cmd_buf;
 	pid_t		pid[2];
 	int			pipe_fd[2];
 	int			stdfd[2];

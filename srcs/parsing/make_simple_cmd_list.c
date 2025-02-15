@@ -67,6 +67,8 @@ void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src, int *flag)
 		else
 			i++;
 	}
+	index[END] = i;
+	simple_cmd_node(dst, src, cmd, index);
 }
 
 void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2])

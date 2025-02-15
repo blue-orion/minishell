@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 21:48:00 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/15 14:11:44 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_cmd	info;
 	char	*input;
+	char	*tmp;
 
 	signal_setup();
 	init_info(&info, env);
@@ -27,19 +28,29 @@ int	main(int ac, char **av, char **env)
 		dup2(info.stdfd[OUTPUT], 1);
 		input = readline("minishell> ");
 		if (!input)
-			return (1);
-		else
-			add_history(input);
-		input = preprocess_string(&info, input);
-		info.root = parsing(input);
-		if (!info.root)
-			continue ;
-		print_tree(info.root);
-		printf("\n\n");
-		exec_tree_node(&info, info.root);
-		print_tree(info.root);
-		printf("\n\n");
-		treeclear(info.root);
+			break ;
+		info.input_buf = ft_strdup(input);
+		tmp = malloc(sizeof(char) * (ft_strlen(input) + 2));
+		ft_strlcpy(tmp, input, ft_strlen(input) + 1);
+		tmp[ft_strlen(input)] = '\n';
+		tmp[ft_strlen(input) + 1] = '\0';
+		info.cmd_buf = ft_split(tmp, '\n');
+		free(tmp);
+		while (*info.cmd_buf)
+		{
+			input = preprocess_string(&info, *info.cmd_buf);
+			info.cmd_buf++;
+			info.root = parsing(input);
+			if (!info.root)
+				continue ;
+			printf("\n\n");
+			print_tree(info.root);
+			exec_tree_node(&info, info.root);
+			treeclear(info.root);
+		}
+		add_history(info.input_buf);
+		free(info.input_buf);
 		rl_on_new_line();
 	}
+	return (0);
 }

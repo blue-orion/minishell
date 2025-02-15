@@ -28,13 +28,19 @@ int	call_execve(char **cmd, t_cmd *info)
 	int	i;
 	char	*path_cmd;
 
+	path_cmd = ft_getenv("PATH", info->envp);
+	path_cmd = ft_strjoin(path_cmd, ":");
+	if (path_cmd)
+		info->path = ft_split(path_cmd, ':');
+	else
+		info->path[0] = NULL;
 	if (!access(cmd[0], F_OK))
 	{
 		if (access(cmd[0], X_OK))
 			execve_fail(PERMISSION_DENIED, 126);
 		else
 		{
-			if (execve(path_cmd, cmd, info->envp))
+			if (execve(cmd[0], cmd, info->envp))
 				error_exit("execve fail");
 		}
 	}

@@ -13,9 +13,9 @@
 #include "../../includes/parsing.h"
 #include <stdlib.h>
 
-int	count_len(char *src, int type, char **envp);
+int	count_len(char *src, int type, t_cmd *info);
 
-char	*interpret_env(char *src, int type, char **envp)
+char	*interpret_env(char *src, int type, t_cmd *info)
 {
 	char	*res;
 	int		res_idx;
@@ -26,23 +26,31 @@ char	*interpret_env(char *src, int type, char **envp)
 
 	i = 0;
 	res_idx = 0;
-	res = (char *)malloc(sizeof(char) * (count_len(src, type, envp) + 1));
+	res = (char *)malloc(sizeof(char) * (count_len(src, type, info) + 1));
 	while (src[i])
 	{
 		if (src[i] == '$')
 		{
-			if (type != SINGLE_QUOTE)
+			if (type != SINGLE_QUOTE && src[i + 1])
 			{
 				i++;
-				j = 0;
-				while (src[i + j] && !is_metachar(src[i + j]))
+				if (src[i] == '?')
 				{
-					name[j] = src[i + j];
-					j++;
+					value = ft_itoa(info->exit_status);
+					i++;
 				}
-				name[j] = '\0';
-				i += j;
-				value = ft_getenv(name, envp);
+				else
+				{
+					j = 0;
+					while (src[i + j] && !is_metachar(src[i + j]))
+					{
+						name[j] = src[i + j];
+						j++;
+					}
+					name[j] = '\0';
+					i += j;
+					value = ft_getenv(name, info->envp);
+				}
 				if (value)
 				{
 					j = 0;
@@ -58,7 +66,7 @@ char	*interpret_env(char *src, int type, char **envp)
 	return (res);
 }
 
-int	count_len(char *src, int type, char **envp)
+int	count_len(char *src, int type, t_cmd *info)
 {
 	int		len;
 	char	*value;
@@ -75,17 +83,25 @@ int	count_len(char *src, int type, char **envp)
 			if (type != SINGLE_QUOTE)
 			{
 				i++;
-				j = 0;
-				while (src[i + j] && !is_metachar(src[i + j]))
+				if (src[i] == '?')
 				{
-					name[j] = src[i + j];
-					j++;
+					value = ft_itoa(info->exit_status);
+					i++;
 				}
-				name[j] = '\0';
-				value = ft_getenv(name, envp);
+				else
+				{
+					j = 0;
+					while (src[i + j] && !is_metachar(src[i + j]))
+					{
+						name[j] = src[i + j];
+						j++;
+					}
+					name[j] = '\0';
+					i += j;
+					value = ft_getenv(name, info->envp);
+				}
 				len += ft_strlen(value);
 				len++;
-				i += j;
 			}
 		}
 		len++;

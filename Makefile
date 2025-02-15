@@ -50,7 +50,7 @@ SRCS = minishell.c	\
 	   parsing/make_parsing_tree.c	\
 	   parsing/make_redirection_list.c	\
 	   parsing/make_redirects_list.c	\
-	   parsing/make_simple_cmd_data.c		\
+	   parsing/make_simple_cmd_list.c		\
 	   parsing/move_to_token.c	\
 	   parsing/is_type.c		\
 	   parsing/parse_node.c		\

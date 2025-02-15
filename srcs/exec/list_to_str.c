@@ -88,7 +88,7 @@ void	interpret_env_all(t_list *head, t_cmd *info)
 	{
 		data = (t_data *)head->content;
 		past = data->text;
-		data->text = interpret_env(data->text, data->type, info->envp);
+		data->text = interpret_env(data->text, data->type, info);
 		free(past);
 		head = head->next;
 	}
