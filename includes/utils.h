@@ -23,4 +23,6 @@ void	free_data(void *content);
 void	error_exit(char *msg);
 void	put_error_msg(char *cmd, char *arg, char *error_msg);
 char	**copy_envp(char **envp);
+char	*add_newline(char *str);
+char	*make_history(char *cmd);
 #endif

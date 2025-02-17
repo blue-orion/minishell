@@ -15,7 +15,6 @@
 int	in_redirection(t_list *file);
 int	out_redirection(t_list *file);
 int	append_redirection(t_list *file);
-int	here_doc_redirection(t_cmd *info, t_list *eof);
 
 void	redirection_process(t_cmd *info, t_node *cur_node)
 {
@@ -67,66 +66,6 @@ int	out_redirection(t_list *file)
 		error_exit("open error");
 	if (dup2(fd, 1) < 0)
 		error_exit("dup2 error");
-	return (0);
-}
-
-int	here_doc_redirection(t_cmd *info, t_list *eof)
-{
-	t_data	*data;
-	char	*input;
-	int		fd[2];
-	int		len;
-	char	*past;
-
-	data = (t_data *)eof->content;
-	len = ft_strlen(data->text);
-	pipe(fd);
-	while (*info->cmd_buf)
-	{
-		if (!ft_strncmp(*info->cmd_buf, data->text, len))
-		{
-			info->cmd_buf++;
-			close(fd[1]);
-			if (dup2(fd[0], 0))
-				return (-1);
-			close(fd[0]);
-			return (0);	
-		}
-		else
-		{
-			input = ft_strjoin(*info->cmd_buf, "\n");
-			write(fd[1], input, ft_strlen(input));
-			// free(*info->cmd_buf);
-		}
-		info->cmd_buf++;
-	}
-	input = readline("> ");
-	past = input;
-	input = ft_strjoin(input, "\n");
-	free(past);
-	past = info->input_buf;
-	info->input_buf = ft_strjoin(info->input_buf, "\n");
-	free(past);
-	past = info->input_buf;
-	info->input_buf = ft_strjoin(info->input_buf, input);
-	free(past);
-	while (ft_strncmp(input, data->text, len))
-	{
-		write(fd[1], input, ft_strlen(input));
-		free(input);
-		input = readline("> ");
-		past = input;
-		input = ft_strjoin(input, "\n");
-		free(past);
-		past = info->input_buf;
-		info->input_buf = ft_strjoin(info->input_buf, input);
-		free(past);
-	}
-	close(fd[1]);
-	if (dup2(fd[0], 0))
-		return (-1);
-	close(fd[0]);
-	free(input);
 	return (0);
 }
 

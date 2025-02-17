@@ -25,6 +25,7 @@ SRCS = minishell.c	\
 	   exec/exec_tree_node.c	\
 	   exec/execve_fail.c		\
 	   exec/fork_childs.c		\
+	   exec/here_doc.c			\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\
@@ -71,13 +72,15 @@ SRCS = minishell.c	\
 	   tree/new_node.c			\
 	   tree/print_tree.c			\
 	   tree/treeclear.c		\
+	   utils/add_newline.c		\
 	   utils/copy_envp.c		\
+	   utils/error_exit.c		\
+	   utils/free_data.c		\
 	   utils/free_pptr.c		\
+	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\
-	   utils/skip_space.c		\
-	   utils/error_exit.c		\
-	   utils/free_data.c		
+	   utils/skip_space.c		
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))

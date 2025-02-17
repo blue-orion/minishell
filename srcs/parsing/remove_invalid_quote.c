@@ -14,7 +14,7 @@
 #define SINGLE 0
 #define DOUBLE 1
 
-char	*init_(char *src, int *n1, int *n2, int arr[2]);
+char	*init_source(char *src, int *n1, int *n2, int arr[2]);
 int		is_invalid_quote(char *s, int start_idx, int *flag);
 void	onoff_flag(char c, int flag[2]);
 
@@ -25,7 +25,7 @@ char	*remove_invalid_quote(char *src)
 	int		flag[2];
 	char	*res;
 
-	res = init_(src, &res_idx, &src_idx, flag);
+	res = init_source(src, &res_idx, &src_idx, flag);
 	if (!res)
 		return (NULL);
 	while (src[src_idx])
@@ -71,7 +71,7 @@ char	*remove_invalid_quote(char *src)
 	return (res);
 }
 
-char	*init_(char *src, int *n1, int *n2, int arr[2])
+char	*init_source(char *src, int *n1, int *n2, int arr[2])
 {
 	char	*res;
 
