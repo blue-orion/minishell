@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 15:37:54 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/19 20:11:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	put_error_msg(char *cmd, char *arg, char *error_msg);
 char	**copy_envp(char **envp);
 char	*add_newline(char *str);
 char	*make_history(char *cmd);
+char	*ft_join_free(char *s1, char *s2);
 #endif

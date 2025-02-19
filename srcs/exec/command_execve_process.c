@@ -26,5 +26,6 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	{
 		status = exec_command(info, cur_node);
 	}
+	info->exit_status = status;
 	return (status);
 }

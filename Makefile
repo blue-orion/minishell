@@ -17,7 +17,6 @@ SRCS = minishell.c	\
 	   builtin/ft_pwd.c		\
 	   builtin/ft_unset.c		\
 	   builtin/getsize.c		\
-	   exec/init_info.c			\
 	   exec/call_builtin_ft.c	\
 	   exec/call_execve.c		\
 	   exec/command_execve_process.c	\
@@ -26,6 +25,8 @@ SRCS = minishell.c	\
 	   exec/execve_fail.c		\
 	   exec/fork_childs.c		\
 	   exec/here_doc.c			\
+	   exec/init_info.c			\
+		 exec/interpret_wildcard.c	\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\
@@ -77,6 +78,7 @@ SRCS = minishell.c	\
 	   utils/error_exit.c		\
 	   utils/free_data.c		\
 	   utils/free_pptr.c		\
+		 utils/ft_join_free.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\

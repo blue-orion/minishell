@@ -6,11 +6,12 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/15 17:31:00 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/19 21:53:43 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parsing.h"
+#include "../../includes/exec.h"
+
 void	join_pieces(t_list *head);
 void	interpret_env_all(t_list *head, t_cmd *info);
 
@@ -24,7 +25,7 @@ int	split_size(char **splited)
 	return (cnt);
 }
 
-int	check_size(t_list *head)
+int	check_size(t_cmd *info, t_list *head)
 {
 	int		cnt;
 	char	**tmp;
@@ -38,6 +39,8 @@ int	check_size(t_list *head)
 			cnt++;
 		else
 		{
+			if (interpret_wildcard(info, data))
+				return (-1);
 			tmp = ft_split(data->text, ' ');
 			cnt += split_size(tmp);
 			free_pptr((void **)tmp);
@@ -54,12 +57,16 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	char	**res;
 	char	**tmp;
 	char	*past;
+	int		size;
 	t_data	*data;
 
 	i = 0;
 	interpret_env_all(head, info);
 	join_pieces(head);
-	res = (char **)malloc(sizeof(char *) * (check_size(head) + 1));
+	size = check_size(info, head);
+	if (size < 0)
+		return (NULL);
+	res = (char **)malloc(sizeof(char *) * (size + 1));
 	while (head)
 	{
 		data = (t_data *)head->content;

@@ -16,7 +16,7 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 {
 	info->cmd = list_to_str(info, cur_node->head);
 	if (!info->cmd)
-		return (0);
+		return (1);
 	if (is_builtin_command(info->cmd[0]))
 		info->exit_status = call_builtin_ft(info->cmd, info);
 	else
