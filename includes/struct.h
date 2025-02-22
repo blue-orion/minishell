@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:36:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 20:14:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/22 18:49:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ typedef struct s_cmd
 	int			exit_status;
 }	t_cmd;
 
+void	ft_free_resource(t_cmd *info);
 #endif

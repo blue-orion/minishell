@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:46:41 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/19 21:52:51 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/22 18:46:32 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	interpret_wildcard(t_cmd *info, t_data *data)
 			data->text = ft_join_free(data->text, words[i]);
 		i++;
 	}
+	free(path);
+	free_pptr((void **)words);
 	return (0);
 }
 

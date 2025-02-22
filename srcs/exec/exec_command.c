@@ -37,5 +37,6 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 		else
 			call_execve(info->cmd, info);
 	}
+	free_pptr((void **)info->cmd);
 	return (info->exit_status);
 }

@@ -82,7 +82,8 @@ SRCS = minishell.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\
-	   utils/skip_space.c		
+	   utils/skip_space.c		\
+	   utils/ft_free_resource.c
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))
