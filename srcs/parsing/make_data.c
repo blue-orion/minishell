@@ -12,20 +12,6 @@
 
 #include "../../includes/parsing.h"
 
-int	is_empty_str(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 char	*make_text(t_data *new, char *str)
 {
 	char	*past;

@@ -35,12 +35,17 @@ int	check_size(t_cmd *info, t_list *head)
 	while (head)
 	{
 		data = (t_data *)head->content;
+		if (is_empty_str(data->text))
+		{
+			head = head->next;
+			continue ;
+		}
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
 			cnt++;
 		else
 		{
-			if (interpret_wildcard(info, data))
-				return (-1);
+			// if (interpret_wildcard(info, data))
+			// 	return (-1);
 			tmp = ft_split(data->text, ' ');
 			cnt += split_size(tmp);
 			free_pptr((void **)tmp);
@@ -64,7 +69,7 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	interpret_env_all(head, info);
 	join_pieces(head);
 	size = check_size(info, head);
-	if (size < 0)
+	if (size <= 0)
 		return (NULL);
 	res = (char **)malloc(sizeof(char *) * (size + 1));
 	while (head)

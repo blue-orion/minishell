@@ -26,4 +26,5 @@ char	**copy_envp(char **envp);
 char	*add_newline(char *str);
 char	*make_history(char *cmd);
 char	*ft_join_free(char *s1, char *s2);
+int		is_empty_str(char *str);
 #endif
