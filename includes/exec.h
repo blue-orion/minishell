@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/19 21:53:18 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/23 22:56:30 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,7 @@ void	redirection_process(t_cmd *info, t_node *cur_node);
 int	command_execve_process(t_cmd *info, t_node *cur_node);
 int	here_doc_redirection(t_cmd *info, t_list *eof_list);
 int	interpret_wildcard(t_cmd *info, t_data *data);
+int	match_prefix(char *file, char *prefix);
+int	match_suffix(char *file, char *suffix);
+char	*interpret_env(char *text, t_cmd *info);
 #endif

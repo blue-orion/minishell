@@ -26,7 +26,9 @@ SRCS = minishell.c	\
 	   exec/fork_childs.c		\
 	   exec/here_doc.c			\
 	   exec/init_info.c			\
-		 exec/interpret_wildcard.c	\
+	   exec/interpret_env.c	\
+	   exec/interpret_wildcard.c	\
+	   exec/interpret_wildcard_utils.c	\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\
@@ -43,7 +45,6 @@ SRCS = minishell.c	\
 	   parsing/find_redirection.c	\
 	   parsing/find_token.c		\
 	   parsing/ft_getenv.c	\
-	   parsing/interpret_env.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
@@ -78,7 +79,7 @@ SRCS = minishell.c	\
 	   utils/error_exit.c		\
 	   utils/free_data.c		\
 	   utils/free_pptr.c		\
-		 utils/ft_join_free.c	\
+	   utils/ft_join_free.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\
