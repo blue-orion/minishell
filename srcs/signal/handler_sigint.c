@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:17:05 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/06 18:17:05 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/23 22:20:13 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	handler_sigint(struct sigaction *sa)
 	sigemptyset(&block);
 	sa->sa_handler = new_prompt;
 	sa->sa_mask = block;
+	sa->sa_flags = SA_SIGINFO;
 }
