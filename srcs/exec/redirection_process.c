@@ -10,30 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/exec.h"
 
 int	in_redirection(t_list *file);
 int	out_redirection(t_list *file);
 int	append_redirection(t_list *file);
 
-void	redirection_process(t_cmd *info, t_node *cur_node)
+int	redirection_process(t_cmd *info, t_node *cur_node)
 {
+	int	status;
+
 	if (!cur_node)
-		return ;
+		return (0);
 	if (cur_node->type == REDIRECTS)
 	{
 		redirection_process(info, cur_node->left_child);
 		redirection_process(info, cur_node->right_child);
-		return ;
+		return (0);
 	}
 	if (cur_node->type == IN)
-		in_redirection(cur_node->head->next);
+		status = in_redirection(cur_node->head->next);
 	if (cur_node->type == OUT)
-		out_redirection(cur_node->head->next);
+		status = out_redirection(cur_node->head->next);
 	if (cur_node->type == HERE_DOC)
-		here_doc_redirection(info, cur_node->head->next);
+		status = here_doc_redirection(info, cur_node->head->next);
 	if (cur_node->type == APPEND)
-		append_redirection(cur_node->head->next);
+		status = append_redirection(cur_node->head->next);
+	return (status);
 }
 
 int	in_redirection(t_list *file)
@@ -44,8 +47,8 @@ int	in_redirection(t_list *file)
 	data = (t_data *)file->content;
 	if (access(data->text, F_OK))
 	{
-		execve_fail(data->text, NO_FILE_OR_DIR, 1);
-		return (-1);
+		put_error_msg(data->text, NULL, NO_FILE_OR_DIR);
+		return (1);
 	}
 	fd = open(data->text, O_RDONLY);
 	if (fd < 0)

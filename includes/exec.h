@@ -40,7 +40,7 @@ int		separator_process(t_cmd *info, t_node *cur_node);
 void	execve_fail(char *cmd, char *error_msg, int status);
 int		call_builtin_ft(char **cmd, t_cmd *info);
 void	call_execve(char **cmd, t_cmd *info);
-void	redirection_process(t_cmd *info, t_node *cur_node);
+int		redirection_process(t_cmd *info, t_node *cur_node);
 int		command_execve_process(t_cmd *info, t_node *cur_node);
 int		here_doc_redirection(t_cmd *info, t_list *eof_list);
 int		interpret_wildcard(t_cmd *info, t_data *data);
