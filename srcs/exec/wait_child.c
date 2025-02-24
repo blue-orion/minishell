@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_info.c                                        :+:      :+:    :+:   */
+/*   wait_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 17:48:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/24 17:47:58 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/24 20:13:05 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/24 20:13:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/mini_signal.h"
 #include "../../includes/exec.h"
 
-void	init_info(t_cmd *info, char **envp)
+void	wait_child(t_cmd *info, pid_t child_pid)
 {
-	char	*path_env;
+	int		status;
+	pid_t	wpid;
 
-	path_env = getenv("PATH");
-	info->root = NULL;
-	info->cmd = NULL;
-	info->pid[0] = 0;
-	info->pid[1] = 0;
-	info->envp = copy_envp(envp);
-	info->pipe_fd[INPUT] = 0;
-	info->pipe_fd[OUTPUT] = 0;
-	info->stdfd[INPUT] = dup(0);
-	info->stdfd[OUTPUT] = dup(1);
-	info->parent = NULL;
-	// info->path = ft_split(path_env, ':');
-	sigemptyset(&info->set);
-	info->exit_status = 0;
+	signal(SIGINT, SIG_IGN);
+	wpid = waitpid(child_pid, &status, 0);
+	if (wpid < 0 && !WIFSIGNALED(status))
+		perror("waitpid error");
+	set_exit_status(info, status);
+	printf("pid : %d, exit_status = %d\n", child_pid, info->exit_status);
+	signal_setup();
 }

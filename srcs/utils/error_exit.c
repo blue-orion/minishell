@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 20:10:54 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 15:45:31 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/24 18:22:34 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	error_exit(char *msg)
 		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
-	exit(EXIT_FAILURE);
+	exit(errno);
 }

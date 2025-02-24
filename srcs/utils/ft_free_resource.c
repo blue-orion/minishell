@@ -6,7 +6,7 @@
 /*   By: root <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 18:47:53 by root              #+#    #+#             */
-/*   Updated: 2025/02/22 18:48:50 by root             ###   ########.fr       */
+/*   Updated: 2025/02/24 17:48:33 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	ft_free_resource(t_cmd *info)
 {
 	free_pptr((void **)info->envp);
-	free_pptr((void **)info->path);
+	// free_pptr((void **)info->path);
 }

@@ -39,7 +39,9 @@ SRCS = minishell.c	\
 	   exec/redirect_pipe.c	\
 	   exec/redirection_process.c	\
 	   exec/separator_process.c	\
+	   exec/set_exit_status.c	\
 	   exec/simple_separator_process.c	\
+	   exec/wait_child.c			\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\

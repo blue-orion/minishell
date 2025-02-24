@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parenthesis_process.c                              :+:      :+:    :+:   */
+/*   set_exit_status.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 17:24:57 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/15 17:57:08 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/24 19:12:06 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/24 19:13:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../../includes/libft.h"
+#include "../../includes/struct.h"
+#include <sys/wait.h>
 
-int	parenthesis_process(t_cmd *info, t_node *cur_node)
+void	set_exit_status(t_cmd *info, int status)
 {
-	info->pid[LEFT] = fork();
-	info->parent = cur_node;
-	if (info->pid[LEFT] < 0)
-		return (-1);
-	if (info->pid[LEFT] == 0)
-		exec_tree_node(info, cur_node->left_child);
-	if (info->pid[LEFT] > 0)
-		wait_child(info, info->pid[LEFT]);
-	return (0);
+	if (WIFEXITED(status))
+		info->exit_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+	{
+		status = WTERMSIG(status);
+		if (status == SIGTERM)
+			ft_putendl_fd("Terminated", 1);
+		info->exit_status = status + 128;
+	}
 }

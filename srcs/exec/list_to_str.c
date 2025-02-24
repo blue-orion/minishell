@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/19 21:53:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/24 17:17:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ char	**list_to_str(t_cmd *info, t_list *head)
 	while (head)
 	{
 		data = (t_data *)head->content;
-		if (!data->text[0])
-			return (NULL);
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
 			res[i++] = ft_strdup(data->text);
 		else

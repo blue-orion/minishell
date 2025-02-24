@@ -20,12 +20,11 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	if (!cur_node->head)
 	{
 		redirection_process(info, cur_node->left_child);
-		status = exec_command(info, cur_node->right_child);
+		info->exit_status = exec_command(info, cur_node->right_child);
 	}
 	else
 	{
-		status = exec_command(info, cur_node);
+		info->exit_status = exec_command(info, cur_node);
 	}
-	info->exit_status = status;
-	return (status);
+	return (info->exit_status);
 }

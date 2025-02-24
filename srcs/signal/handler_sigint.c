@@ -31,5 +31,5 @@ void	handler_sigint(struct sigaction *sa)
 	sigemptyset(&block);
 	sa->sa_handler = new_prompt;
 	sa->sa_mask = block;
-	sa->sa_flags = SA_SIGINFO;
+	sa->sa_flags = SA_SIGINFO | SA_RESTART;
 }

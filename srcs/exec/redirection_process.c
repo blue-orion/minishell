@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 23:32:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/15 14:03:55 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/24 17:29:43 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	in_redirection(t_list *file)
 	data = (t_data *)file->content;
 	if (access(data->text, F_OK))
 	{
-		execve_fail(NO_FILE_OR_DIR, 1);
+		execve_fail(data->text, NO_FILE_OR_DIR, 1);
 		return (-1);
 	}
 	fd = open(data->text, O_RDONLY);

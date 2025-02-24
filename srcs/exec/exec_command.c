@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:52:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/15 17:32:49 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/24 19:15:09 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 			if (info->pid[0] == 0)
 				call_execve(info->cmd, info);
 			if (info->pid[0] > 0)
-			{
-				waitpid(info->pid[0], &info->exit_status, 0);
-				// printf("pid : %d, exit_status = %d\n", info->pid[0], info->exit_status);
-			}
+				wait_child(info, info->pid[0]);
 		}
 		else
 			call_execve(info->cmd, info);

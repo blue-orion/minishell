@@ -30,7 +30,7 @@ void	simple_separator_process(t_cmd *info, t_node *cur_node)
 			return ;
 		}
 		if (info->pid[LEFT] > 0)
-			waitpid(info->pid[LEFT], &info->exit_status, 0);
+			wait_child(info, info->pid[LEFT]);
 	}
 	if (is_builtin_node(info, cur_node->right_child))
 		info->exit_status = exec_command(info, cur_node->right_child);
@@ -45,6 +45,6 @@ void	simple_separator_process(t_cmd *info, t_node *cur_node)
 			return ;
 		}
 		if (info->pid[RIGHT] > 0)
-			waitpid(info->pid[RIGHT], &info->exit_status, 0);
+			wait_child(info, info->pid[LEFT]);
 	}
 }

@@ -6,11 +6,12 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:05:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/10 15:29:34 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/24 18:51:57 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+#include <sys/stat.h>
 
 char	*make_path_cmd(char *path, char *cmd)
 {
@@ -23,42 +24,68 @@ char	*make_path_cmd(char *path, char *cmd)
 	return (new);
 }
 
-int	call_execve(char **cmd, t_cmd *info)
+char	**get_path_array(t_cmd *info)
 {
-	int	i;
+	char *path_env;
+	char **path;
+
+	path_env = ft_getenv("PATH", info->envp);
+	if (path_env)
+		path = ft_split(path_env, ':');
+	else
+		path = NULL;
+	return (path);
+}
+
+int	is_executable_path(char *cmd)
+{
+	struct stat statbuf;
+
+	if (access(cmd, F_OK))
+		return (0);
+	stat(cmd, &statbuf);
+	if (S_ISDIR(statbuf.st_mode))
+		execve_fail(cmd, IS_DIR, 126);
+	if (access(cmd, X_OK))
+		execve_fail(cmd, PERMISSION_DENIED, 126);
+	return (1);
+}
+
+char	*get_executable_path(char **cmd, t_cmd *info)
+{
+	int		i;
+	char	**path;
 	char	*path_cmd;
 
-	path_cmd = ft_getenv("PATH", info->envp);
-	path_cmd = ft_strjoin(path_cmd, ":");
-	if (path_cmd)
-		info->path = ft_split(path_cmd, ':');
-	else
-		info->path[0] = NULL;
-	if (!access(cmd[0], F_OK))
-	{
-		if (access(cmd[0], X_OK))
-			execve_fail(PERMISSION_DENIED, 126);
-		else
-		{
-			if (execve(cmd[0], cmd, info->envp))
-				error_exit("execve fail");
-		}
-	}
+	path = get_path_array(info);
 	i = 0;
-	while (info->path[i])
+	while (path[i])
 	{
-		path_cmd = make_path_cmd(info->path[i], cmd[0]);
-		if (access(path_cmd, F_OK))
-		{
-			i++;
-			continue ;
-		}
-		if (access(path_cmd, X_OK))
-			execve_fail(PERMISSION_DENIED, 126);
-		break ;
+		path_cmd = make_path_cmd(path[i], cmd[0]);
+		if (is_executable_path(path_cmd))
+			return (path_cmd);
+		free(path_cmd);
+		i++;
 	}
-	if (!info->path[i])
-		execve_fail(CMD_NOT_FOUND, 127);
+	free_pptr((void **)path);
+	return (NULL);
+}
+
+void	call_execve(char **cmd, t_cmd *info)
+{
+	char	*path_cmd;
+
+	if (is_executable_path(cmd[0]))
+	{
+		if (execve(cmd[0], cmd, info->envp))
+			error_exit("execve fail");
+	}
+	path_cmd = get_executable_path(cmd, info);
+	if (!path_cmd)
+	{
+		free_pptr((void **)info->envp);
+		execve_fail(cmd[0], CMD_NOT_FOUND, 127);
+	}
 	free(cmd[0]);
 	cmd[0] = path_cmd;
 	if (execve(path_cmd, cmd, info->envp))

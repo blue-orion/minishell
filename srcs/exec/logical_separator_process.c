@@ -27,7 +27,7 @@ void	logical_separator_process(t_cmd *info, t_node *cur_node)
 		if (info->pid[LEFT] == 0)
 			exec_tree_node(info, cur_node->left_child);
 		if (info->pid[LEFT] > 0)
-			waitpid(info->pid[LEFT], &info->exit_status, 0);
+			wait_child(info, info->pid[LEFT]);
 	}
 	// printf("left pid : %d, exit_status = %d\n", info->pid[LEFT], info->exit_status);
 	if ((data->type == AND && info->exit_status != 0)
@@ -43,7 +43,7 @@ void	logical_separator_process(t_cmd *info, t_node *cur_node)
 		if (info->pid[RIGHT] == 0)
 			exec_tree_node(info, cur_node->right_child);
 		if (info->pid[RIGHT] > 0)
-			waitpid(info->pid[RIGHT], &info->exit_status, 0);
+			wait_child(info, info->pid[RIGHT]);
 	}
 	// printf("right pid : %d, exit_status = %d\n", info->pid[RIGHT], info->exit_status);
 }
