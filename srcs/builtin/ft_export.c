@@ -14,7 +14,7 @@
 #include "../../includes/utils.h"
 
 void	declare_all(char **envp);
-char	**declare_argv(char **cmd, char **envp);
+char	**make_new_env_set(char **cmd, char **envp);
 
 int	ft_export(char **cmd, t_cmd *info)
 {
@@ -27,7 +27,7 @@ int	ft_export(char **cmd, t_cmd *info)
 		declare_all(info->envp);
 	else
 	{
-		new_envp = declare_argv(cmd + 1, info->envp);
+		new_envp = make_new_env_set(cmd + 1, info->envp);
 		free_pptr((void **)info->envp);
 		info->envp = new_envp;
 	}
@@ -36,28 +36,38 @@ int	ft_export(char **cmd, t_cmd *info)
 
 void	declare_all(char **envp)
 {
-	int	i;
+	int		i;
+	char	*value;
+	char	*name;
 
 	i = 0;
 	while (envp[i])
 	{
+		name = get_name(envp[i]);
+		value = ft_getenv(name, envp);
 		ft_putstr_fd("declare -x ", 1);
-		ft_putendl_fd(envp[i], 1);
+		ft_putstr_fd(name, 1);
+		ft_putchar_fd('=', 1);
+		ft_putchar_fd('\"', 1);
+		ft_putstr_fd(value, 1);
+		ft_putchar_fd('\"', 1);
+		ft_putchar_fd('\n', 1);
+		free(name);
 		i++;
 	}
 }
 
-int	check_name(char *str)
+int	is_valid_env_format(char *str)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isdigit(str[i]))
-		return (-1);
+		return (0);
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
-			return (-1);
+			return (0);
 		i++;
 	}
 	if (str[i] == '=')
@@ -65,57 +75,45 @@ int	check_name(char *str)
 	return (0);
 }
 
-int	present_name(char *name, char **envp)
+void	add_new_env(char **new_envp, char **cmd)
 {
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(name);
-	while (envp[i])
-	{
-		if (!ft_strncmp(name, envp[i], len) && envp[i][len] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-char	**declare_argv(char **cmd, char **envp)
-{
-	char	**new_envp;
-	int		envp_size;
 	int		i;
-	char	*new;
-	int		value;
+	char	*name;
+	int		name_index;
 
-	envp_size = getsize(envp) + getsize(cmd);
-	new_envp = (char **)malloc(sizeof(char *) * (envp_size + 1));
 	i = 0;
-	while (envp[i])
-	{
-		new_envp[i] = ft_strdup(envp[i]);
+	while (new_envp[i])
 		i++;
-	}
 	while (*cmd)
 	{
-		value = check_name(*cmd);
-		if (value < 0)
-		{
+		if (is_valid_env_format(*cmd))
 			put_error_msg("export", *cmd, "not a valid identifier");
-		}
-		if (value > 0)
+		else
 		{
-			if (present_name(ft_substr(*cmd, 0, check_name(*cmd)), new_envp) >= 0)
-			{
-				new_envp[present_name(ft_substr(*cmd, 0, check_name(*cmd)), new_envp)] = ft_strdup(*cmd);
-				cmd++;
-				continue ;
-			}
-			new_envp[i++] = ft_strdup(*cmd);
+			name = get_name(*cmd);
+			name_index = get_name_index(name, new_envp);
+			if (name_index >= 0)
+				new_envp[name_index] = ft_strdup(*cmd);
+			else
+				new_envp[i++] = ft_strdup(*cmd);
+			free(name);
 		}
 		cmd++;
 	}
 	new_envp[i] = NULL;
+}
+
+char	**make_new_env_set(char **cmd, char **envp)
+{
+	char	**new_envp;
+	int		envp_size;
+
+	envp_size = getsize(envp) + getsize(cmd);
+	new_envp = (char **)malloc(sizeof(char *) * (envp_size + 1));
+	if (!new_envp)
+		error_exit("failed malloc in export");
+	ft_memset(new_envp, 0, sizeof(char *) * (envp_size + 1));
+	dup_env(new_envp, envp);
+	add_new_env(new_envp, cmd);
 	return (new_envp);
 }

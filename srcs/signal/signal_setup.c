@@ -23,4 +23,3 @@ void	signal_setup(void)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, SIG_DFL);
 }
-

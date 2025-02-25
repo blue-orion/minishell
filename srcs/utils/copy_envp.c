@@ -31,4 +31,3 @@ char	**copy_envp(char **envp)
 	dst[i] = NULL;
 	return (dst);
 }
-

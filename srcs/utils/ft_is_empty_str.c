@@ -23,4 +23,3 @@ int	is_empty_str(char *str)
 	}
 	return (1);
 }
-

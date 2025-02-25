@@ -19,11 +19,6 @@ void	*free_pptr(void **pptr)
 	i = 0;
 	while (pptr[i])
 	{
-		// if (i == 2)
-		// {
-		// 	i++;
-		// 	continue; 
-		// }
 		free(pptr[i]);
 		i++;
 	}

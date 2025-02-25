@@ -27,4 +27,8 @@ char	*add_newline(char *str);
 char	*make_history(char *cmd);
 char	*ft_join_free(char *s1, char *s2);
 int		is_empty_str(char *str);
+void	dup_env(char **dst, char **src);
+char	*get_name(char *str);
+int		get_name_index(char *name, char **envp);
+char	*ft_getenv(char *name, char **envp);
 #endif

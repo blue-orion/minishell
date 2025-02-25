@@ -1,16 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/11 19:41:02 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/25 21:45:14 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/25 23:17:40 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/25 23:17:40 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../../includes/utils.h"
+
+void	dup_env(char **dst, char **src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = ft_strdup(src[i]);
+		if (!dst[i])
+			error_exit("failed malloc in dup_env");
+		i++;
+	}
+}
+
+char	*get_name(char *str)
+{
+	int		i;
+	char	*name;
+
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	name = ft_substr(str, 0, i);
+	if (!name)
+		error_exit("failed malloc in get_name");
+	return (name);
+}
+
+int	get_name_index(char *name, char **envp)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(name);
+	while (envp[i])
+	{
+		if (!ft_strncmp(name, envp[i], len) && envp[i][len] == '=')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 char	*ft_getenv(char *name, char **envp)
 {

@@ -19,4 +19,3 @@ int	getsize(char **cmd)
 		cnt++;
 	return (cnt);
 }
-

@@ -49,6 +49,7 @@ SRCS = minishell.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
+	   parsing/is_type.c		\
 	   parsing/make_data.c		\
 	   parsing/make_list_and_addback.c	\
 	   parsing/make_parsing_tree.c	\
@@ -56,15 +57,14 @@ SRCS = minishell.c	\
 	   parsing/make_redirects_list.c	\
 	   parsing/make_simple_cmd_list.c		\
 	   parsing/move_to_token.c	\
-	   parsing/is_type.c		\
 	   parsing/parse_node.c		\
 	   parsing/parse_node_utils.c	\
 	   parsing/parsing.c		\
 	   parsing/preprocess_string.c	\
-	   parsing/split_sentense_to_list.c	\
 	   parsing/split_cmd_node.c		\
 	   parsing/split_piece.c		\
 	   parsing/split_redirects_node.c	\
+	   parsing/split_sentense_to_list.c	\
 	   parsing/subsitute_tab.c		\
 	   parsing/unit_block.c			\
 	   parsing/which_separator.c		\
@@ -76,11 +76,11 @@ SRCS = minishell.c	\
 	   tree/treeclear.c		\
 	   utils/add_newline.c		\
 	   utils/copy_envp.c		\
+	   utils/env_utils.c		\
 	   utils/error_exit.c		\
 	   utils/free_data.c		\
 	   utils/free_pptr.c		\
 	   utils/ft_free_resource.c	\
-	   utils/ft_getenv.c	\
 	   utils/ft_is_empty_str.c	\
 	   utils/ft_join_free.c	\
 	   utils/make_history.c		\

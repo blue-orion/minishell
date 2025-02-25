@@ -15,5 +15,4 @@
 void	ft_free_resource(t_cmd *info)
 {
 	free_pptr((void **)info->envp);
-	// free_pptr((void **)info->path);
 }
