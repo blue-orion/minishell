@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 20:14:53 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/25 21:54:02 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ t_data	*make_data(char *str, int type, int start, int end)
 	new = (t_data *)malloc(sizeof(t_data));
 	if (!new)
 		return (NULL);
+	ft_memset(new, 0, sizeof(t_data));
 	new->type = type;
-	new->invalid[0] = 0;
-	new->invalid[1] = 0;
 	new->start = start;
 	new->end = end;
 	new->text = make_text(new, str);

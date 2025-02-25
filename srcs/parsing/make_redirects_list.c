@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:32:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 00:32:02 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/25 22:18:52 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 	new_data = make_data(data, REDIRECTS, start, end);
 	if (!new_data)
 		error_exit("failed malloc in split_cmd_node");
-	if (make_list_and_addback(head, new_data))
-		error_exit("failed malloc in split_cmd_node");
+	make_list_and_addback(head, new_data);
 	if (start != end && !data[*i])
 		return (1);
 	return (0);

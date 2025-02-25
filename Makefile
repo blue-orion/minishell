@@ -46,7 +46,6 @@ SRCS = minishell.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\
 	   parsing/find_token.c		\
-	   parsing/ft_getenv.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\
@@ -62,7 +61,6 @@ SRCS = minishell.c	\
 	   parsing/parse_node_utils.c	\
 	   parsing/parsing.c		\
 	   parsing/preprocess_string.c	\
-	   parsing/remove_invalid_quote.c	\
 	   parsing/split_sentense_to_list.c	\
 	   parsing/split_cmd_node.c		\
 	   parsing/split_piece.c		\
@@ -81,13 +79,14 @@ SRCS = minishell.c	\
 	   utils/error_exit.c		\
 	   utils/free_data.c		\
 	   utils/free_pptr.c		\
+	   utils/ft_free_resource.c	\
+	   utils/ft_getenv.c	\
 	   utils/ft_is_empty_str.c	\
 	   utils/ft_join_free.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\
-	   utils/skip_space.c		\
-	   utils/ft_free_resource.c
+	   utils/skip_space.c		
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 OBJ_SUBDIRS = $(sort $(dir $(OBJS)))

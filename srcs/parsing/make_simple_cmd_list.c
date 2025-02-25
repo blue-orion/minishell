@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_simple_cmd_data.c                             :+:      :+:    :+:   */
+/*   make_simple_cmd_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/05 16:21:33 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/25 22:28:18 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #define END 1
 
 void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src, int *flag);
-void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2]);
+int		simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2]);
 int		next_redirection(char *str);
 
 t_list	*make_simple_cmd_list(t_list *head)
@@ -30,6 +30,7 @@ t_list	*make_simple_cmd_list(t_list *head)
 	cur_lst = head;
 	while (find_redirection(cur_lst))
 	{
+		flag = 0;
 		cur_lst = move_to_token(cur_lst, CMD);
 		extract_simple_cmd(&res_lst, cur_lst, head, &flag);
 		past_lst = cur_lst;
@@ -48,7 +49,6 @@ void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src, int *flag)
 	const t_data	*data = (t_data *)cmd->content;
 
 	i = 0;
-	*flag = 0;
 	index[START] = 0;
 	while (data->text[i])
 	{
@@ -56,8 +56,7 @@ void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src, int *flag)
 		if (redirect)
 		{
 			index[END] = i++;
-			simple_cmd_node(dst, src, cmd, index);
-			if (*dst == src)
+			if (simple_cmd_node(dst, src, cmd, index))
 				*flag = 1;
 			if (redirect == HERE_DOC || redirect == APPEND)
 				i++;
@@ -71,7 +70,7 @@ void	extract_simple_cmd(t_list **dst, t_list *cmd, t_list *src, int *flag)
 	simple_cmd_node(dst, src, cmd, index);
 }
 
-void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2])
+int	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2])
 {
 	t_data	*data;
 	t_data	*new_data;
@@ -92,11 +91,12 @@ void	simple_cmd_node(t_list **dst, t_list *src, t_list *cmd, int index[2])
 			((t_data *)src->content)->type = SIMPLE_CMD;
 			*dst = src;
 			past_lst->next = NULL;
+			return (1);
 		}
 	}
 	else
-		if (make_list_and_addback(dst, new_data))
-			error_exit("failed malloc in making simple_cmd_node");
+		make_list_and_addback(dst, new_data);
+	return (0);
 }
 
 int	next_redirection(char *str)

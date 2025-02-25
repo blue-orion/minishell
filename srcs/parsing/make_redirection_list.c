@@ -42,8 +42,7 @@ void	redirection_list(t_list **head, t_data *data)
 	new_data = make_data(data->text, redirection, start, end);
 	if (!new_data)
 		error_exit("failed malloc in make redirection list");
-	if (make_list_and_addback(head, new_data))
-		error_exit("failed malloc in make redirection list");
+	make_list_and_addback(head, new_data);
 }
 
 int	file_name_list(t_list **dst, t_list *src)
@@ -68,7 +67,6 @@ int	file_name_list(t_list **dst, t_list *src)
 		ft_lstadd_back(dst, src->next);
 		return (1);
 	}
-	if (make_list_and_addback(dst, new_data))
-		error_exit("failed malloc in make redirection list");
+	make_list_and_addback(dst, new_data);
 	return (0);
 }

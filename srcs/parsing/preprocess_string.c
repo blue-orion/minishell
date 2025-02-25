@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:38:18 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 17:38:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/25 21:44:17 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*preprocess_string(t_cmd *info, char *src)
 
 	subsitute_tab(src);
 	res = ft_strtrim(src, " ");
-	// free(src);
 	if (!res)
 		error_exit("command preprocess failed");
 	return (res);
 }
-
