@@ -27,9 +27,7 @@ char	*make_history(char *cmd)
 	line = get_next_line(fd);
 	while (line)
 	{
-		tmp = cmd;
-		cmd = ft_strjoin(cmd, line);
-		free(tmp);
+		cmd = ft_join_free(cmd, line);
 		if (!cmd)
 			error_exit("malloc failed");
 		free(line);

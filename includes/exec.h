@@ -36,7 +36,7 @@ int		exec_command(t_cmd *info, t_node *cur_node);
 void	pipe_separator_process(t_cmd *info, t_node *cur_node);
 void	logical_separator_process(t_cmd *info, t_node *cur_node);
 void	simple_separator_process(t_cmd *info, t_node *cur_node);
-int		separator_process(t_cmd *info, t_node *cur_node);
+void	separator_process(t_cmd *info, t_node *cur_node);
 void	execve_fail(char *cmd, char *error_msg, int status);
 int		call_builtin_ft(char **cmd, t_cmd *info);
 void	call_execve(char **cmd, t_cmd *info);
@@ -49,4 +49,5 @@ int		match_suffix(char *file, char *suffix);
 char	*interpret_env(char *text, t_cmd *info);
 void	set_exit_status(t_cmd *info, int status);
 void	wait_child(t_cmd *info, pid_t child_pid);
+void	fork_child(t_cmd *info, t_node *child_node);
 #endif

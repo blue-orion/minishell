@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 18:28:30 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/09 20:47:26 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/26 15:34:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,4 @@ void	redirect_pipe(t_cmd *info, t_node *cur_node)
 		dup2(info->pipe_fd[OUTPUT], 0);
 	close(info->pipe_fd[INPUT]);
 	close(info->pipe_fd[OUTPUT]);
-	info->pipe_flag = 0;
 }

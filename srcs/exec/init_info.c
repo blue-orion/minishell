@@ -14,9 +14,7 @@
 
 void	init_info(t_cmd *info, char **envp)
 {
-	char	*path_env;
-
-	path_env = getenv("PATH");
+	ft_memset(info, 0, sizeof(t_cmd));
 	info->root = NULL;
 	info->cmd = NULL;
 	info->pid[0] = 0;
@@ -27,7 +25,5 @@ void	init_info(t_cmd *info, char **envp)
 	info->stdfd[INPUT] = dup(0);
 	info->stdfd[OUTPUT] = dup(1);
 	info->parent = NULL;
-	// info->path = ft_split(path_env, ':');
-	sigemptyset(&info->set);
 	info->exit_status = 0;
 }

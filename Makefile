@@ -23,7 +23,7 @@ SRCS = minishell.c	\
 	   exec/exec_command.c		\
 	   exec/exec_tree_node.c	\
 	   exec/execve_fail.c		\
-	   exec/fork_childs.c		\
+	   exec/fork_child.c		\
 	   exec/here_doc.c			\
 	   exec/init_info.c			\
 	   exec/interpret_env.c	\
@@ -32,15 +32,12 @@ SRCS = minishell.c	\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\
-	   exec/logical_separator_process.c	\
 	   exec/make_child_process.c	\
 	   exec/parenthesis_process.c	\
-	   exec/pipe_separator_process.c	\
 	   exec/redirect_pipe.c	\
 	   exec/redirection_process.c	\
 	   exec/separator_process.c	\
 	   exec/set_exit_status.c	\
-	   exec/simple_separator_process.c	\
 	   exec/wait_child.c			\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\

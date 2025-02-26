@@ -26,8 +26,8 @@ char	*make_path_cmd(char *path, char *cmd)
 
 char	**get_path_array(t_cmd *info)
 {
-	char *path_env;
-	char **path;
+	char	*path_env;
+	char	**path;
 
 	path_env = ft_getenv("PATH", info->envp);
 	if (path_env)
@@ -39,7 +39,7 @@ char	**get_path_array(t_cmd *info)
 
 int	is_executable_path(char *cmd)
 {
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	if (access(cmd, F_OK))
 		return (0);
