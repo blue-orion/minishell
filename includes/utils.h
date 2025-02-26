@@ -6,14 +6,14 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/22 18:49:21 by root             ###   ########.fr       */
+/*   Updated: 2025/02/26 18:19:20 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "libft.h"
+# include "libft.h"
 
 void	print_list(t_list *head);
 void	print_type(int type);
