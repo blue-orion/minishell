@@ -16,10 +16,10 @@ SRCS = minishell.c	\
 	   builtin/ft_export.c	\
 	   builtin/ft_pwd.c		\
 	   builtin/ft_unset.c		\
-	   builtin/getsize.c		\
 	   exec/call_builtin_ft.c	\
 	   exec/call_execve.c		\
 	   exec/command_execve_process.c	\
+	   exec/end_process.c		\
 	   exec/exec_command.c		\
 	   exec/exec_tree_node.c	\
 	   exec/execve_fail.c		\

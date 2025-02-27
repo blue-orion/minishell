@@ -44,4 +44,5 @@ void	set_exit_status(t_cmd *info, int status);
 void	wait_child(t_cmd *info, pid_t child_pid);
 void	fork_child(t_cmd *info, t_node *child_node);
 void	remove_invalid_quote(t_list *head);
+void	end_process(t_cmd *info, t_node *root);
 #endif

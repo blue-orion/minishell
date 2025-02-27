@@ -13,6 +13,29 @@
 #include "../../includes/exec.h"
 #include <sys/stat.h>
 
+char	*make_path_cmd(char *path, char *cmd);
+char	**get_path_array(t_cmd *info);
+int	is_executable_path(char *cmd);
+char	*get_executable_path(char **cmd, t_cmd *info);
+
+void	call_execve(char **cmd, t_cmd *info)
+{
+	char	*path_cmd;
+
+	if (is_executable_path(cmd[0]))
+	{
+		if (execve(cmd[0], cmd, info->envp))
+			error_exit("execve fail");
+	}
+	path_cmd = get_executable_path(cmd, info);
+	if (!path_cmd)
+		execve_fail(cmd[0], CMD_NOT_FOUND, 127);
+	free(cmd[0]);
+	cmd[0] = path_cmd;
+	if (execve(path_cmd, cmd, info->envp))
+		error_exit("execve fail");
+}
+
 char	*make_path_cmd(char *path, char *cmd)
 {
 	char	*new;
@@ -69,25 +92,4 @@ char	*get_executable_path(char **cmd, t_cmd *info)
 	}
 	free_pptr((void **)path);
 	return (NULL);
-}
-
-void	call_execve(char **cmd, t_cmd *info)
-{
-	char	*path_cmd;
-
-	if (is_executable_path(cmd[0]))
-	{
-		if (execve(cmd[0], cmd, info->envp))
-			error_exit("execve fail");
-	}
-	path_cmd = get_executable_path(cmd, info);
-	if (!path_cmd)
-	{
-		free_pptr((void **)info->envp);
-		execve_fail(cmd[0], CMD_NOT_FOUND, 127);
-	}
-	free(cmd[0]);
-	cmd[0] = path_cmd;
-	if (execve(path_cmd, cmd, info->envp))
-		error_exit("execve fail");
 }

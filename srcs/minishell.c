@@ -36,16 +36,16 @@ int	main(int ac, char **av, char **env)
 		i = 0;
 		while (info.cmd_buf[i])
 		{
-			input = preprocess_string(&info, *info.cmd_buf);
+			input = preprocess_string(info.cmd_buf[i]);
 			info.root = parsing(input);
 			if (!info.root)
 			{
 				i++;
 				continue ;
 			}
-			// print_tree(info.root);
-			// printf("\n\n");
-			info.input_buf = ft_strdup(*info.cmd_buf);
+			print_tree(info.root);
+			printf("\n\n");
+			info.input_buf = ft_strdup(info.cmd_buf[i]);
 			i++;
 			exec_tree_node(&info, info.root);
 			treeclear(info.root);
@@ -59,6 +59,8 @@ int	main(int ac, char **av, char **env)
 		free_pptr((void **)info.cmd_buf);
 		rl_on_new_line();
 	}
+	close(info.stdfd[INPUT]);
+	close(info.stdfd[OUTPUT]);
 	clear_history();
 	ft_free_resource(&info);
 	return (0);

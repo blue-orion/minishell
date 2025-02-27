@@ -12,7 +12,7 @@
 
 #include "../../includes/parsing.h"
 
-char	*preprocess_string(t_cmd *info, char *src)
+char	*preprocess_string(char *src)
 {
 	char	*res;
 

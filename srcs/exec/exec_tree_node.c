@@ -26,6 +26,9 @@ int	exec_tree_node(t_cmd *info, t_node *cur_node)
 	if (!cur_node->type || cur_node->type == CMD)
 		command_execve_process(info, cur_node);
 	if (info->root != cur_node)
+	{
+		end_process(info, cur_node);
 		exit(info->exit_status);
+	}
 	return (info->exit_status);
 }

@@ -15,9 +15,10 @@
 
 # include "tree.h"
 # include "utils.h"
+# include "define.h"
 
 char	*ft_getenv(char *name, char **envp);
-char	*preprocess_string(t_cmd *info, char *src);
+char	*preprocess_string(char *src);
 int		is_metachar(char c);
 
 void	subsitute_tab_to_space(char *str);
