@@ -51,6 +51,4 @@ typedef struct s_cmd
 	sigset_t	set;
 	int			exit_status;
 }	t_cmd;
-
-void	ft_free_resource(t_cmd *info);
 #endif

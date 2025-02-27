@@ -6,13 +6,14 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/26 18:19:20 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/27 19:18:36 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "struct.h"
 # include "libft.h"
 
 void	print_list(t_list *head);
@@ -31,4 +32,6 @@ void	dup_env(char **dst, char **src);
 char	*get_name(char *str);
 int		get_name_index(char *name, char **envp);
 char	*ft_getenv(char *name, char **envp);
+int		get_pptr_size(void **arr);
+void	ft_free_resource(t_cmd *info);
 #endif

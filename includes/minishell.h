@@ -16,8 +16,9 @@
 # include "parsing.h"
 # include "libft.h"
 # include "exec.h"
-# include "struct.h"
+# include "define.h"
 # include "builtin.h"
+# include "struct.h"
 # include "mini_signal.h"
 # include <readline/history.h>
 # include <readline/readline.h>

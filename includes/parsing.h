@@ -15,39 +15,6 @@
 
 # include "tree.h"
 # include "utils.h"
-# define LEFT 0
-# define RIGHT 1
-
-enum e_unit
-{
-	SENTENSE = 1,
-	SINGLE_QUOTE = '\'',
-	DOUBLE_QUOTE = '\"',
-	PARENTHESIS = '(',
-	CMD = 2,
-	FILE_NAME = 3,
-	SEPARATOR = 4,
-	REDIRECTS = 5,
-	EMPTY = 6,
-	SIMPLE_CMD = 8,
-};
-
-enum e_separator
-{
-	PIPE = 16,
-	AND,
-	OR,
-	AMPER,
-	SEMI
-};
-
-enum e_redirect
-{
-	IN = 32,
-	OUT,
-	HERE_DOC,
-	APPEND
-};
 
 char	*ft_getenv(char *name, char **envp);
 char	*preprocess_string(t_cmd *info, char *src);
@@ -73,7 +40,6 @@ t_data	*make_data(char *str, int type, int start, int end);
 int		make_parsing_tree(t_node *cur_node);
 void	*free_pptr(void **pptr);
 void	subsitute_tab(char *str);
-char	*remove_invalid_quote(char *src);
 void	print_list(t_list *head);
 int		which_separator(char *str, int separator);
 int		which_redirection(char *str, int *redirection);

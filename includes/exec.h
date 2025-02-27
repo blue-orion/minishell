@@ -15,14 +15,7 @@
 
 # include "parsing.h"
 # include "builtin.h"
-# include "struct.h"
-
-# define CMD_NOT_FOUND "command not found"
-# define PERMISSION_DENIED "Permission denied"
-# define NO_FILE_OR_DIR "No such file or directory"
-# define IS_DIR "Is a directory"
-# define INPUT 1
-# define OUTPUT 0
+# include "define.h"
 
 void	init_info(t_cmd *info, char **envp);
 int		exec_tree_node(t_cmd *info, t_node *cur_node);
@@ -50,4 +43,5 @@ char	*interpret_env(char *text, t_cmd *info);
 void	set_exit_status(t_cmd *info, int status);
 void	wait_child(t_cmd *info, pid_t child_pid);
 void	fork_child(t_cmd *info, t_node *child_node);
+void	remove_invalid_quote(t_list *head);
 #endif

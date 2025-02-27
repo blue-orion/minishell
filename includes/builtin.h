@@ -13,7 +13,8 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include "struct.h"
+# include "define.h"
+# include "utils.h"
 
 int	ft_cd(char **cmd);
 int	ft_echo(char **cmd);
