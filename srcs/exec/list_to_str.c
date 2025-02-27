@@ -64,8 +64,6 @@ char	**list_to_str(t_cmd *info, t_list *head)
 
 	interpret_env_all(head, info);
 	remove_invalid_quote(head);
-	// if (interpret_wildcard(info, data))
-	// 	return (-1);
 	size = get_size(info, head);
 	if (size <= 0)
 		return (NULL);

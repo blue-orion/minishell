@@ -12,7 +12,7 @@
 
 #include "../../includes/parsing.h"
 
-void	print_type(int type)
+void	print_type_a(int type)
 {
 	if (type == SENTENSE)
 		printf("type : SENTENSE\n");
@@ -28,6 +28,10 @@ void	print_type(int type)
 		printf("type : PIPE\n");
 	if (type == AND)
 		printf("type : AND\n");
+}
+
+void	print_type_b(int type)
+{
 	if (type == OR)
 		printf("type : OR\n");
 	if (type == AMPER)
@@ -57,20 +61,19 @@ void	print_list(t_list *head)
 	t_list	*cur;
 	t_data	*data;
 	int		i;
-	
+
 	i = 1;
 	cur = head;
 	while (cur)
 	{
 		data = (t_data *)cur->content;
 		printf("----- list = %d -----\n", i);
-		print_type(data->type);
+		print_type_a(data->type);
+		print_type_b(data->type);
 		printf("invalid[0] : %d\n", data->invalid[0]);
 		printf("invalid[1] : %d\n", data->invalid[1]);
 		printf("text : %s\n", data->text);
-		// printf("index : [%d:%d]\n", data->start, data->end);
 		cur = cur->next;
 		i++;
 	}
 }
-

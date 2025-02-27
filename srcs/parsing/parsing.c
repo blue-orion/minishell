@@ -16,11 +16,13 @@ t_node	*parsing(char *str)
 {
 	t_node	*root;
 	t_list	*head;
+	char	*input;
 
+	input = preprocess_string(str);
 	root = new_node(NULL);
 	if (!root)
 		error_exit("failed malloc in parsing");
-	root = split_sentense_to_list(root, str);
+	root = split_sentense_to_list(root, input);
 	if (!root || !root->head)
 		return (treeclear(root), NULL);
 	make_parsing_tree(root);

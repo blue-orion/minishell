@@ -33,6 +33,7 @@ char	*make_history(char *cmd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	printf("cmd = %s\n", cmd);
+	close(fd);
+	unlink("tmp.txt");
 	return (cmd);
 }

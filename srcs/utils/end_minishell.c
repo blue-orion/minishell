@@ -12,7 +12,10 @@
 
 #include "../../includes/minishell.h"
 
-void	ft_free_resource(t_cmd *info)
+void	end_minishell(t_cmd *info)
 {
 	free_pptr((void **)info->envp);
+	close(info->stdfd[INPUT]);
+	close(info->stdfd[OUTPUT]);
+	clear_history();
 }

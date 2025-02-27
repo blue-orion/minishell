@@ -15,7 +15,7 @@
 
 char	*make_path_cmd(char *path, char *cmd);
 char	**get_path_array(t_cmd *info);
-int	is_executable_path(char *cmd);
+int		is_executable_path(char *cmd);
 char	*get_executable_path(char **cmd, t_cmd *info);
 
 void	call_execve(char **cmd, t_cmd *info)

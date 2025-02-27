@@ -27,4 +27,5 @@
 
 t_node	*parsing(char *str);
 void	exec_input(t_cmd *info, t_node *cur_node);
+void	end_minishell(t_cmd *info);
 #endif
