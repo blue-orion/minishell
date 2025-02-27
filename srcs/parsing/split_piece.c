@@ -60,7 +60,7 @@ t_data	*get_quote_data(char *str, int start, int type)
 	}
 	if (start_idx < 0 || end_idx < 0)
 		return (NULL);
-	new_data = make_data(str, SINGLE_QUOTE, start_idx, end_idx);
+	new_data = make_data(str, type, start_idx, end_idx);
 	if (!new_data)
 		error_exit("malloc failed");
 	if (start_idx > 2 && str[start_idx - 2] && !is_metachar(str[start_idx - 2]))

@@ -36,6 +36,7 @@ SRCS = minishell.c	\
 	   exec/parenthesis_process.c	\
 	   exec/redirect_pipe.c	\
 	   exec/redirection_process.c	\
+	   exec/remove_invalid_quote.c	\
 	   exec/separator_process.c	\
 	   exec/set_exit_status.c	\
 	   exec/wait_child.c			\
@@ -80,6 +81,7 @@ SRCS = minishell.c	\
 	   utils/ft_free_resource.c	\
 	   utils/ft_is_empty_str.c	\
 	   utils/ft_join_free.c	\
+	   utils/get_pptr_size.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\

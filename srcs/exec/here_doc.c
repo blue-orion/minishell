@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:49:31 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/17 23:09:37 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/27 19:02:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ void	write_input_to_tmp(int fd, char *input)
 	char	*input_nl;
 
 	input_nl = add_newline(input);
-	write(fd, input_nl ,ft_strlen(input_nl));
+	write(fd, input_nl, ft_strlen(input_nl));
 	free(input_nl);
 }
