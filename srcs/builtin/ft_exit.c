@@ -24,13 +24,13 @@ int	ft_exit(char **cmd)
 	size = getsize(cmd);
 	if (size > 2)
 	{
-		put_error_msg("exit", NULL, "too many arguments");
+		put_error_msg("exit", NULL, TOO_MANY_ARGS);
 		return (1);
 	}
 	exit_status = ft_atoi(cmd[1]);
 	if (check_valid(cmd[1]))
 	{
-		put_error_msg("exit", cmd[1], "numeric arguments required");
+		put_error_msg("exit", cmd[1], NON_NUMERIC_ARGS);
 		exit_status = 2;
 	}
 	exit(exit_status);

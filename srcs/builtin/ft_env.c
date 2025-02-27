@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "../../includes/builtin.h"
 
 int	ft_env(char **cmd, char **envp)
 {
@@ -18,7 +18,7 @@ int	ft_env(char **cmd, char **envp)
 
 	if (cmd[1])
 	{
-		put_error_msg("env", NULL, "too many arguments");
+		put_error_msg("env", NULL, TOO_MANY_ARGS);
 		return (1);
 	}
 	else

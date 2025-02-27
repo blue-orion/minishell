@@ -87,7 +87,7 @@ void	add_new_env(char **new_envp, char **cmd)
 	while (*cmd)
 	{
 		if (is_valid_env_format(*cmd))
-			put_error_msg("export", *cmd, "not a valid identifier");
+			put_error_msg("export", *cmd, INVALID_IDENTIFIER);
 		else
 		{
 			name = get_name(*cmd);

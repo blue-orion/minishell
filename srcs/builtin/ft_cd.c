@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/exec.h"
+#include "../../includes/builtin.h"
 
 int	ft_cd(char **cmd)
 {
@@ -20,7 +20,7 @@ int	ft_cd(char **cmd)
 	size = getsize(cmd);
 	if (size > 2)
 	{
-		put_error_msg("cd", NULL, "too many arguments");
+		put_error_msg("cd", NULL, TOO_MANY_ARGS);
 		return (1);
 	}
 	home_path = getenv("HOME");
