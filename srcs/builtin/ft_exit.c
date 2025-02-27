@@ -21,7 +21,7 @@ int	ft_exit(char **cmd)
 	int	exit_status;
 
 	ft_putendl_fd("exit", 1);
-	size = getsize(cmd);
+	size = get_pptr_size((void **)cmd);
 	if (size > 2)
 	{
 		put_error_msg("exit", NULL, TOO_MANY_ARGS);

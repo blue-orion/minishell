@@ -17,7 +17,7 @@ int	ft_cd(char **cmd)
 	char	*home_path;
 	int		size;
 
-	size = getsize(cmd);
+	size = get_pptr_size((void **)cmd);
 	if (size > 2)
 	{
 		put_error_msg("cd", NULL, TOO_MANY_ARGS);

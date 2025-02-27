@@ -23,10 +23,10 @@ int	ft_unset(char **cmd, t_cmd *info)
 	int		argc;
 	int		i;
 
-	argc = getsize(cmd);
+	argc = get_pptr_size((void **)cmd);
 	if (argc == 1)
 		return (0);
-	env_size = getsize(info->envp);
+	env_size = get_pptr_size((void **)info->envp);
 	i = 1;
 	while (cmd[i])
 	{

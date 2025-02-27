@@ -22,7 +22,7 @@ int	ft_export(char **cmd, t_cmd *info)
 	char	**new_envp;
 	int		envp_size;
 
-	argc = getsize(cmd);
+	argc = get_pptr_size((void **)cmd);
 	if (argc == 1)
 		declare_all(info->envp);
 	else
@@ -108,7 +108,7 @@ char	**make_new_env_set(char **cmd, char **envp)
 	char	**new_envp;
 	int		envp_size;
 
-	envp_size = getsize(envp) + getsize(cmd);
+	envp_size = get_pptr_size((void **)envp) + get_pptr_size((void **)cmd);
 	new_envp = (char **)malloc(sizeof(char *) * (envp_size + 1));
 	if (!new_envp)
 		error_exit("failed malloc in export");
