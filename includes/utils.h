@@ -17,7 +17,9 @@
 # include "libft.h"
 
 void	print_list(t_list *head);
-void	print_type(int type);
+void	print_type_a(int type);
+void	print_type_b(int type);
+
 int		skip_space(char *s);
 void	*free_pptr(void **pptr);
 void	free_data(void *content);
