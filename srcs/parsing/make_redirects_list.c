@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   make_redirects_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 22:32:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/25 22:18:52 by takwak           ###   ########.fr       */
+/*   Created: 2025/02/28 17:34:00 by takwak            #+#    #+#             */
+/*   Updated: 2025/02/28 17:34:00 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parsing.h"
 
-int	add_redirect_list(t_list **head, char *data, int *i, int redirect);
 int	extract_redirection(t_list **head, t_list *cmd_lst);
+int	add_redirect_list(t_list **head, char *data, int *i, int redirect);
 
 t_list	*make_redirects_list(t_list *head)
 {
@@ -29,6 +29,33 @@ t_list	*make_redirects_list(t_list *head)
 		cur_lst = cur_lst->next;
 	}
 	return (res_lst);
+}
+
+int	extract_redirection(t_list **head, t_list *cmd_lst)
+{
+	int		i;
+	int		redirect;
+	int		status;
+	t_data	*data;
+
+	data = (t_data *)cmd_lst->content;
+	i = 0;
+	while (data->text[i])
+	{
+		redirect = is_redirection(data->text + i);
+		if (redirect)
+		{
+			status = add_redirect_list(head, data->text, &i, redirect);
+			if (status > 0)
+			{
+				ft_lstadd_back(head, cmd_lst->next);
+				cmd_lst->next = NULL;
+			}
+		}
+		else
+			i++;
+	}
+	return (0);
 }
 
 int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
@@ -53,29 +80,5 @@ int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 	make_list_and_addback(head, new_data);
 	if (start != end && !data[*i])
 		return (1);
-	return (0);
-}
-
-int	extract_redirection(t_list **head, t_list *cmd_lst)
-{
-	int		i;
-	int		redirect;
-	int		status;
-	t_data	*data;
-
-	data = (t_data *)cmd_lst->content;
-	i = 0;
-	while (data->text[i])
-	{
-		redirect = is_redirection(data->text + i);
-		if (redirect)
-		{
-			status = add_redirect_list(head, data->text, &i, redirect);
-			if (status > 0)
-				ft_lstadd_back(head, cmd_lst->next);
-		}
-		else
-			i++;
-	}
 	return (0);
 }

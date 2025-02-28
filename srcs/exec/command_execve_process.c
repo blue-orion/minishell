@@ -17,16 +17,15 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	t_data	*data;
 	int		status;
 
+	info->exit_status = 0;
 	if (!cur_node->head)
 	{
-		status = redirection_process(info, cur_node->left_child);
-		if (status)
-			return (status);
+		redirection_process(info, cur_node->left_child);
+		if (info->exit_status)
+			return (info->exit_status);
 		info->exit_status = exec_command(info, cur_node->right_child);
 	}
 	else
-	{
 		info->exit_status = exec_command(info, cur_node);
-	}
 	return (info->exit_status);
 }

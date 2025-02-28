@@ -28,6 +28,12 @@ int	redirection_process(t_cmd *info, t_node *cur_node)
 		redirection_process(info, cur_node->right_child);
 		return (0);
 	}
+	if (!cur_node->head->next)
+	{
+		ft_putendl_fd("minishell: syntax error", 2);
+		info->exit_status = 2;
+		return (2);
+	}
 	if (cur_node->type == IN)
 		status = in_redirection(cur_node->head->next);
 	if (cur_node->type == OUT)

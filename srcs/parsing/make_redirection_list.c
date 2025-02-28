@@ -19,11 +19,18 @@ t_list	*make_redirection_list(t_list **head)
 {
 	t_data	*cur_data;
 	t_list	*new_lst;
+	t_list	*tmp;
 
 	new_lst = NULL;
 	cur_data = (t_data *)(*head)->content;
 	redirection_list(&new_lst, cur_data);
 	if (file_name_list(&new_lst, *head))
+	{
+		tmp = *head;
+		*head = (*head)->next;
+		ft_lstdelone(tmp, free_data);
+	}
+	if (*head)
 		*head = (*head)->next;
 	return (new_lst);
 }
@@ -63,7 +70,7 @@ int	file_name_list(t_list **dst, t_list *src)
 		error_exit("failed malloc in make redirection list");
 	if (new_data->type == EMPTY)
 	{
-		free(new_data);
+		free_data(new_data);
 		ft_lstadd_back(dst, src->next);
 		return (1);
 	}

@@ -23,6 +23,5 @@ int	ft_exit(char **cmd, t_cmd *info);
 int	ft_export(char **cmd, t_cmd *info);
 int	ft_pwd(char **cmd);
 int	ft_unset(char **cmd, t_cmd *info);
-int	check_name(char *str);
 
 #endif

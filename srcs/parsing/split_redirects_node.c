@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 23:55:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 17:36:08 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:35:08 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	split_redirects_node(t_node *parent)
 	parent->left_child = new_node(new_lst);
 	if (!parent->left_child)
 		error_exit("failed malloc in split_redirects_node");
-	if (parent->head->next)
+	if (parent->head)
 	{
-		parent->right_child = new_node(parent->head->next);
+		parent->right_child = new_node(parent->head);
 		if (!parent->right_child)
 			error_exit("failed malloc in split_redirects_node");
+		parent->head = NULL;
 	}
-	parent->head->next = NULL;
 	split_redirects_node(parent->left_child);
 	split_redirects_node(parent->right_child);
 	ft_lstclear(&parent->head, free_data);
