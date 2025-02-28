@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:59:01 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/12 18:36:39 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:16:48 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	call_builtin_ft(char **cmd, t_cmd *info)
 	if (!ft_strncmp(cmd[0], "env", 4))
 		status = ft_env(cmd, info->envp);
 	if (!ft_strncmp(cmd[0], "exit", 5))
-		status = ft_exit(cmd);
+		status = ft_exit(cmd, info);
 	if (!ft_strncmp(cmd[0], "export", 7))
 		status = ft_export(cmd, info);
 	if (!ft_strncmp(cmd[0], "pwd", 4))

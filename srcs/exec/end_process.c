@@ -6,13 +6,13 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:17:33 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/27 20:17:33 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:16:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	end_process(t_cmd *info, t_node *root)
+void	end_process(t_cmd *info)
 {
 	if (info->envp)
 		free_pptr((void **)info->envp);

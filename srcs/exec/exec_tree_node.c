@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/26 15:34:49 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:16:32 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	exec_tree_node(t_cmd *info, t_node *cur_node)
 		command_execve_process(info, cur_node);
 	if (info->root != cur_node)
 	{
-		end_process(info, cur_node);
+		end_process(info);
 		exit(info->exit_status);
 	}
 	return (info->exit_status);

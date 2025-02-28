@@ -6,16 +6,16 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:05 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/07 22:41:05 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:21:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtin.h"
-#include "../../includes/utils.h"
+#include "../../includes/exec.h"
 
 int	check_valid(char *str);
 
-int	ft_exit(char **cmd)
+int	ft_exit(char **cmd, t_cmd *info)
 {
 	int	size;
 	int	exit_status;
@@ -27,12 +27,18 @@ int	ft_exit(char **cmd)
 		put_error_msg("exit", NULL, TOO_MANY_ARGS);
 		return (1);
 	}
-	exit_status = ft_atoi(cmd[1]);
-	if (check_valid(cmd[1]))
+	exit_status = 127;
+	if (size != 1)
 	{
-		put_error_msg("exit", cmd[1], NON_NUMERIC_ARGS);
-		exit_status = 2;
+		exit_status = ft_atoi(cmd[1]);
+		if (check_valid(cmd[1]))
+		{
+			put_error_msg("exit", cmd[1], NON_NUMERIC_ARGS);
+			exit_status = 2;
+		}
 	}
+	end_process(info);
+	free_pptr((void **)info->cmd);
 	exit(exit_status);
 }
 

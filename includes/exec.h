@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/24 19:15:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:16:14 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	pipe_separator_process(t_cmd *info, t_node *cur_node);
 void	logical_separator_process(t_cmd *info, t_node *cur_node);
 void	simple_separator_process(t_cmd *info, t_node *cur_node);
 void	separator_process(t_cmd *info, t_node *cur_node);
-void	execve_fail(char *cmd, char *error_msg, int status);
+void	execve_fail(t_cmd *info, char *cmd, char *error_msg, int status);
 int		call_builtin_ft(char **cmd, t_cmd *info);
 void	call_execve(char **cmd, t_cmd *info);
 int		redirection_process(t_cmd *info, t_node *cur_node);
@@ -44,5 +44,5 @@ void	set_exit_status(t_cmd *info, int status);
 void	wait_child(t_cmd *info, pid_t child_pid);
 void	fork_child(t_cmd *info, t_node *child_node);
 void	remove_invalid_quote(t_list *head);
-void	end_process(t_cmd *info, t_node *root);
+void	end_process(t_cmd *info);
 #endif

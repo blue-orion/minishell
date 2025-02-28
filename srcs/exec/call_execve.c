@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:05:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/24 18:51:57 by takwak           ###   ########.fr       */
+/*   Updated: 2025/02/28 16:03:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 
 char	*make_path_cmd(char *path, char *cmd);
 char	**get_path_array(t_cmd *info);
-int		is_executable_path(char *cmd);
+int		is_executable_path(char *cmd, t_cmd *info);
 char	*get_executable_path(char **cmd, t_cmd *info);
 
 void	call_execve(char **cmd, t_cmd *info)
 {
 	char	*path_cmd;
 
-	if (is_executable_path(cmd[0]))
+	if (is_executable_path(cmd[0], info))
 	{
 		if (execve(cmd[0], cmd, info->envp))
 			error_exit("execve fail");
 	}
 	path_cmd = get_executable_path(cmd, info);
 	if (!path_cmd)
-		execve_fail(cmd[0], CMD_NOT_FOUND, 127);
+		execve_fail(info, cmd[0], CMD_NOT_FOUND, 127);
 	free(cmd[0]);
 	cmd[0] = path_cmd;
 	if (execve(path_cmd, cmd, info->envp))
@@ -60,7 +60,7 @@ char	**get_path_array(t_cmd *info)
 	return (path);
 }
 
-int	is_executable_path(char *cmd)
+int	is_executable_path(char *cmd, t_cmd *info)
 {
 	struct stat	statbuf;
 
@@ -68,9 +68,9 @@ int	is_executable_path(char *cmd)
 		return (0);
 	stat(cmd, &statbuf);
 	if (S_ISDIR(statbuf.st_mode))
-		execve_fail(cmd, IS_DIR, 126);
+		execve_fail(info, cmd, IS_DIR, 126);
 	if (access(cmd, X_OK))
-		execve_fail(cmd, PERMISSION_DENIED, 126);
+		execve_fail(info, cmd, PERMISSION_DENIED, 126);
 	return (1);
 }
 
@@ -85,7 +85,7 @@ char	*get_executable_path(char **cmd, t_cmd *info)
 	while (path[i])
 	{
 		path_cmd = make_path_cmd(path[i], cmd[0]);
-		if (is_executable_path(path_cmd))
+		if (is_executable_path(path_cmd, info))
 			return (path_cmd);
 		free(path_cmd);
 		i++;
