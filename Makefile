@@ -27,6 +27,8 @@ SRCS = minishell.c	\
 	   exec/here_doc.c			\
 	   exec/init_info.c			\
 	   exec/interpret_env.c		\
+	   exec/interpret_wildcard.c	\
+	   exec/interpret_wildcard_utils.c	\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\

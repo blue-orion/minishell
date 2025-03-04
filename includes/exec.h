@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/28 16:16:14 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/05 01:32:59 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include "parsing.h"
 # include "builtin.h"
 # include "define.h"
+# include <sys/types.h>
+# include <dirent.h>
+# include <sys/stat.h>
+
+typedef struct	s_wildcard
+{
+	char	*dir_path;
+	char	*match;
+	char	*sub_pattern;
+	int		dir_flag;
+}	t_wildcard;
 
 void	init_info(t_cmd *info, char **envp);
 int		exec_tree_node(t_cmd *info, t_node *cur_node);
@@ -36,7 +47,6 @@ void	call_execve(char **cmd, t_cmd *info);
 int		redirection_process(t_cmd *info, t_node *cur_node);
 int		command_execve_process(t_cmd *info, t_node *cur_node);
 int		here_doc_redirection(t_cmd *info, t_list *eof_list);
-int		interpret_wildcard(t_cmd *info, t_data *data);
 int		match_prefix(char *file, char *prefix);
 int		match_suffix(char *file, char *suffix);
 char	*interpret_env(char *text, t_cmd *info);
@@ -45,4 +55,15 @@ void	wait_child(t_cmd *info, pid_t child_pid);
 void	fork_child(t_cmd *info, t_node *child_node);
 void	remove_invalid_quote(t_list *head);
 void	end_process(t_cmd *info);
+
+//Wildcard
+void	push_before_asterisk(t_list *head, char	**split_text);
+int		include_asterisk(char *str);
+void	interpret_wildcard(t_list *head, t_cmd *info);
+char	*find_dir_path(char *text);
+char	*extract_match(char *text);
+int	is_valid_entry(struct dirent *dp, t_wildcard *wc_info);
+char	*get_wildcard_token(char **strs);
+t_wildcard	extract_wildcard_info(t_wildcard *wc_info, char *wildcard_token);
+void	push_entry(t_list **head, char *entry, t_wildcard *wc_info);
 #endif
