@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 21:05:16 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/13 18:31:55 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/05 18:09:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_builtin_node(t_cmd *info, t_node *root)
 	if (root->type != CMD)
 		return (0);
 	cur_node = find_simple_cmd(root);
-	tmp = list_to_str(info, cur_node->head);
+	tmp = list_to_str(info, &cur_node->head);
 	result = is_builtin_command(tmp[0]);
 	free_pptr((void **)tmp);
 	return (result);

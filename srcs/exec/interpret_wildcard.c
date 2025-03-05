@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 21:00:07 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/05 01:33:38 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/05 21:59:15 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,32 @@ void	push_before_asterisk(t_list *head, char	**split_text);
 void	expand_asterisk(t_cmd *info, t_list *head, char **texts);
 
 
-void	interpret_wildcard(t_list *head, t_cmd *info)
+void	interpret_wildcard(t_list **head, t_cmd *info)
 {
 	t_list	*cur_lst;
 	t_list	*past_lst;
 	char	**split_text;
 
-	cur_lst = head;
+	cur_lst = *head;
 	while (cur_lst)
 	{
 		if (include_asterisk(((t_data *)cur_lst->content)->text))
 		{
 			split_text = ft_split(((t_data *)cur_lst->content)->text, ' ');
-			push_before_asterisk(head, split_text);
-			expand_asterisk(info, head, split_text);
-			past_lst->next = cur_lst->next;
-			ft_lstdelone(cur_lst, free_data);
-			cur_lst = past_lst->next;
+			push_before_asterisk(*head, split_text);
+			expand_asterisk(info, *head, split_text);
+			if (past_lst)
+			{
+				past_lst->next = cur_lst->next;
+				ft_lstdelone(cur_lst, free_data);
+				cur_lst = past_lst->next;
+			}
+			else
+			{
+				*head = cur_lst->next;
+				ft_lstdelone(cur_lst, free_data);
+				cur_lst = *head;
+			}
 			free_pptr((void **)split_text);
 		}
 		else
@@ -91,16 +100,29 @@ void	expand_asterisk(t_cmd *info, t_list *head, char **texts)
 	char			*token;
 	struct dirent	*dp;
 	t_wildcard		wc_info;
+	int				flag;
 
 	token = get_wildcard_token(texts);
 	wc_info = extract_wildcard_info(&wc_info, token);
 	printf("cur_dir = %s\n", wc_info.dir_path);
+	printf("match = %s\n", wc_info.match);
+	printf("sub_pattern = %s\n", wc_info.sub_pattern);
 	dirp = opendir(wc_info.dir_path);
 	dp = readdir(dirp);
+	flag = 0;
 	while (dp)
 	{
+		printf("entry = %s\n", dp->d_name);
+		if (dp->d_name[0] == '.')
+		{
+			dp = readdir(dirp);
+			continue ;
+		}
 		if (is_valid_entry(dp, &wc_info))
+		{
 			push_entry(&head, dp->d_name, &wc_info);
+			flag = 1;
+		}
 		dp = readdir(dirp);
 	}
 }

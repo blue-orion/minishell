@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:05:32 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/05 01:32:31 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/05 21:54:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	push_entry(t_list **head, char *entry, t_wildcard *wc_info)
 	ft_memset(new_data, 0, sizeof(t_data));
 	if (!new_data)
 		error_exit("malloc failed in push_entry");
-	new_data->text = ft_strjoin(wc_info->dir_path, entry);
+	if (wc_info->prefix_flag)
+		new_data->text = ft_strjoin(wc_info->dir_path, entry);
+	else
+		new_data->text = ft_strdup(entry);
 	if (wc_info->sub_pattern)
 		new_data->text = ft_join_free(new_data->text, wc_info->sub_pattern);
 	make_list_and_addback(head, new_data);
@@ -32,8 +35,12 @@ void	push_entry(t_list **head, char *entry, t_wildcard *wc_info)
 t_wildcard	extract_wildcard_info(t_wildcard *wc_info, char *wildcard_token)
 {
 	wc_info->dir_path = get_dir_path(wildcard_token);
+	wc_info->prefix_flag = 1;
 	if (wc_info->dir_path == NULL)
+	{
 		wc_info->dir_path = getcwd(NULL, 1024);
+		wc_info->prefix_flag = 0;
+	}
 	wc_info->match = get_match_and_sub_pattern(wc_info, wildcard_token);
 	wc_info->dir_flag = 0;
 	if (wc_info->sub_pattern)
@@ -72,7 +79,7 @@ char	*get_match_and_sub_pattern(t_wildcard *wc_info, char *text)
 	int		last_slash;
 
 	i = 0;
-	last_slash = 0;
+	last_slash = -1;
 	while (text[i])
 	{
 		if (text[i] == '/')
@@ -86,11 +93,16 @@ char	*get_match_and_sub_pattern(t_wildcard *wc_info, char *text)
 		}
 		i++;
 	}
-	wc_info->match = ft_substr(text, last_slash, j - last_slash);
 	if (text[j])
+	{
+		wc_info->match = ft_substr(text, last_slash + 1, j - last_slash - 1);
 		wc_info->sub_pattern = ft_substr(text, j, ft_strlen(text) - j);
+	}
 	else
+	{
+		wc_info->match = ft_substr(text, last_slash + 1, j - last_slash + 1);
 		wc_info->sub_pattern = NULL;
+	}
 	return (wc_info->match);
 }
 
@@ -111,13 +123,6 @@ char	*extract_match(char *text)
 		}
 		i++;
 	}
-	if (i != 0)
-	{
-		match = ft_substr(text, 0, i);
-		if (!match)
-			error_exit("ft_substr failed in extract_match");
-		return (match);
-	}
 	return (NULL);
 }
 
@@ -125,27 +130,45 @@ int	check_match_pattern(char *f_name, char *token)
 {
 	int		i;
 	char	*match;
+	char	*prefix;
+	char	*suffix;
 	int		match_len;
 
 	i = 0;
+	match_len = 0;
+	prefix = extract_match(token);
+	if (ft_strlen(prefix) != 0 && ft_strncmp(f_name, prefix, ft_strlen(prefix)))
+	{
+		free(prefix);
+		return (0);
+	}
 	match = extract_match(token);
 	while (match)
 	{
-		match_len += ft_strlen(match);
+		if (ft_strlen(match) == 0)
+		{
+			match_len += 1;
+			match = extract_match(token + match_len);
+			continue ;
+		}
 		while (f_name[i])
 		{
 			if (!ft_strncmp(&f_name[i], match, ft_strlen(match)))
 			{
-				i += match_len;
+				i += ft_strlen(match) + 1;
 				break ;
 			}
 			i++;
 		}
 		if (!f_name[i])
 			return (0);
+		match_len += ft_strlen(match) + 1;
 		free(match);
-		match = extract_match(token + match_len + 1);
+		match = extract_match(token + match_len);
 	}
+	match = token + match_len;
+	if (*match && ft_strncmp(f_name + ft_strlen(f_name) - ft_strlen(match), match, ft_strlen(match)))
+		return (0);
 	return (1);
 }
 
@@ -174,4 +197,3 @@ char	*get_wildcard_token(char **strs)
 	}
 	return (NULL);
 }
-

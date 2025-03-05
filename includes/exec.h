@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/05 01:32:59 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/05 20:51:38 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ typedef struct	s_wildcard
 	char	*dir_path;
 	char	*match;
 	char	*sub_pattern;
+	char	*prefix_match;
+	char	*suffix_match;
 	int		dir_flag;
+	int		prefix_flag;
 }	t_wildcard;
 
 void	init_info(t_cmd *info, char **envp);
 int		exec_tree_node(t_cmd *info, t_node *cur_node);
 int		make_child_process(t_cmd *info);
-char	**list_to_str(t_cmd *info, t_list *head);
+char	**list_to_str(t_cmd *info, t_list **head);
 void	redirect_pipe(t_cmd *info, t_node *cur_node);
 int		parenthesis_process(t_cmd *info, t_node *cur_node);
 int		is_builtin_node(t_cmd *info, t_node *root);
@@ -59,7 +62,7 @@ void	end_process(t_cmd *info);
 //Wildcard
 void	push_before_asterisk(t_list *head, char	**split_text);
 int		include_asterisk(char *str);
-void	interpret_wildcard(t_list *head, t_cmd *info);
+void	interpret_wildcard(t_list **head, t_cmd *info);
 char	*find_dir_path(char *text);
 char	*extract_match(char *text);
 int	is_valid_entry(struct dirent *dp, t_wildcard *wc_info);
