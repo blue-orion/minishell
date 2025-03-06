@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpret_wildcard_utils.c                         :+:      :+:    :+:   */
+/*   wildcard_util2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:05:32 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/05 21:54:04 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/06 22:26:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,36 +15,47 @@
 char	*get_dir_path(char *text);
 char	*get_match_and_sub_pattern(t_wildcard *wc_info, char *text);
 
-void	push_entry(t_list **head, char *entry, t_wildcard *wc_info)
+char	*preprocess_slash(char *text)
 {
-	t_data	*new_data;
+	int		i;
+	int		j;
+	char	*res;
 
-	new_data = (t_data *)malloc(sizeof(t_data));
-	ft_memset(new_data, 0, sizeof(t_data));
-	if (!new_data)
-		error_exit("malloc failed in push_entry");
-	if (wc_info->prefix_flag)
-		new_data->text = ft_strjoin(wc_info->dir_path, entry);
-	else
-		new_data->text = ft_strdup(entry);
-	if (wc_info->sub_pattern)
-		new_data->text = ft_join_free(new_data->text, wc_info->sub_pattern);
-	make_list_and_addback(head, new_data);
+	res = (char *)malloc(sizeof(char) * (ft_strlen(text) + 1));
+	if (!res)
+		error_exit("malloc failed in preprocess_slash");
+	i = 0;
+	j = 0;
+	while (text[i])
+	{
+		if (text[i] == '/' && text[i + 1] && text[i + 1] == '/')
+		{
+			i++;
+			continue ;
+		}
+		res[j++] = text[i++];
+	}
+	res[j] = '\0';
+	return (res);
 }
 
 t_wildcard	extract_wildcard_info(t_wildcard *wc_info, char *wildcard_token)
 {
-	wc_info->dir_path = get_dir_path(wildcard_token);
+	char	*str;
+
+	str = preprocess_slash(wildcard_token);
+	wc_info->dir_path = get_dir_path(str);
 	wc_info->prefix_flag = 1;
 	if (wc_info->dir_path == NULL)
 	{
 		wc_info->dir_path = getcwd(NULL, 1024);
 		wc_info->prefix_flag = 0;
 	}
-	wc_info->match = get_match_and_sub_pattern(wc_info, wildcard_token);
+	wc_info->match = get_match_and_sub_pattern(wc_info, str);
 	wc_info->dir_flag = 0;
 	if (wc_info->sub_pattern)
 		wc_info->dir_flag = 1;
+	free(str);
 	return (*wc_info);
 }
 
@@ -97,12 +108,16 @@ char	*get_match_and_sub_pattern(t_wildcard *wc_info, char *text)
 	{
 		wc_info->match = ft_substr(text, last_slash + 1, j - last_slash - 1);
 		wc_info->sub_pattern = ft_substr(text, j, ft_strlen(text) - j);
+		if (!wc_info->sub_pattern)
+			error_exit("malloc failed");
 	}
 	else
 	{
 		wc_info->match = ft_substr(text, last_slash + 1, j - last_slash + 1);
 		wc_info->sub_pattern = NULL;
 	}
+	if (!wc_info->match)
+		error_exit("malloc failed");
 	return (wc_info->match);
 }
 
@@ -142,12 +157,14 @@ int	check_match_pattern(char *f_name, char *token)
 		free(prefix);
 		return (0);
 	}
+	free(prefix);
 	match = extract_match(token);
 	while (match)
 	{
 		if (ft_strlen(match) == 0)
 		{
 			match_len += 1;
+			free(match);
 			match = extract_match(token + match_len);
 			continue ;
 		}
@@ -161,7 +178,10 @@ int	check_match_pattern(char *f_name, char *token)
 			i++;
 		}
 		if (!f_name[i])
+		{
+			free(match);
 			return (0);
+		}
 		match_len += ft_strlen(match) + 1;
 		free(match);
 		match = extract_match(token + match_len);
@@ -179,21 +199,7 @@ int	is_valid_entry(struct dirent *dp, t_wildcard *wc_info)
 	f_name = dp->d_name;
 	if (!check_match_pattern(dp->d_name, wc_info->match))
 		return (0);
-	if (wc_info->dir_flag && dp->d_type != DT_DIR)
+	if (wc_info->dir_flag && dp->d_type != DT_DIR && dp->d_type != DT_LNK)
 		return (0);
 	return (1);
-}
-
-char	*get_wildcard_token(char **strs)
-{
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		if (include_asterisk(strs[i]))
-			return (strs[i]);
-		i++;
-	}
-	return (NULL);
 }

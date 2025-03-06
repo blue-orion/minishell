@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/05 20:51:38 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/06 22:27:23 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_wildcard
 	char	*suffix_match;
 	int		dir_flag;
 	int		prefix_flag;
+	int		call_cnt;
 }	t_wildcard;
 
 void	init_info(t_cmd *info, char **envp);
@@ -40,9 +41,7 @@ int		parenthesis_process(t_cmd *info, t_node *cur_node);
 int		is_builtin_node(t_cmd *info, t_node *root);
 int		is_builtin_command(char *cmd);
 int		exec_command(t_cmd *info, t_node *cur_node);
-void	pipe_separator_process(t_cmd *info, t_node *cur_node);
-void	logical_separator_process(t_cmd *info, t_node *cur_node);
-void	simple_separator_process(t_cmd *info, t_node *cur_node);
+void	pipe_separator_process(t_cmd *info, t_node *cur_node); void	logical_separator_process(t_cmd *info, t_node *cur_node); void	simple_separator_process(t_cmd *info, t_node *cur_node);
 void	separator_process(t_cmd *info, t_node *cur_node);
 void	execve_fail(t_cmd *info, char *cmd, char *error_msg, int status);
 int		call_builtin_ft(char **cmd, t_cmd *info);
@@ -65,8 +64,20 @@ int		include_asterisk(char *str);
 void	interpret_wildcard(t_list **head, t_cmd *info);
 char	*find_dir_path(char *text);
 char	*extract_match(char *text);
-int	is_valid_entry(struct dirent *dp, t_wildcard *wc_info);
-char	*get_wildcard_token(char **strs);
+int		is_valid_entry(struct dirent *dp, t_wildcard *wc_info);
+char	**get_wildcard_token(char **strs);
 t_wildcard	extract_wildcard_info(t_wildcard *wc_info, char *wildcard_token);
-void	push_entry(t_list **head, char *entry, t_wildcard *wc_info);
+int		push_entry(t_list **head, struct dirent *dp, t_wildcard *wc_info);
+int		opendir_push_entries(t_list *head, t_wildcard *wc_info, int call_cnt);
+int		expand_asterisk(t_list *head, char **texts, int call_cnt);
+int		recursive_expand(char *entry, t_list *head, t_wildcard *wc_info, int call_cnt);
+t_list	*del_and_move_next_list(t_list **head, t_list *past, t_list *cur);
+t_list	*move_next_list(t_list **past, t_list *cur);
+int		include_asterisk(char *str);
+void	free_wc_info(t_wildcard *wc_info);
+void	push_before_asterisk(t_list *head, char	**split_text);
+int		opendir_push_entries(t_list *head, t_wildcard *wc_info, int call_cnt);
+int		expand_asterisk(t_list *head, char **texts, int call_cnt);
+int		recursive_expand(char *entry, t_list *head, t_wildcard *wc_info, int call_cnt);
+
 #endif
