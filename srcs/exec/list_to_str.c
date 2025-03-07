@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/27 19:20:20 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/06 22:04:00 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,32 @@ int	split_dup(char **dst, char *src)
 	return (i);
 }
 
-char	**list_to_str(t_cmd *info, t_list *head)
+char	**list_to_str(t_cmd *info, t_list **head)
 {
 	int		i;
 	char	**res;
 	int		size;
+	t_list	*cur_lst;
 	t_data	*data;
 
-	interpret_env_all(head, info);
-	remove_invalid_quote(head);
-	size = get_size(info, head);
+	interpret_env_all(*head, info);
+	remove_invalid_quote(*head);
+	interpret_wildcard(head, info);
+	size = get_size(info, *head);
 	if (size <= 0)
 		return (NULL);
-	res = (char **)malloc(sizeof(char *) * (size + 1));
+	res = (char **)ft_calloc(size + 1, sizeof(char *));
 	i = 0;
-	while (head)
+	cur_lst = *head;
+	while (cur_lst)
 	{
-		data = (t_data *)head->content;
+		data = (t_data *)cur_lst->content;
 		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
 			res[i++] = ft_strdup(data->text);
 		else
 			i += split_dup(res + i, data->text);
-		head = head->next;
+		cur_lst = cur_lst->next;
 	}
-	res[i] = NULL;
 	return (res);
 }
 
