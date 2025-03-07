@@ -27,7 +27,7 @@ void	interpret_wildcard(t_list **head, t_cmd *info)
 		if (cur_data->type == DOUBLE_QUOTE || cur_data->type == SINGLE_QUOTE
 			|| !include_asterisk(cur_data->text))
 		{
-			move_next_list(&past_lst, cur_lst);
+			cur_lst = move_next_list(&past_lst, cur_lst);
 			continue ;
 		}
 		split_text = ft_split(((t_data *)cur_lst->content)->text, ' ');

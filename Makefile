@@ -18,6 +18,7 @@ SRCS = minishell.c	\
 	   builtin/ft_unset.c		\
 	   exec/call_builtin_ft.c	\
 	   exec/call_execve.c		\
+	   exec/check_match_pattern.c	\
 	   exec/command_execve_process.c	\
 	   exec/end_process.c		\
 	   exec/exec_command.c		\
@@ -28,7 +29,9 @@ SRCS = minishell.c	\
 	   exec/init_info.c			\
 	   exec/interpret_env.c		\
 	   exec/interpret_wildcard.c	\
-	   exec/interpret_wildcard_utils.c	\
+	   exec/wildcard_util1.c	\
+	   exec/wildcard_util2.c	\
+	   exec/wildcard_util3.c	\
 	   exec/is_builtin_command.c	\
 	   exec/is_builtin_node.c	\
 	   exec/list_to_str.c		\

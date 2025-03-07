@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpret_wildcard_util2.c                         :+:      :+:    :+:   */
+/*   wildcard_util1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -50,7 +50,7 @@ int	include_asterisk(char *str)
 	return (0);
 }
 
-void	free_wc_info(t_wildcard *wc_info)
+void	free_wc_info(t_wildc *wc_info)
 {
 	free(wc_info->dir_path);
 	wc_info->dir_path = NULL;

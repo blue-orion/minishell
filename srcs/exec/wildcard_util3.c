@@ -12,7 +12,7 @@
 
 #include "../../includes/exec.h"
 
-int	push_entry(t_list **head, struct dirent *dp, t_wildcard *wc_info)
+int	push_entry(t_list **head, struct dirent *dp, t_wildc *wc_info)
 {
 	t_data	*new_data;
 
@@ -63,10 +63,10 @@ void	push_before_asterisk(t_list *head, char	**split_text)
 
 int	expand_asterisk(t_list *head, char **texts, int call_cnt)
 {
-	char			**token;
-	t_wildcard		wc_info;
-	t_data			*new_data;
-	int				status;
+	char		**token;
+	t_wildc		wc_info;
+	t_data		*new_data;
+	int			status;
 
 	token = get_wildcard_token(texts);
 	status = 0;
@@ -90,7 +90,7 @@ int	expand_asterisk(t_list *head, char **texts, int call_cnt)
 	return (status);
 }
 
-int	opendir_push_entries(t_list *head, t_wildcard *wc_info, int call_cnt)
+int	opendir_push_entries(t_list *head, t_wildc *wc_info, int call_cnt)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
@@ -116,7 +116,7 @@ int	opendir_push_entries(t_list *head, t_wildcard *wc_info, int call_cnt)
 	return (status);
 }
 
-int	recursive_expand(char *entry, t_list *head, t_wildcard *wc_info, int call_cnt)
+int	recursive_expand(char *entry, t_list *head, t_wildc *wc_info, int call_cnt)
 {
 	char	**splited;
 	int		status;
