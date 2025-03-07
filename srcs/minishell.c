@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/22 18:49:27 by root             ###   ########.fr       */
+/*   Updated: 2025/03/07 20:31:10 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int ac, char **av, char **env)
 			free(info.input_buf);
 		}
 		rl_on_new_line();
+		printf("exit status = %d\n", info.exit_status);
 	}
 	end_minishell(&info);
 	return (0);
