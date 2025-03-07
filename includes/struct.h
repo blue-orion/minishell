@@ -43,6 +43,7 @@ typedef struct s_cmd
 	char		**envp;
 	char		*input_buf;
 	char		**cmd_buf;
+	char		*history;
 	pid_t		pid[2];
 	int			pipe_fd[2];
 	int			stdfd[2];

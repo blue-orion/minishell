@@ -29,7 +29,7 @@ int	here_doc_redirection(t_cmd *info, t_list *eof_list)
 	end_flag = 0;
 	init_redirection(save_fd, info->stdfd);
 	if (info->input_buf[ft_strlen(info->input_buf) - 1] != '\n')
-		info->input_buf = add_newline(info->input_buf);
+		info->input_buf = ft_join_free(info->input_buf, "\n");
 	eof = ((t_data *)eof_list->content)->text;
 	end_flag = put_extra_input(info, eof);
 	if (!end_flag)
@@ -42,6 +42,7 @@ int	here_doc_redirection(t_cmd *info, t_list *eof_list)
 	if (dup2(save_fd[1], 1) < 0)
 		error_exit("dup2 failed while here_doc");
 	close(fd);
+	unlink("tmp.txt");
 	close(save_fd[1]);
 	close(save_fd[0]);
 	return (0);
@@ -62,53 +63,68 @@ void	init_redirection(int *save_fd, int *std_fd)
 int	put_extra_input(t_cmd *info, char *eof)
 {
 	int		i;
-	int		fd;
-	char	*input;
+	int		fd1;
+	int		fd2;
 
-	fd = open("tmp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
+	fd1 = open("tmp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd2 = open("history.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd1 < 0 || fd2 < 0)
 		error_exit("open error");
 	i = 1;
 	while (info->cmd_buf[i])
 	{
 		if (!ft_strncmp(info->cmd_buf[i], eof, ft_strlen(eof) + 1))
 		{
-			write_input_to_tmp(fd, info->cmd_buf[i]);
-			close(fd);
+			write_input_to_tmp(fd2, info->cmd_buf[i]);
+			close(fd1);
+			close(fd2);
+			free(info->cmd_buf[i]);
+			info->cmd_buf[i] = (void *)1;
 			return (1);
 		}
 		else
-			write_input_to_tmp(fd, info->cmd_buf[i]);
+		{
+			write_input_to_tmp(fd1, info->cmd_buf[i]);
+			write_input_to_tmp(fd2, info->cmd_buf[i]);
+		}
+		free(info->cmd_buf[i]);
+		info->cmd_buf[i] = (void *)1;
 		i++;
 	}
-	close(fd);
+	close(fd1);
+	close(fd2);
 	return (0);
 }
 
 void	get_here_doc_input(char *eof)
 {
 	char	*input;
-	int		fd;
+	int		fd1;
+	int		fd2;
 
-	fd = open("tmp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
+	fd1 = open("tmp.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd2 = open("history.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd1 < 0 || fd2 < 0)
 		error_exit("open error");
 	input = readline("> ");
 	while (input && ft_strncmp(input, eof, ft_strlen(eof) + 1))
 	{
-		write_input_to_tmp(fd, input);
+		write_input_to_tmp(fd1, input);
+		write_input_to_tmp(fd2, input);
+		free(input);
 		input = readline("> ");
 	}
 	if (input)
-		write_input_to_tmp(fd, input);
-	close(fd);
+		write_input_to_tmp(fd2, input);
+	close(fd1);
+	close(fd2);
 }
 
 void	write_input_to_tmp(int fd, char *input)
 {
 	char	*input_nl;
 
-	input_nl = add_newline(input);
+	input_nl = ft_strjoin(input, "\n");
 	write(fd, input_nl, ft_strlen(input_nl));
 	free(input_nl);
 }

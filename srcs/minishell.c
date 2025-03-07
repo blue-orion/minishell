@@ -19,7 +19,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_cmd	info;
 	char	*input;
-	int		i;
+	char	*history;
 
 	signal_setup();
 	init_info(&info, env);
@@ -32,8 +32,11 @@ int	main(int ac, char **av, char **env)
 		parse_input_and_exec(&info, input);
 		if (info.input_buf)
 		{
-			add_history(make_history(info.input_buf));
+			add_history(info.history);
+			free(info.history);
+			info.history = NULL;
 			free(info.input_buf);
+			info.input_buf = NULL;
 		}
 		rl_on_new_line();
 		printf("exit status = %d\n", info.exit_status);
@@ -61,16 +64,25 @@ void	parse_input_and_exec(t_cmd *info, char *input)
 	i = 0;
 	while (info->cmd_buf[i])
 	{
+		if (info->cmd_buf[i] == (void *)1)
+		{
+			info->cmd_buf[i++] = NULL;
+			continue ;
+		}
 		info->root = parsing(info->cmd_buf[i]);
 		if (!info->root)
 		{
 			i++;
 			continue ;
 		}
+		free(info->input_buf);
+		free(info->history);
 		info->input_buf = ft_strdup(info->cmd_buf[i]);
 		exec_tree_node(info, info->root);
+		free(info->cmd_buf[i]);
+		info->history = make_history(info->input_buf);
 		treeclear(info->root);
 		i++;
 	}
-	free_pptr((void **)info->cmd_buf);
+	free(info->cmd_buf);
 }
