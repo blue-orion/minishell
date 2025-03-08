@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:32 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/12 17:53:09 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 22:20:03 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_pwd(char **cmd)
 {
-	char	*pwd;
+	char	pwd[4096];
 
-	pwd = getcwd(pwd, 4096);
-	write(1, pwd, ft_strlen(pwd));
+	getcwd(pwd, 4096);
+	ft_putendl_fd(pwd, 1);
 	return (0);
 }
