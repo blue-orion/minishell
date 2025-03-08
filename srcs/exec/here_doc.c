@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:49:31 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/27 19:02:16 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 22:02:09 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,18 @@ int	put_extra_input(t_cmd *info, char *eof)
 	fd2 = open("history.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd1 < 0 || fd2 < 0)
 		error_exit("open error");
-	i = 1;
-	while (info->cmd_buf[i])
+	while (info->cmd_buf[info->buf_idx])
 	{
-		if (!ft_strncmp(info->cmd_buf[i], eof, ft_strlen(eof) + 1))
+		if (!ft_strncmp(info->cmd_buf[info->buf_idx], eof, ft_strlen(eof) + 1))
 		{
-			write_input_to_tmp(fd2, info->cmd_buf[i]);
+			write_input_to_tmp(fd2, info->cmd_buf[info->buf_idx++]);
 			close(fd1);
 			close(fd2);
-			free(info->cmd_buf[i]);
-			info->cmd_buf[i] = (void *)1;
 			return (1);
 		}
-		else
-		{
-			write_input_to_tmp(fd1, info->cmd_buf[i]);
-			write_input_to_tmp(fd2, info->cmd_buf[i]);
-		}
-		free(info->cmd_buf[i]);
-		info->cmd_buf[i] = (void *)1;
-		i++;
+		write_input_to_tmp(fd1, info->cmd_buf[info->buf_idx]);
+		write_input_to_tmp(fd2, info->cmd_buf[info->buf_idx]);
+		info->buf_idx++;
 	}
 	close(fd1);
 	close(fd2);
