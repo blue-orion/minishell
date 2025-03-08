@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 23:32:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 20:42:56 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 23:15:57 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	in_redirection(t_list *file);
 int	out_redirection(t_list *file);
 int	append_redirection(t_list *file);
 
-int	redirection_process(t_cmd *info, t_node *cur_node)
+int	redirection_process(t_cmd *info, t_node *cur_node, int *err)
 {
 	int	status;
 
@@ -24,14 +24,14 @@ int	redirection_process(t_cmd *info, t_node *cur_node)
 		return (0);
 	if (cur_node->type == REDIRECTS)
 	{
-		redirection_process(info, cur_node->left_child);
-		redirection_process(info, cur_node->right_child);
+		redirection_process(info, cur_node->left_child, err);
+		redirection_process(info, cur_node->right_child, err);
 		return (0);
 	}
 	if (!cur_node->head->next)
 	{
 		ft_putendl_fd("minishell: syntax error", 2);
-		info->exit_status = 2;
+		*err = 2;
 		return (2);
 	}
 	if (cur_node->type == IN)

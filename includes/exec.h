@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/06 22:27:23 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 23:15:37 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	separator_process(t_cmd *info, t_node *cur_node);
 void	execve_fail(t_cmd *info, char *cmd, char *error_msg, int status);
 int		call_builtin_ft(char **cmd, t_cmd *info);
 void	call_execve(char **cmd, t_cmd *info);
-int		redirection_process(t_cmd *info, t_node *cur_node);
+int		redirection_process(t_cmd *info, t_node *cur_node, int *err);
 int		command_execve_process(t_cmd *info, t_node *cur_node);
 int		here_doc_redirection(t_cmd *info, t_list *eof_list);
 int		match_prefix(char *file, char *prefix);

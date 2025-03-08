@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:48:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/08 22:45:51 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 22:59:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_list	*make_redirection_list(t_list **head)
 	tmp = *head;
 	*head = (*head)->next;
 	ft_lstdelone(tmp, free_data);
-	if (flag)
+	if (flag && *head)
 	{
 		tmp = *head;
 		*head = (*head)->next;
