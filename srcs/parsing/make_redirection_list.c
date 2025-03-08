@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:48:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 20:01:09 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 22:45:51 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,19 @@ t_list	*make_redirection_list(t_list **head)
 	t_data	*cur_data;
 	t_list	*new_lst;
 	t_list	*tmp;
+	int		flag;
 
 	new_lst = NULL;
 	cur_data = (t_data *)(*head)->content;
 	redirection_list(&new_lst, cur_data);
-	if (file_name_list(&new_lst, *head))
+	flag = file_name_list(&new_lst, *head);
+	tmp = *head;
+	*head = (*head)->next;
+	ft_lstdelone(tmp, free_data);
+	if (flag)
 	{
 		tmp = *head;
 		*head = (*head)->next;
-		ft_lstdelone(tmp, free_data);
-	}
-	if (*head)
-	{
-		tmp = *head;
-		*head = (*head)->next;
-		ft_lstdelone(tmp, free_data);
 	}
 	return (new_lst);
 }
