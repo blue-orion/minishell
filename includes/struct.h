@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:36:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/28 16:04:33 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 21:58:41 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_cmd
 	char		**envp;
 	char		*input_buf;
 	char		**cmd_buf;
+	int			buf_idx;
+	char		*history;
 	pid_t		pid[2];
 	int			pipe_fd[2];
 	int			stdfd[2];

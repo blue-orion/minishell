@@ -41,7 +41,6 @@ SRCS = minishell.c	\
 	   exec/redirection_process.c	\
 	   exec/remove_invalid_quote.c	\
 	   exec/separator_process.c	\
-	   exec/set_exit_status.c	\
 	   exec/wait_child.c			\
 	   parsing/find_metachar.c	\
 	   parsing/find_separator.c	\

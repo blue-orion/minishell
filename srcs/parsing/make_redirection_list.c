@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:48:08 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/03 17:34:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:01:09 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ t_list	*make_redirection_list(t_list **head)
 		ft_lstdelone(tmp, free_data);
 	}
 	if (*head)
+	{
+		tmp = *head;
 		*head = (*head)->next;
+		ft_lstdelone(tmp, free_data);
+	}
 	return (new_lst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/25 22:28:18 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:42:20 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list	*make_simple_cmd_list(t_list *head)
 	while (find_redirection(cur_lst))
 	{
 		flag = 0;
-		cur_lst = move_to_token(cur_lst, CMD);
+		cur_lst = find_redirection(cur_lst);
 		extract_simple_cmd(&res_lst, cur_lst, head, &flag);
 		past_lst = cur_lst;
 		cur_lst = cur_lst->next;

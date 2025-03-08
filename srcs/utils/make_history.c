@@ -19,21 +19,24 @@ char	*make_history(char *cmd)
 	char	*line;
 	char	*tmp;
 
-	if (access("tmp.txt", F_OK))
-		return (cmd);
-	fd = open("tmp.txt", O_RDONLY);
+	tmp = ft_strdup(cmd);
+	if (access("history.txt", F_OK))
+		return (tmp);
+	fd = open("history.txt", O_RDONLY);
 	if (fd < 0)
 		error_exit("open error");
+	if (!tmp)
+		error_exit("malloc failed");
 	line = get_next_line(fd);
 	while (line)
 	{
-		cmd = ft_join_free(cmd, line);
-		if (!cmd)
+		tmp = ft_join_free(tmp, line);
+		if (!tmp)
 			error_exit("malloc failed");
 		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	unlink("tmp.txt");
-	return (cmd);
+	unlink("history.txt");
+	return (tmp);
 }

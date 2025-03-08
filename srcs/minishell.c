@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/22 18:49:27 by root             ###   ########.fr       */
+/*   Updated: 2025/03/08 22:07:26 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_cmd	info;
 	char	*input;
-	int		i;
+	char	*history;
 
 	signal_setup();
 	init_info(&info, env);
@@ -32,8 +32,11 @@ int	main(int ac, char **av, char **env)
 		parse_input_and_exec(&info, input);
 		if (info.input_buf)
 		{
-			add_history(make_history(info.input_buf));
+			add_history(info.history);
+			free(info.history);
+			info.history = NULL;
 			free(info.input_buf);
+			info.input_buf = NULL;
 		}
 		rl_on_new_line();
 	}
@@ -52,24 +55,24 @@ void	init_setting(t_cmd *info)
 
 void	parse_input_and_exec(t_cmd *info, char *input)
 {
-	int		i;
-
 	input = add_newline(input);
 	info->cmd_buf = ft_split(input, '\n');
 	free(input);
-	i = 0;
-	while (info->cmd_buf[i])
+	info->buf_idx = 0;
+	while (info->cmd_buf[info->buf_idx])
 	{
-		info->root = parsing(info->cmd_buf[i]);
+		info->root = parsing(info->cmd_buf[info->buf_idx]);
 		if (!info->root)
 		{
-			i++;
+			info->buf_idx++;
 			continue ;
 		}
-		info->input_buf = ft_strdup(info->cmd_buf[i]);
+		free(info->input_buf);
+		free(info->history);
+		info->input_buf = ft_strdup(info->cmd_buf[info->buf_idx++]);
 		exec_tree_node(info, info->root);
+		info->history = make_history(info->input_buf);
 		treeclear(info->root);
-		i++;
 	}
 	free_pptr((void **)info->cmd_buf);
 }

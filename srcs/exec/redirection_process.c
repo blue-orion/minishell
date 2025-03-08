@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 23:32:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/24 17:29:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/07 20:42:56 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	in_redirection(t_list *file)
 		error_exit("open error");
 	if (dup2(fd, 0) < 0)
 		error_exit("dup2 error");
+	close(fd);
 	return (0);
 }
 
@@ -75,6 +76,7 @@ int	out_redirection(t_list *file)
 		error_exit("open error");
 	if (dup2(fd, 1) < 0)
 		error_exit("dup2 error");
+	close(fd);
 	return (0);
 }
 
@@ -89,5 +91,6 @@ int	append_redirection(t_list *file)
 		error_exit("open error");
 	if (dup2(fd, 1) < 0)
 		error_exit("dup2 error");
+	close(fd);
 	return (0);
 }
