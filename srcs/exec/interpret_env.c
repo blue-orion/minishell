@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 23:27:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/23 23:27:04 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/08 23:55:54 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	extract_name(char *name, char *text)
 {
 	int	i;
 
+	ft_memset(name, 0, 4096);
 	i = 0;
 	if (text[i + 1] == '?')
 	{
@@ -60,7 +61,6 @@ int	extract_name(char *name, char *text)
 		name[i] = text[i + 1];
 		i++;
 	}
-	name[i] = '\0';
 	return (i + 1);
 }
 
@@ -70,6 +70,8 @@ char	*get_env_value(char *value, char *name, t_cmd *info)
 
 	ft_memset(value, 0, 4096);
 	tmp = NULL;
+	if (!name[0])
+		value[0] = '$';
 	if (name[0] == '?')
 	{
 		tmp = ft_itoa(info->exit_status);
