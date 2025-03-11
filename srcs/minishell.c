@@ -14,6 +14,9 @@
 
 void	init_setting(t_cmd *info);
 void	parse_input_and_exec(t_cmd *info, char *input);
+char	*get_prompt(t_cmd *info);
+void	start_minishell(t_cmd *info, char **env);
+int		g_exit_status;
 
 int	main(int ac, char **av, char **env)
 {
@@ -21,12 +24,11 @@ int	main(int ac, char **av, char **env)
 	char	*input;
 	char	*history;
 
-	signal_setup();
-	init_info(&info, env);
+	start_minishell(&info, env);
 	while (1)
 	{
 		init_setting(&info);
-		input = readline("minishell> ");
+		input = readline(get_prompt(&info));
 		if (!input)
 			break ;
 		parse_input_and_exec(&info, input);
@@ -41,7 +43,25 @@ int	main(int ac, char **av, char **env)
 		rl_on_new_line();
 	}
 	end_minishell(&info);
-	return (0);
+	return (g_exit_status);
+}
+
+char	*get_prompt(t_cmd *info)
+{
+	char	path[4096];
+	char	*home;
+
+	free(info->prompt);
+	getcwd(path, 4096);
+	home = ft_getenv("HOME", info->envp);
+	if (!ft_strncmp(path, home, ft_strlen(home)))
+		info->prompt = ft_strjoin("~", path + ft_strlen(home));
+	else
+		info->prompt = ft_strdup(path);
+	if (!info->prompt)
+		error_exit("malloc failed");
+	info->prompt = ft_join_free(info->prompt, "$ ");
+	return (info->prompt);
 }
 
 void	init_setting(t_cmd *info)
@@ -75,4 +95,11 @@ void	parse_input_and_exec(t_cmd *info, char *input)
 		treeclear(info->root);
 	}
 	free_pptr((void **)info->cmd_buf);
+}
+
+void	start_minishell(t_cmd *info, char **env)
+{
+	print_opening_phrase();
+	signal_setup(info);
+	init_info(info, env);
 }

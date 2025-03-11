@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/mini_signal.h"
-#include <stdlib.h>
 
-void	signal_setup(void)
+void	signal_setup(t_cmd *info)
 {
 	struct sigaction	new;
 	struct sigaction	old;
@@ -21,5 +20,4 @@ void	signal_setup(void)
 	handler_sigint(&new);
 	sigaction(SIGINT, &new, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTERM, SIG_DFL);
 }

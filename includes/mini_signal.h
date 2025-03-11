@@ -13,7 +13,12 @@
 #ifndef MINI_SIGNAL_H
 # define MINI_SIGNAL_H
 
+# include "struct.h"
+# include "define.h"
 # include <signal.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <unistd.h>
 
 typedef struct s_sig
 {
@@ -21,6 +26,6 @@ typedef struct s_sig
 	siginfo_t	info;
 }	t_sig;
 
-void	signal_setup(void);
+void	signal_setup(t_cmd *info);
 void	handler_sigint(struct sigaction *sa);
 #endif

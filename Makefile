@@ -88,6 +88,7 @@ SRCS = minishell.c	\
 	   utils/make_history.c		\
 	   utils/print_list.c		\
 	   utils/put_error_msg.c	\
+	   utils/print_opening_phrase.c	\
 	   utils/skip_space.c		
 
 OBJS = $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))

@@ -37,4 +37,5 @@ char	*ft_getenv(char *name, char **envp);
 int		get_pptr_size(void **arr);
 void	ft_free_resource(t_cmd *info);
 int		is_dir(char *path);
+void	print_opening_phrase(void);
 #endif

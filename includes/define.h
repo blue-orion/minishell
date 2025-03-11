@@ -27,6 +27,8 @@
 # define LEFT 0
 # define RIGHT 1
 
+extern int	g_exit_status;
+
 enum e_unit
 {
 	SENTENSE = 1,

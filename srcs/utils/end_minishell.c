@@ -15,7 +15,9 @@
 void	end_minishell(t_cmd *info)
 {
 	free_pptr((void **)info->envp);
+	free(info->prompt);
 	close(info->stdfd[INPUT]);
 	close(info->stdfd[OUTPUT]);
 	clear_history();
+	ft_putendl_fd("exit", 1);
 }

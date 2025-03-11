@@ -52,5 +52,6 @@ typedef struct s_cmd
 	t_node		*parent;
 	sigset_t	set;
 	int			exit_status;
+	char		*prompt;
 }	t_cmd;
 #endif

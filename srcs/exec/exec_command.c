@@ -18,7 +18,7 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 	if (!info->cmd)
 		return (1);
 	if (is_builtin_command(info->cmd[0]))
-		info->exit_status = call_builtin_ft(info->cmd, info);
+		g_exit_status = call_builtin_ft(info->cmd, info);
 	else
 	{
 		if (!info->parent)
@@ -35,5 +35,5 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 			call_execve(info->cmd, info);
 	}
 	free_pptr((void **)info->cmd);
-	return (info->exit_status);
+	return (g_exit_status);
 }

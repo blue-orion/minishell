@@ -18,6 +18,7 @@ void	end_process(t_cmd *info)
 		free_pptr((void **)info->envp);
 	free(info->input_buf);
 	free_pptr((void **)info->cmd_buf);
+	free(info->prompt);
 	treeclear(info->root);
 	close(info->stdfd[INPUT]);
 	close(info->stdfd[OUTPUT]);

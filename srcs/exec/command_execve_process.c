@@ -18,17 +18,19 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	int		status;
 
 	status = 0;
+	signal(SIGQUIT, SIG_DFL);
 	if (!cur_node->head)
 	{
 		redirection_process(info, cur_node->left_child, &status);
 		if (status)
 		{
-			info->exit_status = status;
-			return (info->exit_status);
+			g_exit_status = status;
+			return (g_exit_status);
 		}
-		info->exit_status = exec_command(info, cur_node->right_child);
+		g_exit_status = exec_command(info, cur_node->right_child);
 	}
 	else
-		info->exit_status = exec_command(info, cur_node);
-	return (info->exit_status);
+		g_exit_status = exec_command(info, cur_node);
+	signal(SIGQUIT, SIG_IGN);
+	return (g_exit_status);
 }

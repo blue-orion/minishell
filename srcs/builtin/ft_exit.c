@@ -38,7 +38,7 @@ int	ft_exit(char **cmd, t_cmd *info)
 		}
 	}
 	end_process(info);
-	free_pptr((void **)info->cmd);
+	free_pptr((void **)cmd);
 	exit(exit_status);
 }
 

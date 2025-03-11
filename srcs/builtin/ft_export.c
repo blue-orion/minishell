@@ -86,7 +86,7 @@ void	add_new_env(char **new_envp, char **cmd)
 		i++;
 	while (*cmd)
 	{
-		if (is_valid_env_format(*cmd))
+		if (!is_valid_env_format(*cmd))
 			put_error_msg("export", *cmd, INVALID_IDENTIFIER);
 		else
 		{

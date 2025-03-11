@@ -13,47 +13,8 @@
 #include "../../includes/exec.h"
 
 void	interpret_env_all(t_list *head, t_cmd *info);
-
-int	get_size(t_cmd *info, t_list *head)
-{
-	int		cnt;
-	char	**tmp;
-	t_data	*data;
-
-	cnt = 0;
-	while (head)
-	{
-		data = (t_data *)head->content;
-		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
-			cnt++;
-		else
-		{
-			tmp = ft_split(data->text, ' ');
-			cnt += get_pptr_size((void **)tmp);
-			free_pptr((void **)tmp);
-		}
-		head = head->next;
-	}
-	return (cnt);
-}
-
-int	split_dup(char **dst, char *src)
-{
-	int		i;
-	char	**tmp;
-
-	tmp = ft_split(src, ' ');
-	if (!tmp)
-		error_exit("split_dup failed");
-	i = 0;
-	while (tmp[i])
-	{
-		dst[i] = ft_strdup(tmp[i]);
-		i++;
-	}
-	free_pptr((void **)tmp);
-	return (i);
-}
+int		get_size(t_cmd *info, t_list *head);
+int		split_dup(char **dst, char *src);
 
 char	**list_to_str(t_cmd *info, t_list **head)
 {
@@ -102,4 +63,45 @@ void	interpret_env_all(t_list *head, t_cmd *info)
 		free(past);
 		head = head->next;
 	}
+}
+
+int	get_size(t_cmd *info, t_list *head)
+{
+	int		cnt;
+	char	**tmp;
+	t_data	*data;
+
+	cnt = 0;
+	while (head)
+	{
+		data = (t_data *)head->content;
+		if (data->type == DOUBLE_QUOTE || data->type == SINGLE_QUOTE)
+			cnt++;
+		else
+		{
+			tmp = ft_split(data->text, ' ');
+			cnt += get_pptr_size((void **)tmp);
+			free_pptr((void **)tmp);
+		}
+		head = head->next;
+	}
+	return (cnt);
+}
+
+int	split_dup(char **dst, char *src)
+{
+	int		i;
+	char	**tmp;
+
+	tmp = ft_split(src, ' ');
+	if (!tmp)
+		error_exit("split_dup failed");
+	i = 0;
+	while (tmp[i])
+	{
+		dst[i] = ft_strdup(tmp[i]);
+		i++;
+	}
+	free_pptr((void **)tmp);
+	return (i);
 }

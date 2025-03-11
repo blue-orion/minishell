@@ -74,7 +74,7 @@ char	*get_env_value(char *value, char *name, t_cmd *info)
 		value[0] = '$';
 	if (name[0] == '?')
 	{
-		tmp = ft_itoa(info->exit_status);
+		tmp = ft_itoa(g_exit_status);
 		if (!tmp)
 			error_exit("malloc failed in get_env_value");
 		ft_strlcpy(value, tmp, ft_strlen(tmp) + 1);
