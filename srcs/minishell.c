@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/11 20:15:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 21:46:47 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	main(int ac, char **av, char **env)
 		}
 		rl_on_new_line();
 		rl_replace_line("", 1);
-		// rl_redisplay();
 	}
 	end_minishell(&info);
 	return (g_exit_status);

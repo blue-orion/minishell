@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:12:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/11 15:50:37 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 21:48:35 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_cd(char **cmd, t_cmd *info)
 	size = get_pptr_size((void **)cmd);
 	if (size > 2)
 		return (too_many_args());
-	if (!cmd[1])
+	if (!cmd[1] || !ft_strncmp(cmd[1], "~", 2))
 	{
 		home_path = ft_getenv("HOME", info->envp);
 		if (!home_path)
