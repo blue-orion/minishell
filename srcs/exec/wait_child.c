@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:13:05 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 21:00:24 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 21:31:21 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	set_exit_status(t_cmd *info, int status)
 	{
 		status = WTERMSIG(status);
 		if (status == SIGTERM)
-			ft_putendl_fd("Terminated", 1);
+			ft_putstr_fd("Terminated", 1);
+		if (status == SIGQUIT)
+			ft_putstr_fd("Quit (core dumped)", 1);
+		ft_putchar_fd('\n', 1);
 		g_exit_status = status + 128;
 	}
 }

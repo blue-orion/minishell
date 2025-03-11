@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:42:37 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/08 23:15:03 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 20:10:06 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	int		status;
 
 	status = 0;
-	signal(SIGQUIT, SIG_DFL);
 	if (!cur_node->head)
 	{
 		redirection_process(info, cur_node->left_child, &status);
@@ -31,6 +30,5 @@ int	command_execve_process(t_cmd *info, t_node *cur_node)
 	}
 	else
 		g_exit_status = exec_command(info, cur_node);
-	signal(SIGQUIT, SIG_IGN);
 	return (g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:05:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/28 16:03:06 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 21:17:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	call_execve(char **cmd, t_cmd *info)
 {
 	char	*path_cmd;
 
+	signal(SIGQUIT, SIG_DFL);
 	if (is_executable_path(cmd[0], info))
 	{
 		if (execve(cmd[0], cmd, info->envp))
