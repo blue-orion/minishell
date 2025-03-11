@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:45:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/27 19:45:40 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 15:44:54 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # define PERMISSION_DENIED "Permission denied"
 # define NO_FILE_OR_DIR "No such file or directory"
 # define IS_DIR "Is a directory"
+# define NOT_A_DIR "Not a directory"
 # define TOO_MANY_ARGS "too many arguments"
 # define INVALID_IDENTIFIER "not a valid identifier"
 # define NON_NUMERIC_ARGS "numeric argument required"
+# define HOME_NOT_SET "HOME not set"
 # define INPUT 1
 # define OUTPUT 0
 # define LEFT 0

@@ -17,7 +17,7 @@ int	call_builtin_ft(char **cmd, t_cmd *info)
 	int	status;
 
 	if (!ft_strncmp(cmd[0], "cd", 3))
-		status = ft_cd(cmd);
+		status = ft_cd(cmd, info);
 	if (!ft_strncmp(cmd[0], "echo", 5))
 		status = ft_echo(cmd);
 	if (!ft_strncmp(cmd[0], "env", 4))

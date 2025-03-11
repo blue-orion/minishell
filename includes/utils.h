@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 17:54:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/08 22:08:12 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/11 15:50:28 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ int		get_name_index(char *name, char **envp);
 char	*ft_getenv(char *name, char **envp);
 int		get_pptr_size(void **arr);
 void	ft_free_resource(t_cmd *info);
+int		is_dir(char *path);
 #endif

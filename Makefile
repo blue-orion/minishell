@@ -80,6 +80,7 @@ SRCS = minishell.c	\
 	   utils/error_exit.c		\
 	   utils/free_data.c		\
 	   utils/free_pptr.c		\
+	   utils/ft_is_dir.c		\
 	   utils/end_minishell.c	\
 	   utils/ft_is_empty_str.c	\
 	   utils/ft_join_free.c	\
