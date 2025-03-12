@@ -18,6 +18,7 @@ SRCS = minishell.c	\
 	   builtin/ft_unset.c		\
 	   exec/call_builtin_ft.c	\
 	   exec/call_execve.c		\
+	   exec/call_execve_util.c		\
 	   exec/check_match_pattern.c	\
 	   exec/command_execve_process.c	\
 	   exec/end_process.c		\
