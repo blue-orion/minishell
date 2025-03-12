@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:05:40 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 20:34:37 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 22:19:28 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	*get_executable_path(char **cmd, t_cmd *info)
 	char	*path_cmd;
 
 	path = get_path_array(info);
+	if (!path)
+		return (NULL);
 	i = 0;
 	while (path[i])
 	{

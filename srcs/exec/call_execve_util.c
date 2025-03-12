@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 20:33:33 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 20:35:11 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 22:19:04 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ char	**get_path_array(t_cmd *info)
 	char	**path;
 
 	path_env = ft_getenv("PATH", info->envp);
-	if (path_env)
-		path = ft_split(path_env, ':');
-	else
-		path = NULL;
+	if (!path_env)
+		return (NULL);
+	path = ft_split(path_env, ':');
 	return (path);
 }
