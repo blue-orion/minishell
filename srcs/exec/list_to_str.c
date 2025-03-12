@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/06 22:04:00 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:34:56 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ char	**list_to_str(t_cmd *info, t_list **head)
 	t_list	*cur_lst;
 	t_data	*data;
 
-	interpret_env_all(*head, info);
-	remove_invalid_quote(*head);
-	interpret_wildcard(head, info);
 	size = get_size(info, *head);
 	if (size <= 0)
 		return (NULL);

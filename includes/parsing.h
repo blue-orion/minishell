@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:21:15 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/13 18:37:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 17:29:31 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "tree.h"
 # include "utils.h"
 # include "define.h"
+
+t_node	*parsing(char *str, t_cmd *info);
 
 char	*ft_getenv(char *name, char **envp);
 char	*preprocess_string(char *src);
@@ -45,7 +47,8 @@ void	print_list(t_list *head);
 int		which_separator(char *str, int separator);
 int		which_redirection(char *str, int *redirection);
 void	parse_node(t_node *parent, t_list *head, t_list *cur, int separator);
-void	split_cmd_node(t_node *parent);
+/*void	split_cmd_node(t_node *parent);*/
+void	split_cmd_node(t_node *parent, t_cmd *info);
 t_list	*make_redirects_list(t_list *head);
 t_list	*make_redirection_list(t_list **head);
 t_list	*make_simple_cmd_list(t_list *head);
@@ -57,4 +60,8 @@ void	head_list_right_node(t_node *cur_node, t_list *cur_lst, int right);
 void	no_head_left_node(t_node *parent, t_list *head, t_list *cur, int left);
 void	no_head_right_node(t_node *parent, t_list *cur, int right);
 void	separator_node(t_node *parent, t_list *cur, int separator, int idx[2]);
+void	interpret_wildcard(t_list **head, t_cmd *info);
+char	*interpret_env(char *text, t_cmd *info);
+void	remove_invalid_quote(t_list *head);
+void	interpret_env_all(t_list *head, t_cmd *info);
 #endif

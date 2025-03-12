@@ -6,13 +6,13 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:14:59 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 20:57:43 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:42:58 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	exec_tree_node(t_cmd *info, t_node *cur_node)
+void	exec_tree_node(t_cmd *info, t_node *cur_node)
 {
 	if (info->pipe_flag)
 	{
@@ -28,7 +28,6 @@ int	exec_tree_node(t_cmd *info, t_node *cur_node)
 	if (info->root != cur_node)
 	{
 		end_process(info);
-		exit(info->exit_status);
+		exit(g_exit_status);
 	}
-	return (info->exit_status);
 }

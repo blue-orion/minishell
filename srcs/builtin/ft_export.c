@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 22:41:21 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 23:39:38 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:53:38 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_export(char **cmd, t_cmd *info)
 		free_pptr((void **)info->envp);
 		info->envp = new_envp;
 	}
-	return (0);
+	return (g_exit_status);
 }
 
 void	declare_all(char **envp)
@@ -63,15 +63,22 @@ int	is_valid_env_format(char *str)
 
 	i = 0;
 	if (ft_isdigit(str[i]))
+	{
+		g_exit_status = 1;
 		return (0);
+	}
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
+		{
+			g_exit_status = 1;
 			return (0);
+		}
 		i++;
 	}
-	if (str[i] == '=')
+	if (i != 0 && str[i] == '=')
 		return (i);
+	g_exit_status = 1;
 	return (0);
 }
 

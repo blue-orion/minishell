@@ -6,19 +6,19 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:52:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/11 21:17:15 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:42:43 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int	exec_command(t_cmd *info, t_node *cur_node)
+void	exec_command(t_cmd *info, t_node *cur_node)
 {
 	info->cmd = list_to_str(info, &cur_node->head);
 	if (!info->cmd)
-		return (1);
+		return ;
 	if (is_builtin_command(info->cmd[0]))
-		g_exit_status = call_builtin_ft(info->cmd, info);
+		call_builtin_ft(info->cmd, info);
 	else
 	{
 		if (!info->parent)
@@ -35,5 +35,4 @@ int	exec_command(t_cmd *info, t_node *cur_node)
 			call_execve(info->cmd, info);
 	}
 	free_pptr((void **)info->cmd);
-	return (g_exit_status);
 }

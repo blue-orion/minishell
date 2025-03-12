@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 01:29:04 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/11 21:46:47 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:35:18 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	parse_input_and_exec(t_cmd *info, char *input)
 	info->buf_idx = 0;
 	while (info->cmd_buf[info->buf_idx])
 	{
-		info->root = parsing(info->cmd_buf[info->buf_idx]);
+		info->root = parsing(info->cmd_buf[info->buf_idx], info);
 		if (!info->root)
 		{
 			info->buf_idx++;

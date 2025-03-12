@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:07:13 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/08 23:15:37 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 20:34:33 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,38 +32,44 @@ typedef struct s_wildc
 	int		call_cnt;
 }	t_wildc;
 
+void	exec_tree_node(t_cmd *info, t_node *cur_node);
+void	interpret_env_all(t_list *head, t_cmd *info);
+
 void	init_info(t_cmd *info, char **envp);
-int		exec_tree_node(t_cmd *info, t_node *cur_node);
 int		make_child_process(t_cmd *info);
 char	**list_to_str(t_cmd *info, t_list **head);
 void	redirect_pipe(t_cmd *info, t_node *cur_node);
 int		parenthesis_process(t_cmd *info, t_node *cur_node);
 int		is_builtin_node(t_cmd *info, t_node *root);
 int		is_builtin_command(char *cmd);
-int		exec_command(t_cmd *info, t_node *cur_node);
 void	pipe_separator_process(t_cmd *info, t_node *cur_node);
 void	logical_separator_process(t_cmd *info, t_node *cur_node);
 void	simple_separator_process(t_cmd *info, t_node *cur_node);
 void	separator_process(t_cmd *info, t_node *cur_node);
 void	execve_fail(t_cmd *info, char *cmd, char *error_msg, int status);
-int		call_builtin_ft(char **cmd, t_cmd *info);
-void	call_execve(char **cmd, t_cmd *info);
 int		redirection_process(t_cmd *info, t_node *cur_node, int *err);
-int		command_execve_process(t_cmd *info, t_node *cur_node);
 int		here_doc_redirection(t_cmd *info, t_list *eof_list);
 int		match_prefix(char *file, char *prefix);
 int		match_suffix(char *file, char *suffix);
-char	*interpret_env(char *text, t_cmd *info);
+/*char	*interpret_env(char *text, t_cmd *info);*/
 void	set_exit_status(t_cmd *info, int status);
 void	wait_child(t_cmd *info, pid_t child_pid);
 void	fork_child(t_cmd *info, t_node *child_node);
-void	remove_invalid_quote(t_list *head);
+/*void	remove_invalid_quote(t_list *head);*/
 void	end_process(t_cmd *info);
+
+//Execve process
+void	command_execve_process(t_cmd *info, t_node *cur_node);
+void	exec_command(t_cmd *info, t_node *cur_node);
+void	call_builtin_ft(char **cmd, t_cmd *info);
+void	call_execve(char **cmd, t_cmd *info);
+char	*make_path_cmd(char *path, char *cmd);
+char	**get_path_array(t_cmd *info);
 
 //Wildcard
 void	push_before_asterisk(t_list *head, char	**split_text);
 int		include_asterisk(char *str);
-void	interpret_wildcard(t_list **head, t_cmd *info);
+/*void	interpret_wildcard(t_list **head, t_cmd *info);*/
 char	*find_dir_path(char *text);
 char	*extract_match(char *text);
 int		is_valid_entry(struct dirent *dp, t_wildc *wc_info);

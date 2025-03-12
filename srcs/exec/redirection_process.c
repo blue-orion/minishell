@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 23:32:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/08 23:15:57 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/12 16:56:22 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int	redirection_process(t_cmd *info, t_node *cur_node, int *err)
 		return (2);
 	}
 	if (cur_node->type == IN)
-		status = in_redirection(cur_node->head->next);
+		*err = in_redirection(cur_node->head->next);
 	if (cur_node->type == OUT)
-		status = out_redirection(cur_node->head->next);
+		*err = out_redirection(cur_node->head->next);
 	if (cur_node->type == HERE_DOC)
-		status = here_doc_redirection(info, cur_node->head->next);
+		*err = here_doc_redirection(info, cur_node->head->next);
 	if (cur_node->type == APPEND)
-		status = append_redirection(cur_node->head->next);
-	return (status);
+		*err = append_redirection(cur_node->head->next);
+	return (*err);
 }
 
 int	in_redirection(t_list *file)
