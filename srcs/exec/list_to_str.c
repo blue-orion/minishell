@@ -6,17 +6,16 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 21:06:56 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 20:34:56 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:55:05 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-void	interpret_env_all(t_list *head, t_cmd *info);
-int		get_size(t_cmd *info, t_list *head);
-int		split_dup(char **dst, char *src);
+static int	get_size(t_list *head);
+int			split_dup(char **dst, char *src);
 
-char	**list_to_str(t_cmd *info, t_list **head)
+char	**list_to_str(t_list **head)
 {
 	int		i;
 	char	**res;
@@ -24,7 +23,7 @@ char	**list_to_str(t_cmd *info, t_list **head)
 	t_list	*cur_lst;
 	t_data	*data;
 
-	size = get_size(info, *head);
+	size = get_size(*head);
 	if (size <= 0)
 		return (NULL);
 	res = (char **)ft_calloc(size + 1, sizeof(char *));
@@ -42,27 +41,7 @@ char	**list_to_str(t_cmd *info, t_list **head)
 	return (res);
 }
 
-void	interpret_env_all(t_list *head, t_cmd *info)
-{
-	t_data	*data;
-	char	*past;
-
-	while (head)
-	{
-		data = (t_data *)head->content;
-		if (data->type == SINGLE_QUOTE || !ft_strchr(data->text, '$'))
-		{
-			head = head->next;
-			continue ;
-		}
-		past = data->text;
-		data->text = interpret_env(data->text, info);
-		free(past);
-		head = head->next;
-	}
-}
-
-int	get_size(t_cmd *info, t_list *head)
+static int	get_size(t_list *head)
 {
 	int		cnt;
 	char	**tmp;

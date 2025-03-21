@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_setup.c                                     :+:      :+:    :+:   */
+/*   interpret_env_all.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/06 15:12:46 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/21 19:52:08 by takwak           ###   ########.fr       */
+/*   Created: 2025/03/21 19:54:52 by takwak            #+#    #+#             */
+/*   Updated: 2025/03/21 19:55:01 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/mini_signal.h"
+#include "../../includes/parsing.h"
 
-void	signal_setup(t_cmd *info)
+void	interpret_env_all(t_list *head, t_cmd *info)
 {
-	struct sigaction	new;
+	t_data	*data;
+	char	*past;
 
-	info = info;
-	handler_sigint(&new);
-	sigaction(SIGINT, &new, NULL);
-	signal(SIGQUIT, SIG_IGN);
+	while (head)
+	{
+		data = (t_data *)head->content;
+		if (data->type == SINGLE_QUOTE || !ft_strchr(data->text, '$'))
+		{
+			head = head->next;
+			continue ;
+		}
+		past = data->text;
+		data->text = interpret_env(data->text, info);
+		free(past);
+		head = head->next;
+	}
 }

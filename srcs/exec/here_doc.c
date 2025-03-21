@@ -62,7 +62,6 @@ void	init_redirection(int *save_fd, int *std_fd)
 
 int	put_extra_input(t_cmd *info, char *eof)
 {
-	int		i;
 	int		fd1;
 	int		fd2;
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/exec.h"
 
-void	interpret_wildcard(t_list **head, t_cmd *info)
+void	interpret_wildcard(t_list **head)
 {
 	t_list	*cur_lst;
 	t_list	*past_lst;

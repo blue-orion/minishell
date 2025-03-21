@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 23:32:20 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 16:56:22 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:43:20 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	append_redirection(t_list *file);
 
 int	redirection_process(t_cmd *info, t_node *cur_node, int *err)
 {
-	int	status;
-
 	if (!cur_node)
 		return (0);
 	if (cur_node->type == REDIRECTS)

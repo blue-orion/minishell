@@ -15,16 +15,15 @@
 void	init_setting(t_cmd *info);
 void	parse_input_and_exec(t_cmd *info, char *input);
 char	*get_prompt(t_cmd *info);
-void	start_minishell(t_cmd *info, char **env);
+void	start_minishell(t_cmd *info, int ac, char **av, char **env);
 int		g_exit_status;
 
 int	main(int ac, char **av, char **env)
 {
 	t_cmd	info;
 	char	*input;
-	char	*history;
 
-	start_minishell(&info, env);
+	start_minishell(&info, ac, av, env);
 	while (1)
 	{
 		init_setting(&info);
@@ -98,8 +97,10 @@ void	parse_input_and_exec(t_cmd *info, char *input)
 	free_pptr((void **)info->cmd_buf);
 }
 
-void	start_minishell(t_cmd *info, char **env)
+void	start_minishell(t_cmd *info, int ac, char **av, char **env)
 {
+	if (ac > 1 || av[1])
+		return ;
 	print_opening_phrase();
 	signal_setup(info);
 	init_info(info, env);

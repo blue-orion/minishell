@@ -6,7 +6,7 @@
 /*   By: takwak <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 18:25:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/25 21:54:02 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:45:29 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*make_text(t_data *new, char *str)
 t_data	*make_data(char *str, int type, int start, int end)
 {
 	t_data	*new;
-	char	*past;
 
 	new = (t_data *)malloc(sizeof(t_data));
 	if (!new)

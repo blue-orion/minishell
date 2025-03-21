@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = cc
-CFLAG = -g
+CFLAG = -Wall -Werror -Wextra -g
 
 OBJ_DIR = objs/
 SRC_DIR = srcs/
@@ -47,6 +47,7 @@ SRCS = minishell.c	\
 	   parsing/find_separator.c	\
 	   parsing/find_redirection.c	\
 	   parsing/find_token.c		\
+	   parsing/interpret_env_all.c	\
 	   parsing/is_metachar.c	\
 	   parsing/is_redirection.c	\
 	   parsing/is_separator.c	\

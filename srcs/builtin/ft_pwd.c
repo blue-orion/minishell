@@ -16,6 +16,7 @@ int	ft_pwd(char **cmd)
 {
 	char	pwd[4096];
 
+	cmd = cmd;
 	getcwd(pwd, 4096);
 	ft_putendl_fd(pwd, 1);
 	return (0);

@@ -20,7 +20,6 @@ int	ft_export(char **cmd, t_cmd *info)
 {
 	int		argc;
 	char	**new_envp;
-	int		envp_size;
 
 	argc = get_pptr_size((void **)cmd);
 	if (argc == 1)

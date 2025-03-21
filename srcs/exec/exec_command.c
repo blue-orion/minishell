@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 21:52:44 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 22:21:35 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:42:30 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exec_command(t_cmd *info, t_node *cur_node)
 {
-	info->cmd = list_to_str(info, &cur_node->head);
+	info->cmd = list_to_str(&cur_node->head);
 	if (!info->cmd)
 		return ;
 	if (is_builtin_command(info->cmd[0]))

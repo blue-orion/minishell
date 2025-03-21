@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:52:33 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 16:45:21 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:43:11 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	fork_child(t_cmd *info, t_node *child_node)
 {
 	pid_t	child_pid;
 
-	if (is_builtin_node(info, child_node))
+	if (is_builtin_node(child_node))
 		command_execve_process(info, child_node);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyoengsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 22:05:32 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 17:52:28 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:40:32 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ char	*get_match_and_sub_pattern(t_wildc *wc_info, char *text);
 
 int	is_valid_entry(struct dirent *dp, t_wildc *wc_info)
 {
-	char	*f_name;
-
-	f_name = dp->d_name;
 	if (!check_match_pattern(dp->d_name, wc_info->match))
 		return (0);
 	if (wc_info->dir_flag && dp->d_type != DT_DIR && dp->d_type != DT_LNK)

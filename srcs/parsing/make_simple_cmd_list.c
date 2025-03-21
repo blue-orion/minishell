@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeonsan.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:38:29 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/07 20:42:20 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:46:01 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_list	*make_simple_cmd_list(t_list *head)
 	t_list	*cur_lst;
 	t_list	*res_lst;
 	t_list	*past_lst;
-	t_data	*data;
 	int		flag;
 
 	res_lst = NULL;

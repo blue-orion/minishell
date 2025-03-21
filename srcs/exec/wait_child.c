@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 20:13:05 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/11 21:31:21 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:45:16 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/exec.h"
 #include <sys/wait.h>
 
-void	set_exit_status(t_cmd *info, int status);
+void	set_exit_status(int status);
 
 void	wait_child(t_cmd *info, pid_t child_pid)
 {
@@ -25,11 +25,11 @@ void	wait_child(t_cmd *info, pid_t child_pid)
 	wpid = waitpid(child_pid, &status, 0);
 	if (wpid < 0 && !WIFSIGNALED(status))
 		perror("waitpid error");
-	set_exit_status(info, status);
+	set_exit_status(status);
 	signal_setup(info);
 }
 
-void	set_exit_status(t_cmd *info, int status)
+void	set_exit_status(int status)
 {
 	if (WIFEXITED(status))
 		g_exit_status = WEXITSTATUS(status);

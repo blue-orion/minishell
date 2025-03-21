@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 20:24:16 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/25 22:00:56 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:50:42 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ t_data	*get_quote_data(char *str, int start, int type)
 	long	start_idx;
 	long	end_idx;
 	t_data	*new_data;
-	int		invalid[2];
 
 	if (type == SINGLE_QUOTE)
 	{
@@ -70,7 +69,7 @@ t_data	*get_quote_data(char *str, int start, int type)
 	return (new_data);
 }
 
-t_data	*split_piece(char *str, int start, int split_point, int *flag)
+t_data	*split_piece(char *str, int start, int split_point)
 {
 	long	start_idx;
 	long	end_idx;

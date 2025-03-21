@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:34:00 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/28 17:34:00 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:45:50 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	add_redirect_list(t_list **head, char *data, int *i, int redirect)
 	int		start;
 	int		end;
 	t_data	*new_data;
-	t_list	*new_lst;
 
 	start = *i;
 	if (redirect == IN || redirect == OUT)

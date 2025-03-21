@@ -14,7 +14,6 @@
 
 void	command_execve_process(t_cmd *info, t_node *cur_node)
 {
-	t_data	*data;
 	int		status;
 
 	status = 0;

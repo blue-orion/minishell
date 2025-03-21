@@ -18,7 +18,6 @@ char	**unsetted_envp(int argc, char **env, int env_size);
 
 int	ft_unset(char **cmd, t_cmd *info)
 {
-	char	**env;
 	int		env_size;
 	int		argc;
 	int		i;

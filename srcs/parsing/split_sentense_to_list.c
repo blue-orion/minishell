@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:58:19 by takwak            #+#    #+#             */
-/*   Updated: 2025/02/14 17:25:40 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/21 19:51:39 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int		add_rest(t_node *root, char *s, int start);
 
 t_node	*split_sentense_to_list(t_node *root, char *str)
 {
-	int		move;
 	int		start_idx;
 	int		split_point;
 
-	move = 0;
 	start_idx = 0;
 	split_point = find_metachar(str, start_idx);
 	while (split_point)
@@ -69,13 +67,9 @@ int	add_splited(t_node *root, char *s, int start, int split_point)
 {
 	t_data	*new_data;
 	t_list	*new_lst;
-	int		flag;
 	int		move;
 
-	flag = 0;
-	new_data = split_piece(s, start, split_point, &flag);
-	if (flag)
-		return (-1);
+	new_data = split_piece(s, start, split_point);
 	if (!new_data)
 		error_exit("malloc failed in split sentense");
 	if (new_data->type != EMPTY)
