@@ -6,7 +6,7 @@
 /*   By: takwak <takwak@student.42gyeongsan.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 22:36:14 by takwak            #+#    #+#             */
-/*   Updated: 2025/03/12 17:29:58 by takwak           ###   ########.fr       */
+/*   Updated: 2025/03/28 20:52:26 by takwak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-/*t_node	*parsing(char *str);*/
 void	exec_input(t_cmd *info, t_node *cur_node);
 void	end_minishell(t_cmd *info);
 #endif
